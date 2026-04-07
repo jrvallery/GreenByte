@@ -2,11 +2,15 @@
 GreenLight/scripts/parameter_sweep.py
 
 Generate a training dataset for ML by running many greenhouse simulations
-with varied control parameters. Each row in the output CSV represents one
-simulation run: input parameters + aggregated output metrics.
+with varied control parameters against the Longmont, CO residential greenhouse
+model and Boulder TMYx real weather data.
+
+Each row in the output CSV represents one simulation run:
+    input parameters + aggregated output metrics.
 
 Usage:
     python scripts/parameter_sweep.py
+    (run scripts/prepare_longmont_weather.py first if weather CSV is missing)
 
 Configuration:
     Edit the constants below (N_SAMPLES, SIMULATION_DAYS, PARAM_SPACE) to
@@ -28,38 +32,42 @@ sys.path.insert(0, project_dir)
 import greenlight  # noqa: E402
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-SIMULATION_DAYS = 30    # Days per run. Max 111 with the built-in test data.
+SIMULATION_DAYS = 30    # Days per run. Up to 365 with the Boulder TMYx data.
 N_SAMPLES = 50          # Number of random parameter combinations.
 RANDOM_SEED = 42        # For reproducibility.
 OUTPUT_CSV = os.path.join(project_dir, "data", "training_data.csv")
 
-# GreenLight model paths
+# GreenLight model paths — Longmont residential greenhouse + Boulder real weather
 BASE_PATH = os.path.join(project_dir, "greenlight", "models")
-MODEL = os.path.join("katzin_2021", "definition", "main_katzin_2021.json")
+MODEL = os.path.join("katzin_2021", "definition", "main_longmont.json")
 WEATHER_FILE = os.path.abspath(
-    os.path.join(BASE_PATH, "katzin_2021", "input_data", "test_data", "Bleiswijk_from_20091020.csv")
+    os.path.join(BASE_PATH, "katzin_2021", "input_data", "longmont",
+                 "longmont_weather_from_jan_01_000000.csv")
 )
+
+if not os.path.exists(WEATHER_FILE):
+    raise FileNotFoundError(
+        f"Boulder weather file not found:\n  {WEATHER_FILE}\n"
+        "Run  python scripts/prepare_longmont_weather.py  first."
+    )
 
 # Temporary output directory (relative to BASE_PATH, as required by GreenLight)
 TEMP_OUTPUT_SUBDIR = os.path.join("katzin_2021", "output", "_sweep_temp")
 
 # ── Parameter space ───────────────────────────────────────────────────────────
 # Each entry: parameter_name -> (min, max, default)
-# These are all "const" parameters in the Katzin 2021 model definition.
+# Longmont-specific ranges — no CO2 injection, no thermal screen, LED lamps capped at 42.4 W/m².
 PARAM_SPACE = {
-    # Heating setpoints (°C)
-    "tSpDay":        (17.0,  24.0,  19.5),  # Day heating setpoint
-    "tSpNight":      (14.0,  21.0,  18.5),  # Night heating setpoint
-    # Lamp intensity (W/m²) — 0 = no supplemental lighting
-    "thetaLampMax":  (0.0,   200.0, 120.0), # Maximum lamp intensity
-    # CO2 injection setpoint during the day (ppm)
-    "co2SpDay":      (400.0, 1500.0, 1000.0),
-    # Ventilation dead zone between heating setpoint and vent opening (°C)
-    "heatDeadZone":  (2.0,   10.0,  5.0),
-    # Maximum allowable relative humidity before venting (%)
-    "rhMax":         (70.0,  95.0,  87.0),
-    # Thermal screen closes at night when outdoor temp is below this (°C)
-    "thScrSpNight":  (5.0,   15.0,  10.0),
+    # Heating setpoints (°C) — installed thermostat range 10–25 °C
+    "tSpDay":       (10.0, 22.0, 14.4),  # Day heating setpoint (default: 58 °F = 14.4 °C)
+    "tSpNight":     (10.0, 22.0, 14.4),  # Night heating setpoint (same as day in this greenhouse)
+    # Supplemental lamp intensity (W/m²) — 0 = off, 42.4 = all 49 fixtures on
+    "thetaLampMax": (0.0,  42.4, 42.4),
+    # Dead zone between heat setpoint and fan-on temperature (°C)
+    # fans engage at tSpDay + heatDeadZone; default gives fan-on at 27.8 °C (82 °F)
+    "heatDeadZone": (5.0,  20.0, 13.4),
+    # RH threshold for exhaust fan activation (%)
+    "rhMax":        (70.0, 95.0, 81.0),
 }
 
 
@@ -135,22 +143,22 @@ def run_simulation(params: dict, sim_idx: int) -> dict | None:
             # ── Output metrics ────────────────────────────────────────────
             # Yield: total fresh-weight fruit harvest (kg/m²)
             "out_yield_kg_m2":        dt_s * data["mcFruitHar"].sum() * 1e-6 / dmc,
-            # Heating energy from boiler (MJ/m²)
-            "out_energy_heat_MJ_m2":  dt_s * (data["hBoilPipe"] + data["hBoilGroPipe"]).sum() * 1e-6,
+            # Heating energy from forced-air blower (MJ/m²) — Longmont has no boiler/pipes
+            "out_energy_heat_MJ_m2":  dt_s * data["hBlowAir"].sum() * 1e-6,
             # Lighting energy (MJ/m²)
             "out_energy_light_MJ_m2": dt_s * (data["qLampIn"] + data["qIntLampIn"]).sum() * 1e-6,
             # Total energy (heat + light)
             "out_energy_total_MJ_m2": dt_s * (
-                data["hBoilPipe"] + data["hBoilGroPipe"] + data["qLampIn"] + data["qIntLampIn"]
+                data["hBlowAir"] + data["qLampIn"] + data["qIntLampIn"]
             ).sum() * 1e-6,
-            # CO2 injected (kg/m²)
-            "out_co2_kg_m2":          dt_s * data["mcExtAir"].sum() * 1e-6,
             # Irrigation water (liters/m²), estimated from canopy transpiration
             "out_water_L_m2":         dt_s * 1.1 * data["mvCanAir"].sum(),
             # Mean indoor air temperature (°C)
             "out_mean_tAir_C":        float(data["tAir"].mean()),
-            # Mean indoor CO2 concentration (ppm)
-            "out_mean_co2_ppm":       float(data["co2InPpm"].mean()),
+            # Min indoor air temperature — how close did we get to freezing?
+            "out_min_tAir_C":         float(data["tAir"].min()),
+            # Mean relative humidity (%)
+            "out_mean_rh_pct":        float(data["rhIn"].mean()),
             # Mean canopy temperature (°C)
             "out_mean_tCan_C":        float(data["tCan"].mean()),
             # Final fruit carbohydrate level (kg/m²) — proxy for crop state
@@ -196,7 +204,7 @@ def main():
                 f"         yield={result['out_yield_kg_m2']:.3f} kg/m²  "
                 f"heat={result['out_energy_heat_MJ_m2']:.1f} MJ/m²  "
                 f"light={result['out_energy_light_MJ_m2']:.1f} MJ/m²  "
-                f"CO2={result['out_co2_kg_m2']:.3f} kg/m²"
+                f"tAir_min={result['out_min_tAir_C']:.1f}°C"
             )
         else:
             print("         (skipped)")
