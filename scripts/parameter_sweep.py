@@ -21,6 +21,7 @@ import os
 import sys
 import uuid
 import warnings
+from multiprocessing import Pool
 
 import numpy as np
 import pandas as pd
@@ -35,6 +36,7 @@ import greenlight  # noqa: E402
 SIMULATION_DAYS = 30    # Days per run. Up to 365 with the Boulder TMYx data.
 N_SAMPLES = 50          # Number of random parameter combinations.
 RANDOM_SEED = 42        # For reproducibility.
+N_WORKERS = max(1, (os.cpu_count() or 4) - 2)  # Leave 2 cores free for the OS
 OUTPUT_CSV = os.path.join(project_dir, "data", "training_data.csv")
 
 # GreenLight model paths — Longmont residential greenhouse + Boulder real weather
@@ -247,38 +249,47 @@ def run_simulation(params: dict, sim_idx: int) -> dict | None:
             os.remove(sim_log_path)
 
 
+def _run_sim_worker(args: tuple) -> dict | None:
+    """Top-level wrapper so multiprocessing.Pool can pickle it."""
+    params, sim_idx = args
+    return run_simulation(params, sim_idx)
+
+
 def main():
     os.makedirs(os.path.dirname(OUTPUT_CSV), exist_ok=True)
 
     print(f"Parameter sweep: {N_SAMPLES} simulations × {SIMULATION_DAYS} days each")
+    print(f"Workers: {N_WORKERS} parallel (of {os.cpu_count()} CPU cores)")
     print(f"Weather data: {WEATHER_FILE}")
     print(f"Output: {OUTPUT_CSV}\n")
 
     params_list = sample_params(N_SAMPLES)
     results = []
+    completed = 0
 
-    for i, params in enumerate(params_list):
-        param_str = ", ".join(f"{k.replace('in_', '')}={v:.2f}" for k, v in params.items())
-        print(f"[{i + 1:>3}/{N_SAMPLES}] {param_str}")
+    args = [(params, i) for i, params in enumerate(params_list)]
 
-        result = run_simulation(params, i)
-        if result is not None:
-            results.append(result)
-            print(
-                f"         yield={result['out_yield_kg_m2']:.3f} kg/m²  "
-                f"cost=${result['out_cost_total_usd_m2']:.2f}/m²  "
-                f"(heat=${result['out_cost_heat_usd_m2']:.2f}  "
-                f"light=${result['out_cost_light_usd_m2']:.2f})  "
-                f"tAir_min={result['out_min_tAir_C']:.1f}°C  "
-                f"month={result['start_month']}"
-            )
-        else:
-            print("         (skipped)")
+    with Pool(processes=N_WORKERS) as pool:
+        for result in pool.imap_unordered(_run_sim_worker, args):
+            completed += 1
+            if result is not None:
+                results.append(result)
+                print(
+                    f"[{completed:>3}/{N_SAMPLES}] sim_id={result['sim_id']}  "
+                    f"yield={result['out_yield_kg_m2']:.3f} kg/m²  "
+                    f"cost=${result['out_cost_total_usd_m2']:.2f}/m²  "
+                    f"(heat=${result['out_cost_heat_usd_m2']:.2f}  "
+                    f"light=${result['out_cost_light_usd_m2']:.2f})  "
+                    f"tAir_min={result['out_min_tAir_C']:.1f}°C  "
+                    f"month={result['start_month']}"
+                )
+            else:
+                print(f"[{completed:>3}/{N_SAMPLES}] (skipped)")
 
-        # Save incrementally every 10 runs so progress isn't lost
-        if (i + 1) % 10 == 0 and results:
-            pd.DataFrame(results).to_csv(OUTPUT_CSV, index=False)
-            print(f"  -- Checkpoint: {len(results)} rows saved to {OUTPUT_CSV}\n")
+            # Save incrementally every 10 completions so progress isn't lost
+            if completed % 10 == 0 and results:
+                pd.DataFrame(results).to_csv(OUTPUT_CSV, index=False)
+                print(f"  -- Checkpoint: {len(results)} rows saved to {OUTPUT_CSV}\n")
 
     # Final save
     df_out = pd.DataFrame(results)
