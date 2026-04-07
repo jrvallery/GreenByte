@@ -1,0 +1,242 @@
+"""
+GreenLight/scripts/test_longmont.py
+
+Smoke-test the Longmont, Colorado residential greenhouse model using the
+built-in Bleiswijk (Netherlands) test dataset as a weather stand-in.
+
+NOTE: Bleiswijk is a mild maritime climate (Oct avg ~11 °C).
+      Longmont winters are colder (Jan avg ~-1 °C) and sunnier.
+      These runs verify model mechanics only — not realistic energy estimates.
+
+Usage:
+    python scripts/test_longmont.py
+
+Output: printed summary + CSV files in greenlight/models/katzin_2021/output/
+"""
+
+import os
+import sys
+import warnings
+
+import numpy as np
+import pandas as pd
+
+# ── Path setup ─────────────────────────────────────────────────────────────────
+project_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+sys.path.insert(0, project_dir)
+
+import greenlight  # noqa: E402
+
+BASE_PATH = os.path.join(project_dir, "greenlight", "models")
+MODEL     = os.path.join("katzin_2021", "definition", "main_longmont.json")
+WEATHER   = os.path.abspath(
+    os.path.join(BASE_PATH, "katzin_2021", "input_data", "test_data", "Bleiswijk_from_20091020.csv")
+)
+OUTPUT_DIR = os.path.join(BASE_PATH, "katzin_2021", "output")
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# ── Simulation scenarios ────────────────────────────────────────────────────────
+SIMS = [
+    {
+        "name":  "7d_default",
+        "desc":  "7 days, default Longmont params (lamps on, heating enabled)",
+        "extra": [],
+    },
+    {
+        "name":  "30d_default",
+        "desc":  "30 days, default Longmont params (heavier heating load as Oct→Nov)",
+        "extra": [],
+    },
+    {
+        "name":  "7d_lamps_off",
+        "desc":  "7 days, lamps disabled (thetaLampMax=0) — isolates solar-only heating",
+        "extra": [{"thetaLampMax": {"definition": "0"}}],
+    },
+    {
+        "name":  "7d_cold_setpoint",
+        "desc":  "7 days, heating setpoint raised to 18 °C — tests heater utilisation",
+        "extra": [
+            {"tSpDay":   {"definition": "18"}},
+            {"tSpNight": {"definition": "18"}},
+            {"heatDeadZone": {"definition": "9.8"}},   # cool at 27.8 °C still
+        ],
+    },
+]
+
+
+# ── Helper: load GreenLight CSV output ─────────────────────────────────────────
+def load_output(abs_path: str) -> pd.DataFrame:
+    raw      = pd.read_csv(abs_path, header=None, low_memory=False)
+    col_names = raw.iloc[0]
+    data     = raw.iloc[3:].reset_index(drop=True).apply(pd.to_numeric, errors="coerce")
+    data.columns = col_names
+    return data
+
+
+# ── Helper: summarise one simulation ──────────────────────────────────────────
+def summarise(data: pd.DataFrame, sim: dict) -> dict:
+    dt   = float(data["Time"].iloc[1]) - float(data["Time"].iloc[0])   # s
+    days = dt * len(data) / 86400
+
+    tair  = data["tAir"]
+    ublow = data.get("uBlow",       pd.Series(dtype=float))
+    uventf= data.get("uVentForced", pd.Series(dtype=float))
+    qlamp = data.get("qLampIn",     pd.Series(dtype=float))
+    hboil = data.get("hBoilPipe",   pd.Series(dtype=float))
+    rh    = data.get("rhIn",        pd.Series(dtype=float))
+    tout  = data.get("tOut",        pd.Series(dtype=float))
+    # Blower heat column: hBlowAir (W/m² from the direct air blower)
+    hblow_air = data.get("hBlowAir", pd.Series(dtype=float))
+
+    def _mean(s):
+        return float(s.mean()) if len(s) and not s.isna().all() else float("nan")
+
+    def _frac_nonzero(s):
+        """Fraction of timesteps where s > 0.01."""
+        if len(s) == 0 or s.isna().all():
+            return float("nan")
+        return float((s > 0.01).mean())
+
+    def _energy_MJ_m2(s):
+        """Integrate W/m² over dt seconds → MJ/m²."""
+        if len(s) == 0 or s.isna().all():
+            return float("nan")
+        return float(dt * s.sum() * 1e-6)
+
+    return {
+        "sim":               sim["name"],
+        "desc":              sim["desc"],
+        "days":              round(days, 1),
+        # Outdoor conditions (Bleiswijk stand-in)
+        "tOut_mean_C":       round(_mean(tout), 1),
+        # Indoor air
+        "tAir_mean_C":       round(_mean(tair), 1),
+        "tAir_min_C":        round(float(tair.min()), 1),
+        "tAir_max_C":        round(float(tair.max()), 1),
+        "tAir_below_setpt":  round(float(((tair < 14.0) & tair.notna()).mean()), 3),  # fraction below 14 °C
+        # Heating
+        "uBlow_frac_on":     round(_frac_nonzero(ublow), 3),   # 0–1, fraction of time heater active
+        "heat_MJ_m2":        round(_energy_MJ_m2(hblow_air), 2),  # hBlowAir = W/m² from forced-air blower
+        "boil_MJ_m2":        round(_energy_MJ_m2(hboil), 2),   # Should be ~0 (no boiler)
+        # Ventilation
+        "ventRh_frac_on":      round(_frac_nonzero(data.get("ventRh", pd.Series(dtype=float))), 3),
+        "uVentForced_frac_on": round(_frac_nonzero(uventf), 3),
+        # Humidity
+        "rh_mean_pct":       round(_mean(rh), 1),
+        # Lamps
+        "lamp_MJ_m2":        round(_energy_MJ_m2(qlamp), 2),
+        # Total energy: blower heat + lamp input (per floor area)
+        "total_energy_MJ_m2": round(_energy_MJ_m2(hblow_air) + _energy_MJ_m2(qlamp), 2),
+    }
+
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+def main():
+    print(f"Longmont greenhouse test — weather stand-in: Bleiswijk (Netherlands) Oct 2009")
+    print(f"Base path : {BASE_PATH}")
+    print(f"Model     : {MODEL}\n")
+
+    results = []
+
+    for sim in SIMS:
+        out_rel  = os.path.join("katzin_2021", "output", f"longmont_{sim['name']}.csv")
+        out_abs  = os.path.join(BASE_PATH, out_rel)
+
+        # Override t_end based on name so 30d/7d work correctly with main_longmont.json defaults
+        days_val = 30 if "30d" in sim["name"] else 7
+        time_opt = {"options": {"t_end": str(days_val * 86400)}}
+
+        input_prompt = [MODEL, WEATHER, time_opt] + sim["extra"]
+
+        print(f"─── {sim['name']} ───────────────────────────────────────────────")
+        print(f"    {sim['desc']}")
+
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                mdl = greenlight.GreenLight(
+                    base_path=BASE_PATH,
+                    input_prompt=input_prompt,
+                    output_path=out_rel,
+                )
+                mdl.run()
+
+            data   = load_output(out_abs)
+            row    = summarise(data, sim)
+            results.append(row)
+
+            print(f"    tOut        : {row['tOut_mean_C']} °C mean (Bleiswijk weather)")
+            print(f"    tAir        : mean={row['tAir_mean_C']} °C  min={row['tAir_min_C']} °C  max={row['tAir_max_C']} °C")
+            print(f"    Below 14 °C : {row['tAir_below_setpt']*100:.1f}% of timesteps")
+            print(f"    uBlow on    : {row['uBlow_frac_on']*100:.1f}% of time")
+            print(f"    uVentForced : {row['uVentForced_frac_on']*100:.1f}% of time  (ventRh driver: {row['ventRh_frac_on']*100:.1f}%)")
+            print(f"    Heat energy : {row['heat_MJ_m2']} MJ/m²  (boiler: {row['boil_MJ_m2']} MJ/m² — expect ~0)")
+            print(f"    Lamp energy : {row['lamp_MJ_m2']} MJ/m²")
+            print(f"    Total energy: {row['total_energy_MJ_m2']} MJ/m²")
+            print(f"    RH mean     : {row['rh_mean_pct']}%")
+            print(f"    Saved to    : {out_abs}\n")
+
+        except Exception as exc:
+            print(f"    FAILED: {exc}\n")
+            results.append({"sim": sim["name"], "desc": sim["desc"], "error": str(exc)})
+
+    # ── Print cross-sim comparison table ──────────────────────────────────────
+    print("\n═══ COMPARISON TABLE ═══════════════════════════════════════════════\n")
+    df = pd.DataFrame(results)
+    cols_show = [
+        "sim", "days", "tOut_mean_C", "tAir_mean_C", "tAir_min_C",
+        "uBlow_frac_on", "heat_MJ_m2", "boil_MJ_m2",
+        "ventRh_frac_on", "uVentForced_frac_on", "lamp_MJ_m2", "total_energy_MJ_m2",
+    ]
+    print(df[[c for c in cols_show if c in df.columns]].to_string(index=False))
+    print()
+
+    # ── Sanity checks ─────────────────────────────────────────────────────────
+    print("═══ SANITY CHECKS ══════════════════════════════════════════════════\n")
+    ok = True
+    for row in results:
+        if "error" in row:
+            print(f"  FAIL  {row['sim']}: simulation crashed — {row['error']}")
+            ok = False
+            continue
+
+        name = row["sim"]
+
+        # 1. No boiler heat (lPipe=0, pBoil=0)
+        if not np.isnan(row["boil_MJ_m2"]) and abs(row["boil_MJ_m2"]) > 0.01:
+            print(f"  FAIL  {name}: boil_MJ_m2={row['boil_MJ_m2']:.3f} (expected ~0, no boiler)")
+            ok = False
+        else:
+            print(f"  OK    {name}: boiler heat ≈ 0 MJ/m² (no pipe heating)")
+
+        # 2. Indoor temp broadly controlled — not wildly above/below setpoint for whole run
+        if not np.isnan(row["tAir_mean_C"]):
+            if row["tAir_mean_C"] < 5:
+                print(f"  FAIL  {name}: mean tAir={row['tAir_mean_C']} °C — suspiciously cold, check heating control")
+                ok = False
+            elif row["tAir_mean_C"] > 40:
+                print(f"  FAIL  {name}: mean tAir={row['tAir_mean_C']} °C — suspiciously hot, check ventilation")
+                ok = False
+            else:
+                print(f"  OK    {name}: mean tAir={row['tAir_mean_C']} °C (plausible)")
+
+        # 3. Lamp energy: if lamps_off, should be ~0
+        if "lamps_off" in name:
+            if not np.isnan(row["lamp_MJ_m2"]) and abs(row["lamp_MJ_m2"]) > 0.01:
+                print(f"  FAIL  {name}: lamp_MJ_m2={row['lamp_MJ_m2']:.3f} (lamps should be off)")
+                ok = False
+            else:
+                print(f"  OK    {name}: lamps off → lamp energy ≈ 0 MJ/m²")
+
+        # 4. Forced vent: 0 when lamps off and it's cold (Bleiswijk Oct = ~10°C out)
+        if "lamps_off" in name and not np.isnan(row["uVentForced_frac_on"]):
+            if row["uVentForced_frac_on"] > 0.3:
+                print(f"  WARN  {name}: fans on {row['uVentForced_frac_on']*100:.0f}% of time with lamps off — check RH control")
+            else:
+                print(f"  OK    {name}: fans reasonable with lamps off ({row['uVentForced_frac_on']*100:.0f}%)")
+
+    print(f"\n{'All checks passed.' if ok else 'Some checks FAILED — see above.'}\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,22 @@
+{
+   "About" : "Greenhouse climate model configured for the Longmont, Colorado residential greenhouse. Loads the full Katzin (2021) model stack and then applies parameter overrides from longmont_greenhouse.json. Weather data from EnergyPlus (Denver/Boulder Colorado) is required for a meaningful simulation.",
+   "Usage" : "Pass weather data at runtime by appending its path to the input list. Example (Python):\n  input_prompt = ['katzin_2021/definition/main_longmont.json', '/path/to/weather.csv']\n  GreenLight(base_path=base_path, input_prompt=input_prompt, output_path=out_path).run()\n\nTo acquire Colorado weather data:\n1. Download an EnergyPlus EPW file for Denver or Boulder from energyplus.net/weather.\n2. Convert EPW -> CSV with the EnergyPlus Weather Statistics tool.\n3. Convert to GreenLight format: greenlight.convert_energy_plus(epw_csv_path, output_csv_path)",
+   "Weather file notes" : "Recommended: 'USA_CO_Denver-Aurora-Buckley.AFB.724695_TMYx.2009-2023.epw' or 'USA_CO_Boulder-NCAR.724699_TMYx.epw'. Longmont is ~15 miles north of Boulder. Latitude 40.17 N, elevation 1551 m (vs model default 0 m - corrected in longmont_greenhouse.json).",
+   "processing_order" : [
+      "vanthoor_2011/greenhouse_vanthoor_2011_chapter_8.json",
+      "vanthoor_2011/crop_vanthoor_2011_chapter_9_simplified.json",
+      "extension_greenhouse_katzin_2021_vanthoor_2011.json",
+      "longmont_greenhouse.json",
+      {
+         "options" : {
+            "t_start" : "0",
+            "t_end" : "604800",
+            "solver" : "BDF",
+            "max_step" : "3600",
+            "output_step" : "3600",
+            "atol" : "1e-3",
+            "rtol" : "1e-6"
+         }
+      }
+   ]
+}

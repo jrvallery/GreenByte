@@ -1,0 +1,296 @@
+{
+   "Info" : {
+      "About" : "Parameter overrides for a residential greenhouse in Longmont, Colorado, USA. To be loaded last in the processing_order so these values take priority over the defaults in greenhouse_vanthoor_2011_chapter_8.json and extension_greenhouse_katzin_2021_vanthoor_2011.json.",
+      "Greenhouse" : "Elongated hexagon, peaked roof, 6 mm twin-wall opal polycarbonate (Gallina PoliCarb 2P), concrete slab floor. North wall is a shared party wall with the house (thermal buffer). No pipe heating, no screens, no CO2 enrichment.",
+      "Heating" : "Stage 1: 1500 W electric space heater. Stage 2: Lennox LF24-75A-5 gas furnace (75000 BTU/hr = 21978 W). Modelled as a single forced-air blower (pBlow) with proportional control.",
+      "Ventilation" : "Mechanical only. Two 18-in shutter exhaust fans (2450 CFM each = 4900 CFM total) on south wall. Passive 24x24 in intake vent on north wall. No roof or side vents.",
+      "Lighting" : "49 Barrina T8 LED fixtures (34x2ft + 15x4ft), 5000 K, 1446 W total. Dual circuits via Lutron / Home Assistant.",
+      "Location" : "Longmont, Colorado, USA. Latitude ~40.17 deg N. Elevation 5090 ft = 1551 m.",
+      "Conversions" : {
+         "aFlr" : "367 ft2 x 0.0929 = 34.10 m2",
+         "aCov" : "Outdoor-facing cover only (north wall shared with house excluded). Roof + side walls = 37.09 + 37.70 = 74.8 m2",
+         "hGh" : "Volume/floor: 3614 ft3 / 367 ft2 = 9.85 ft x 0.3048 = 3.00 m",
+         "hElevation" : "5090 ft x 0.3048 = 1551 m",
+         "psi" : "arctan(rise/half-span) = arctan(3.92 ft / 6.84 ft) = 30 deg",
+         "lambdaRf" : "U-value 3.46 W/m2K (R-1.639 US) x hRf 0.006 m = 0.021 W/mK",
+         "phiVentForced" : "4900 CFM x 0.000472 = 2.31 m3/s",
+         "pBlow" : "1500 W + 21978 W (75000 BTU/hr) = 23478 W",
+         "tSpDay/Night" : "58 F = 14.4 C",
+         "heatDeadZone" : "82 F (27.8 C) - 58 F (14.4 C) = 13.3 C",
+         "rhMax" : "VPD 0.50 kPa at ~22 C: satVp(22C)=2644 Pa, vpAir=2144 Pa -> RH=81%",
+         "thetaLampMax" : "1446 W / 34.10 m2 = 42.4 W/m2",
+         "aLamp" : "34x(0.61x0.026) + 15x(1.22x0.026) = 1.016 m2 / 34.10 m2 = 0.030"
+      },
+      "Limitations" : [
+         "North wall thermal buffer (house) not modelled - the model treats all cover surfaces as facing outdoor air, but north wall is excluded from aCov as a partial correction.",
+         "Two-stage thermostat (1500 W electric + 21978 W gas) is approximated as a single proportional blower with pBlow=23478 W.",
+         "VPD-based humidity control is approximated as RH-based (rhMax=81% corresponds to VPD=0.5 kPa at 22 C).",
+         "Humidification system (misters/fogger) is not yet modelled (phiFog=0). Add fogger capacity in kg/s to enable.",
+         "Greenhouse orientation (23.5 deg off N-S) is not modelled - use weather data for the correct location.",
+         "Lamp PAR efficiency (etaLampPar=0.47) and photon conversion (zetaLampPar=4.4) are estimates for 5000K white T8 LED. Calibrate against measured PPFD if available."
+      ],
+      "Author" : "Generated from greenhouse spec sheet, April 2026",
+      "File" : "GreenLight/models/katzin_2021/definition/longmont_greenhouse.json"
+   },
+
+   "Greenhouse geometry" : {
+      "aFlr" : {
+         "unit" : "m**2",
+         "type" : "const",
+         "definition" : "34.10",
+         "description" : "Floor area. 367 ft2 x 0.0929."
+      },
+      "aCov" : {
+         "unit" : "m**2",
+         "type" : "const",
+         "definition" : "74.8",
+         "description" : "Outdoor-facing cover area (roof + east/west walls + south taper). North wall shared with house is excluded. 74.8 m2."
+      },
+      "hGh" : {
+         "unit" : "m",
+         "type" : "const",
+         "definition" : "3.00",
+         "description" : "Mean greenhouse height. Volume/floor = 3614 ft3 / 367 ft2 = 9.85 ft = 3.00 m."
+      },
+      "hAir" : {
+         "unit" : "m",
+         "type" : "const",
+         "definition" : "2.90",
+         "description" : "Height of the main air compartment (below screen). No screen present; set slightly below hGh to avoid a zero-volume top compartment."
+      },
+      "hElevation" : {
+         "unit" : "m above sea level",
+         "type" : "const",
+         "definition" : "1551",
+         "description" : "Altitude. 5090 ft x 0.3048 = 1551 m."
+      },
+      "psi" : {
+         "unit" : "degrees",
+         "type" : "const",
+         "definition" : "30",
+         "description" : "Mean greenhouse cover slope (roof panel angle). arctan(3.92 ft rise / 6.84 ft half-span) = 30 deg."
+      }
+   },
+
+   "Cover: 6 mm twin-wall opal polycarbonate (Gallina PoliCarb 2P)" : {
+      "tauRfPar" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.57",
+         "description" : "PAR transmission coefficient of the roof. From spec sheet light_transmission=0.57."
+      },
+      "tauRfNir" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.55",
+         "description" : "NIR transmission coefficient of the roof. Slightly lower than PAR for opal twin-wall polycarbonate."
+      },
+      "rhoRfPar" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.08",
+         "description" : "PAR reflection coefficient. Polycarbonate reflects ~8%; absorbed fraction = 1 - 0.57 - 0.08 = 0.35."
+      },
+      "rhoRfNir" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.08",
+         "description" : "NIR reflection coefficient. Same as PAR for polycarbonate."
+      },
+      "lambdaRf" : {
+         "unit" : "W m**-1 K**-1",
+         "type" : "const",
+         "definition" : "0.021",
+         "description" : "Effective thermal conductivity. U=3.46 W/m2K (R-1.639 US = 0.289 m2K/W) x hRf=0.006 m = 0.021 W/mK."
+      },
+      "hRf" : {
+         "unit" : "m",
+         "type" : "const",
+         "definition" : "6e-3",
+         "description" : "Thickness of roof layer. 6 mm twin-wall polycarbonate."
+      },
+      "rhoRf" : {
+         "unit" : "kg m**-3",
+         "type" : "const",
+         "definition" : "1200",
+         "description" : "Density of roof layer. Polycarbonate ~1200 kg/m3 (vs glass ~2600 kg/m3)."
+      },
+      "cPRf" : {
+         "unit" : "J K**-1 kg**-1",
+         "type" : "const",
+         "definition" : "1250",
+         "description" : "Specific heat capacity of roof layer. Polycarbonate ~1250 J/kgK (vs glass ~840 J/kgK)."
+      },
+      "epsRfFir" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.90",
+         "description" : "FIR emission coefficient of the roof. Polycarbonate ~0.90 (vs glass ~0.85)."
+      }
+   },
+
+   "Ventilation: mechanical only, no roof or side vents" : {
+      "aRoof" : {
+         "unit" : "m**2",
+         "type" : "const",
+         "definition" : "0",
+         "description" : "Roof ventilation area. No roof vents present."
+      },
+      "etaRoof" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Fraction of ventilation through roof vents. Override avoids 0/0 when aRoof=aSide=0."
+      },
+      "etaSide" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Fraction of ventilation through side vents. Override avoids 0/0 when aRoof=aSide=0."
+      },
+      "phiVentForced" : {
+         "unit" : "m**3 s**-1",
+         "type" : "const",
+         "definition" : "2.31",
+         "description" : "Total capacity of forced ventilation (exhaust fans). 2 x 2450 CFM = 4900 CFM x 0.000472 = 2.31 m3/s."
+      },
+      "cLeakage" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "3e-4",
+         "description" : "Greenhouse leakage coefficient. Polycarbonate residential greenhouse is leakier than commercial glass; estimated 3e-4 vs 1e-4 default."
+      }
+   },
+
+   "Heating: forced-air only, no pipe system" : {
+      "lPipe" : {
+         "unit" : "m m**-2",
+         "type" : "const",
+         "definition" : "0",
+         "description" : "Length of heating pipes per floor area. No pipe heating present."
+      },
+      "pBoil" : {
+         "unit" : "W",
+         "type" : "const",
+         "definition" : "0",
+         "description" : "Boiler capacity. No boiler present."
+      },
+      "pBlow" : {
+         "unit" : "W",
+         "type" : "const",
+         "definition" : "23478",
+         "description" : "Forced-air heater capacity. Stage 1: 1500 W electric. Stage 2: 21978 W gas furnace (75000 BTU/hr). Total: 23478 W."
+      }
+   },
+
+   "Lighting: Barrina T8 LED, 5000 K, 1446 W total" : {
+      "thetaLampMax" : {
+         "unit" : "W m**-2",
+         "type" : "const",
+         "definition" : "42.4",
+         "description" : "Lamp electrical power per floor area. 1446 W / 34.10 m2 = 42.4 W/m2."
+      },
+      "etaLampPar" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.47",
+         "description" : "Fraction of lamp input converted to PAR. Estimated for 5000 K broad-spectrum white T8 LED. Calibrate against PPFD measurement if available."
+      },
+      "etaLampNir" : {
+         "unit" : "-",
+         "type" : "const",
+         "definition" : "0.05",
+         "description" : "Fraction of lamp input converted to NIR. Low for white LED (most output is visible or convective heat)."
+      },
+      "zetaLampPar" : {
+         "unit" : "umol{PAR} J{PAR}**-1",
+         "type" : "const",
+         "definition" : "4.4",
+         "description" : "Photons per joule of PAR output. Estimated for 5000 K white LED; typical range 4.1-4.6 umol/J."
+      },
+      "aLamp" : {
+         "unit" : "m**2{lamp} m**-2{floor}",
+         "type" : "const",
+         "definition" : "0.030",
+         "description" : "Lamp projected area per floor area. 34x2ft + 15x4ft T8 tubes = 1.016 m2 / 34.10 m2 = 0.030."
+      }
+   },
+
+   "Climate control setpoints" : {
+      "tSpDay" : {
+         "unit" : "C",
+         "type" : "const",
+         "definition" : "14.4",
+         "description" : "Heating setpoint during day. 58 F = 14.4 C (heating stage 1 on below this)."
+      },
+      "tSpNight" : {
+         "unit" : "C",
+         "type" : "const",
+         "definition" : "14.4",
+         "description" : "Heating setpoint during night. Same as day setpoint (58 F = 14.4 C)."
+      },
+      "heatDeadZone" : {
+         "unit" : "C",
+         "type" : "const",
+         "definition" : "13.3",
+         "description" : "Dead zone between heating setpoint and ventilation setpoint. Cooling starts at 82 F = 27.8 C. Zone = 27.8 - 14.4 = 13.3 C."
+      },
+      "rhMax" : {
+         "unit" : "%",
+         "type" : "const",
+         "definition" : "81",
+         "description" : "RH threshold for ventilation. Approximates VPD_high = 0.50 kPa at ~22 C (satVp=2644 Pa, vpAir=2144 Pa -> RH=81%)."
+      },
+      "phiExtCo2" : {
+         "unit" : "mg s**-1",
+         "type" : "const",
+         "definition" : "0",
+         "description" : "CO2 injection capacity. No CO2 enrichment system present."
+      }
+   },
+
+   "Control overrides: blower replaces boiler, fans replace roof vents, no screens" : {
+      "uBlow" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "proportionalControl(tAir, heatSetPoint, tHeatBand, 0, 1)",
+         "description" : "Control of forced-air heater. Uses same proportional logic as the boiler (uBoil) since there is no pipe system."
+      },
+      "uBoil" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Control of boiler to pipe rail. Overridden to 0: no boiler or pipes present."
+      },
+      "uBoilGro" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Control of boiler to grow pipes. Overridden to 0: no grow pipes present."
+      },
+      "uVentForced" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "min(ventCold, max(ventHeat, ventRh))",
+         "description" : "Control of exhaust fans. Fans are driven by the same heat/humidity logic used for roof vents (uRoof), since there are no roof vents."
+      },
+      "uRoof" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Roof vent control. Overridden to 0: no roof vents present. Ventilation is handled entirely by uVentForced."
+      },
+      "uThScr" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "Thermal screen control. Overridden to 0: no thermal screen present."
+      },
+      "uExtCo2" : {
+         "unit" : "-",
+         "type" : "aux",
+         "definition" : "0",
+         "description" : "CO2 injection control. Overridden to 0: no CO2 enrichment system present."
+      }
+   }
+}
