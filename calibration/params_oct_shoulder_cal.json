@@ -1,0 +1,32 @@
+{
+  "window": "oct_shoulder_cal",
+  "window_dates": "2025-10-06T06:14Z \u2192 2025-10-13T06:00Z",
+  "params": {"cLeakage": 0.0003, "lambdaRf": 0.021},
+  "fixed_overrides": {
+    "tSpDay": 19.17,
+    "tSpNight": 17.17,
+    "pBlow": 1500.0,
+    "heatDeadZone": 8.0
+  },
+  "baseline": {
+    "mae_temp_f": 5.97,
+    "bias_temp_f": 5.97,
+    "mae_rh_pct": 16.5,
+    "heater_on_real_pct": 37.5,
+    "heater_on_sim_pct": 42.3,
+    "fan_on_real_pct": 3.0,
+    "fan_on_sim_pct": 3.6
+  },
+  "calibrated": {
+    "mae_temp_f": 5.97,
+    "bias_temp_f": 5.97,
+    "mae_rh_pct": 16.5
+  },
+  "greenlight_overrides": [
+    {"tSpDay":      {"definition": "19.17"}},
+    {"tSpNight":    {"definition": "17.17"}},
+    {"pBlow":       {"definition": "1500"}},
+    {"heatDeadZone":{"definition": "8.0"}}
+  ],
+  "note": "Structural +5.97F persistent hot bias — east tree shading + slab thermal mass not modeled by GreenLight. Envelope params (cLeakage, lambdaRf) have negligible effect (~1% or negative). heatDeadZone=8.0C chosen so fan threshold ~81F matches 3.0% vs 3.6% sim fan runtime. This is a model limitation, not a calibration failure."
+}

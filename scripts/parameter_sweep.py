@@ -34,7 +34,7 @@ import greenlight  # noqa: E402
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 SIMULATION_DAYS = 30    # Days per run. Up to 365 with the Boulder TMYx data.
-N_SAMPLES = 50          # Number of random parameter combinations.
+N_SAMPLES = 500         # Number of random parameter combinations.
 RANDOM_SEED = 42        # For reproducibility.
 N_WORKERS = max(1, (os.cpu_count() or 4) - 2)  # Leave 2 cores free for the OS
 OUTPUT_CSV = os.path.join(project_dir, "data", "training_data.csv")
@@ -67,6 +67,16 @@ _GAS_USD_PER_MJ   = GAS_USD_PER_THERM    / 105.5    # 1 therm = 105.5 MJ → $0.
 _WATER_USD_PER_L  = WATER_USD_PER_GALLON / 3.785    # 1 gal = 3.785 L  → $0.00128/L
 # Electric is 3.9× more expensive per MJ than gas — critical for lamp-vs-heat tradeoffs
 
+# ── Fixed overrides (calibrated operational parameters) ──────────────────────
+# These are held constant for all sweep runs, matching the calibrated greenhouse.
+# Calibration finding (jan_cold, 7-day window): the real greenhouse runs the
+# 1500 W electric stage only (gas stage fires rarely / not during calibration windows).
+# Default pBlow=23478 W (combined electric+gas) produces wildly over-powered heating
+# and wrong energy estimates for this greenhouse.
+FIXED_OVERRIDES = {
+    "pBlow": 1500.0,   # 1500 W electric stage — calibrated from jan_cold_7day_v2
+}
+
 # ── Parameter space ───────────────────────────────────────────────────────────
 # Each entry: parameter_name -> (min, max, default)
 # Longmont-specific ranges — no CO2 injection, no thermal screen, LED lamps capped at 42.4 W/m².
@@ -77,8 +87,11 @@ PARAM_SPACE = {
     # Supplemental lamp intensity (W/m²) — 0 = off, 42.4 = all 49 fixtures on
     "thetaLampMax": (0.0,  42.4, 42.4),
     # Dead zone between heat setpoint and fan-on temperature (°C)
-    # fans engage at tSpDay + heatDeadZone; default gives fan-on at 27.8 °C (82 °F)
-    "heatDeadZone": (5.0,  20.0, 13.4),
+    # Fans engage at tSpDay + heatDeadZone.
+    # Calibrated value ≈ 5 °C (fans on at ~75 °F / 24 °C for this greenhouse).
+    # GreenLight default 13.4 °C (fan-on at 90.6 °F) causes 7–8 °F hot bias in spring/fall
+    # because fans never fire in the sim despite running 18% of the time in reality.
+    "heatDeadZone": (5.0,  20.0, 5.0),
     # RH threshold for exhaust fan activation (%)
     "rhMax":        (70.0, 95.0, 81.0),
 }
@@ -151,8 +164,11 @@ def run_simulation(params: dict, sim_idx: int) -> dict | None:
     t_end_s   = t_start_s + SIMULATION_DAYS * 86400
     options   = {"options": {"t_start": str(t_start_s), "t_end": str(t_end_s)}}
 
-    # Parameter overrides — only model constants, not the scheduling key
+    # Parameter overrides — fixed calibrated overrides first, then swept params
     param_mods = [
+        {name: {"definition": f"{value:.6g}"}}
+        for name, value in FIXED_OVERRIDES.items()
+    ] + [
         {name: {"definition": f"{value:.6g}"}}
         for name, value in params.items()
         if name != "t_start_s"
@@ -191,7 +207,9 @@ def run_simulation(params: dict, sim_idx: int) -> dict | None:
         yield_kg_m2 = dt_s * data["mcFruitHar"].sum() * 1e-6 / dmc
 
         # ── Cost in USD per m² of floor area ──────────────────────────────
-        cost_heat_usd_m2  = heat_MJ_m2  * _GAS_USD_PER_MJ
+        # pBlow is fixed at 1500 W electric (stage 1) — use electric rate for heat.
+        # Gas rate would apply only if the gas furnace (stage 2, 21978 W) were modeled.
+        cost_heat_usd_m2  = heat_MJ_m2  * _ELEC_USD_PER_MJ
         cost_light_usd_m2 = light_MJ_m2 * _ELEC_USD_PER_MJ
         cost_water_usd_m2 = water_L_m2  * _WATER_USD_PER_L
         cost_total_usd_m2 = cost_heat_usd_m2 + cost_light_usd_m2 + cost_water_usd_m2
@@ -224,7 +242,7 @@ def run_simulation(params: dict, sim_idx: int) -> dict | None:
             "out_mean_tCan_C":        float(data["tCan"].mean()),
             "out_final_cFruit":       float(data["cFruit"].iloc[-1]),
             # ── Cost outputs (USD per m² of floor area) ───────────────────
-            "out_cost_heat_usd_m2":   cost_heat_usd_m2,   # gas furnace
+            "out_cost_heat_usd_m2":   cost_heat_usd_m2,   # electric (pBlow=1500W)
             "out_cost_light_usd_m2":  cost_light_usd_m2,  # LED lamps (electric)
             "out_cost_water_usd_m2":  cost_water_usd_m2,
             "out_cost_total_usd_m2":  cost_total_usd_m2,

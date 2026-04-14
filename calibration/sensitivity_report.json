@@ -1,0 +1,935 @@
+{
+  "window_days": 7,
+  "seasons": [
+    "Jan_winter",
+    "Apr_spring",
+    "Jul_summer"
+  ],
+  "params": {
+    "cLeakage": {
+      "default": 0.0003,
+      "lo": 0.0001,
+      "hi": 0.0015
+    },
+    "aCov": {
+      "default": 74.8,
+      "lo": 55.0,
+      "hi": 78.0
+    },
+    "lambdaRf": {
+      "default": 0.021,
+      "lo": 0.01,
+      "hi": 0.06
+    }
+  },
+  "sensitivity": {
+    "cLeakage": {
+      "Jan_winter": {
+        "tAir_swing_f": -2.3,
+        "heat_swing_pct": 25.6,
+        "param_range": [
+          0.0001,
+          0.0015000000000000005
+        ]
+      },
+      "Apr_spring": {
+        "tAir_swing_f": -4.09,
+        "heat_swing_pct": 14.9,
+        "param_range": [
+          0.0001,
+          0.0015000000000000005
+        ]
+      },
+      "Jul_summer": {
+        "tAir_swing_f": -0.79,
+        "heat_swing_pct": 0.0,
+        "param_range": [
+          0.0001,
+          0.0015000000000000005
+        ]
+      }
+    },
+    "aCov": {
+      "Jan_winter": {
+        "tAir_swing_f": -0.43,
+        "heat_swing_pct": 0.0,
+        "param_range": [
+          55.0,
+          78.0
+        ]
+      },
+      "Apr_spring": {
+        "tAir_swing_f": -0.16,
+        "heat_swing_pct": 0.0,
+        "param_range": [
+          55.0,
+          78.0
+        ]
+      },
+      "Jul_summer": {
+        "tAir_swing_f": 0.03,
+        "heat_swing_pct": 0.0,
+        "param_range": [
+          55.0,
+          78.0
+        ]
+      }
+    },
+    "lambdaRf": {
+      "Jan_winter": {
+        "tAir_swing_f": -2.99,
+        "heat_swing_pct": 24.4,
+        "param_range": [
+          0.01,
+          0.06
+        ]
+      },
+      "Apr_spring": {
+        "tAir_swing_f": -2.96,
+        "heat_swing_pct": 3.0,
+        "param_range": [
+          0.01,
+          0.06
+        ]
+      },
+      "Jul_summer": {
+        "tAir_swing_f": -2.4,
+        "heat_swing_pct": 0.0,
+        "param_range": [
+          0.01,
+          0.06
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0001,
+      "mean_tAir_f": 61.6,
+      "min_tAir_f": 57.5,
+      "max_tAir_f": 81.02,
+      "mean_rh_pct": 79.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 12.23
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.000157041780247502,
+      "mean_tAir_f": 61.49,
+      "min_tAir_f": 57.49,
+      "max_tAir_f": 79.95,
+      "mean_rh_pct": 79.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 12.66
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.000246621207433047,
+      "mean_tAir_f": 61.32,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 78.93,
+      "mean_rh_pct": 78.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.38
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0003,
+      "mean_tAir_f": 61.22,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 78.72,
+      "mean_rh_pct": 77.3,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.83
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0003872983346207417,
+      "mean_tAir_f": 61.03,
+      "min_tAir_f": 57.45,
+      "max_tAir_f": 78.64,
+      "mean_rh_pct": 76.2,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 14.62
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0006082201995573401,
+      "mean_tAir_f": 60.55,
+      "min_tAir_f": 57.41,
+      "max_tAir_f": 78.48,
+      "mean_rh_pct": 73.2,
+      "heat_frac": 0.06,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 16.81
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0009551598292097561,
+      "mean_tAir_f": 59.95,
+      "min_tAir_f": 57.32,
+      "max_tAir_f": 78.42,
+      "mean_rh_pct": 69.0,
+      "heat_frac": 0.167,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 20.65
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0001,
+      "mean_tAir_f": 68.46,
+      "min_tAir_f": 57.57,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 70.2,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 4.42
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.000246621207433047,
+      "mean_tAir_f": 67.85,
+      "min_tAir_f": 57.54,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 66.6,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.19
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.000157041780247502,
+      "mean_tAir_f": 68.25,
+      "min_tAir_f": 57.56,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 68.7,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 4.68
+    },
+    {
+      "season": "Jan_winter",
+      "param": "cLeakage",
+      "value": 0.0015000000000000005,
+      "mean_tAir_f": 59.3,
+      "min_tAir_f": 57.21,
+      "max_tAir_f": 78.26,
+      "mean_rh_pct": 64.1,
+      "heat_frac": 0.256,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 27.23
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0003,
+      "mean_tAir_f": 67.61,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.72,
+      "mean_rh_pct": 65.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.53
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0006082201995573401,
+      "mean_tAir_f": 66.48,
+      "min_tAir_f": 57.43,
+      "max_tAir_f": 83.7,
+      "mean_rh_pct": 60.3,
+      "heat_frac": 0.012,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 8.06
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0003872983346207417,
+      "mean_tAir_f": 67.23,
+      "min_tAir_f": 57.5,
+      "max_tAir_f": 83.72,
+      "mean_rh_pct": 63.8,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 6.14
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0001,
+      "mean_tAir_f": 81.33,
+      "min_tAir_f": 57.99,
+      "max_tAir_f": 98.41,
+      "mean_rh_pct": 51.9,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0009551598292097561,
+      "mean_tAir_f": 65.56,
+      "min_tAir_f": 57.35,
+      "max_tAir_f": 83.68,
+      "mean_rh_pct": 56.5,
+      "heat_frac": 0.06,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 11.73
+    },
+    {
+      "season": "Apr_spring",
+      "param": "cLeakage",
+      "value": 0.0015000000000000005,
+      "mean_tAir_f": 64.37,
+      "min_tAir_f": 57.25,
+      "max_tAir_f": 83.64,
+      "mean_rh_pct": 52.5,
+      "heat_frac": 0.149,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 18.23
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.000157041780247502,
+      "mean_tAir_f": 81.3,
+      "min_tAir_f": 58.0,
+      "max_tAir_f": 98.41,
+      "mean_rh_pct": 51.7,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.000246621207433047,
+      "mean_tAir_f": 81.26,
+      "min_tAir_f": 58.01,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.3,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0003,
+      "mean_tAir_f": 81.22,
+      "min_tAir_f": 58.01,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.452,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0003872983346207417,
+      "mean_tAir_f": 81.17,
+      "min_tAir_f": 58.03,
+      "max_tAir_f": 98.37,
+      "mean_rh_pct": 50.8,
+      "heat_frac": 0.0,
+      "fan_frac": 0.446,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0006082201995573401,
+      "mean_tAir_f": 81.02,
+      "min_tAir_f": 58.07,
+      "max_tAir_f": 98.35,
+      "mean_rh_pct": 50.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.44,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0009551598292097561,
+      "mean_tAir_f": 80.81,
+      "min_tAir_f": 58.19,
+      "max_tAir_f": 98.3,
+      "mean_rh_pct": 49.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.44,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "cLeakage",
+      "value": 0.0015000000000000005,
+      "mean_tAir_f": 80.54,
+      "min_tAir_f": 57.95,
+      "max_tAir_f": 98.24,
+      "mean_rh_pct": 48.9,
+      "heat_frac": 0.0,
+      "fan_frac": 0.44,
+      "heat_mj_m2": 0.04
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 55.0,
+      "mean_tAir_f": 61.6,
+      "min_tAir_f": 57.48,
+      "max_tAir_f": 79.92,
+      "mean_rh_pct": 76.4,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 12.65
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 58.833333333333336,
+      "mean_tAir_f": 61.51,
+      "min_tAir_f": 57.48,
+      "max_tAir_f": 79.66,
+      "mean_rh_pct": 76.6,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 12.89
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 62.666666666666664,
+      "mean_tAir_f": 61.43,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 79.41,
+      "mean_rh_pct": 76.8,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.13
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 66.5,
+      "mean_tAir_f": 61.36,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 79.17,
+      "mean_rh_pct": 77.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.36
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 70.33333333333333,
+      "mean_tAir_f": 61.29,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 78.95,
+      "mean_rh_pct": 77.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.58
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 74.16666666666667,
+      "mean_tAir_f": 61.23,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 78.75,
+      "mean_rh_pct": 77.3,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.8
+    },
+    {
+      "season": "Jan_winter",
+      "param": "aCov",
+      "value": 78.0,
+      "mean_tAir_f": 61.17,
+      "min_tAir_f": 57.46,
+      "max_tAir_f": 78.57,
+      "mean_rh_pct": 77.4,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 14.0
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 55.0,
+      "mean_tAir_f": 67.75,
+      "min_tAir_f": 57.54,
+      "max_tAir_f": 83.74,
+      "mean_rh_pct": 64.9,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.11
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 62.666666666666664,
+      "mean_tAir_f": 67.69,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 65.2,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.29
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 58.833333333333336,
+      "mean_tAir_f": 67.72,
+      "min_tAir_f": 57.54,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 65.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.2
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 70.33333333333333,
+      "mean_tAir_f": 67.64,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 65.4,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.45
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 66.5,
+      "mean_tAir_f": 67.67,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 65.3,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.37
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 74.16666666666667,
+      "mean_tAir_f": 67.61,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.72,
+      "mean_rh_pct": 65.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.52
+    },
+    {
+      "season": "Apr_spring",
+      "param": "aCov",
+      "value": 78.0,
+      "mean_tAir_f": 67.59,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.72,
+      "mean_rh_pct": 65.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.59
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 55.0,
+      "mean_tAir_f": 81.2,
+      "min_tAir_f": 57.98,
+      "max_tAir_f": 98.4,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 58.833333333333336,
+      "mean_tAir_f": 81.2,
+      "min_tAir_f": 57.99,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 66.5,
+      "mean_tAir_f": 81.21,
+      "min_tAir_f": 58.0,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 62.666666666666664,
+      "mean_tAir_f": 81.21,
+      "min_tAir_f": 57.99,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 70.33333333333333,
+      "mean_tAir_f": 81.22,
+      "min_tAir_f": 58.01,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.01,
+      "mean_tAir_f": 62.88,
+      "min_tAir_f": 57.54,
+      "max_tAir_f": 82.03,
+      "mean_rh_pct": 76.7,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 7.87
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 78.0,
+      "mean_tAir_f": 81.23,
+      "min_tAir_f": 58.02,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.452,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "aCov",
+      "value": 74.16666666666667,
+      "mean_tAir_f": 81.22,
+      "min_tAir_f": 58.01,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.018333333333333333,
+      "mean_tAir_f": 61.49,
+      "min_tAir_f": 57.48,
+      "max_tAir_f": 79.42,
+      "mean_rh_pct": 77.4,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 12.74
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.021,
+      "mean_tAir_f": 61.22,
+      "min_tAir_f": 57.47,
+      "max_tAir_f": 78.72,
+      "mean_rh_pct": 77.3,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 13.83
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.026666666666666665,
+      "mean_tAir_f": 60.79,
+      "min_tAir_f": 57.45,
+      "max_tAir_f": 77.64,
+      "mean_rh_pct": 76.9,
+      "heat_frac": 0.012,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 15.76
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.035,
+      "mean_tAir_f": 60.4,
+      "min_tAir_f": 57.42,
+      "max_tAir_f": 76.46,
+      "mean_rh_pct": 76.1,
+      "heat_frac": 0.06,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 18.02
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.051666666666666666,
+      "mean_tAir_f": 60.01,
+      "min_tAir_f": 57.39,
+      "max_tAir_f": 74.9,
+      "mean_rh_pct": 74.4,
+      "heat_frac": 0.179,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 21.43
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.043333333333333335,
+      "mean_tAir_f": 60.17,
+      "min_tAir_f": 57.4,
+      "max_tAir_f": 75.59,
+      "mean_rh_pct": 75.2,
+      "heat_frac": 0.131,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 19.85
+    },
+    {
+      "season": "Jan_winter",
+      "param": "lambdaRf",
+      "value": 0.06,
+      "mean_tAir_f": 59.89,
+      "min_tAir_f": 57.37,
+      "max_tAir_f": 74.51,
+      "mean_rh_pct": 73.7,
+      "heat_frac": 0.244,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 22.78
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.01,
+      "mean_tAir_f": 69.28,
+      "min_tAir_f": 57.6,
+      "max_tAir_f": 83.75,
+      "mean_rh_pct": 62.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.006,
+      "heat_mj_m2": 2.14
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.018333333333333333,
+      "mean_tAir_f": 67.87,
+      "min_tAir_f": 57.54,
+      "max_tAir_f": 83.73,
+      "mean_rh_pct": 65.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 4.8
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.021,
+      "mean_tAir_f": 67.61,
+      "min_tAir_f": 57.53,
+      "max_tAir_f": 83.72,
+      "mean_rh_pct": 65.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 5.53
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.043333333333333335,
+      "mean_tAir_f": 66.6,
+      "min_tAir_f": 57.46,
+      "max_tAir_f": 83.7,
+      "mean_rh_pct": 67.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 9.77
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.035,
+      "mean_tAir_f": 66.84,
+      "min_tAir_f": 57.48,
+      "max_tAir_f": 83.7,
+      "mean_rh_pct": 66.7,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 8.46
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.026666666666666665,
+      "mean_tAir_f": 67.2,
+      "min_tAir_f": 57.51,
+      "max_tAir_f": 83.71,
+      "mean_rh_pct": 66.2,
+      "heat_frac": 0.0,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 6.86
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.051666666666666666,
+      "mean_tAir_f": 66.44,
+      "min_tAir_f": 57.45,
+      "max_tAir_f": 83.69,
+      "mean_rh_pct": 67.1,
+      "heat_frac": 0.006,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 10.86
+    },
+    {
+      "season": "Apr_spring",
+      "param": "lambdaRf",
+      "value": 0.06,
+      "mean_tAir_f": 66.32,
+      "min_tAir_f": 57.44,
+      "max_tAir_f": 83.69,
+      "mean_rh_pct": 67.1,
+      "heat_frac": 0.03,
+      "fan_frac": 0.0,
+      "heat_mj_m2": 11.78
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.01,
+      "mean_tAir_f": 82.21,
+      "min_tAir_f": 58.12,
+      "max_tAir_f": 98.4,
+      "mean_rh_pct": 49.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.458,
+      "heat_mj_m2": 0.01
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.021,
+      "mean_tAir_f": 81.22,
+      "min_tAir_f": 58.01,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 51.1,
+      "heat_frac": 0.0,
+      "fan_frac": 0.452,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.018333333333333333,
+      "mean_tAir_f": 81.42,
+      "min_tAir_f": 58.03,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 50.7,
+      "heat_frac": 0.0,
+      "fan_frac": 0.452,
+      "heat_mj_m2": 0.02
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.026666666666666665,
+      "mean_tAir_f": 80.88,
+      "min_tAir_f": 57.99,
+      "max_tAir_f": 98.38,
+      "mean_rh_pct": 51.8,
+      "heat_frac": 0.0,
+      "fan_frac": 0.452,
+      "heat_mj_m2": 0.03
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.035,
+      "mean_tAir_f": 80.49,
+      "min_tAir_f": 57.96,
+      "max_tAir_f": 98.38,
+      "mean_rh_pct": 52.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.446,
+      "heat_mj_m2": 0.06
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.043333333333333335,
+      "mean_tAir_f": 80.2,
+      "min_tAir_f": 57.91,
+      "max_tAir_f": 98.38,
+      "mean_rh_pct": 53.0,
+      "heat_frac": 0.0,
+      "fan_frac": 0.44,
+      "heat_mj_m2": 0.08
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.051666666666666666,
+      "mean_tAir_f": 79.98,
+      "min_tAir_f": 57.86,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 53.5,
+      "heat_frac": 0.0,
+      "fan_frac": 0.435,
+      "heat_mj_m2": 0.1
+    },
+    {
+      "season": "Jul_summer",
+      "param": "lambdaRf",
+      "value": 0.06,
+      "mean_tAir_f": 79.81,
+      "min_tAir_f": 57.82,
+      "max_tAir_f": 98.39,
+      "mean_rh_pct": 53.8,
+      "heat_frac": 0.0,
+      "fan_frac": 0.429,
+      "heat_mj_m2": 0.13
+    }
+  ]
+}

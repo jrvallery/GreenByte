@@ -1,0 +1,39 @@
+{
+  "window": "jan_cold_elec",
+  "t_start": "2026-01-13T06:00:00+00:00",
+  "t_end": "2026-01-16T06:00:00+00:00",
+  "note": "Final calibrated result for jan_cold window. Envelope optimization (cLeakage, lambdaRf) was attempted on a 3-day sub-window but produced overfitted params that worsened 7-day MAE from 3.86°F to 6.97°F — the 3-day hot bias (+2.81°F) was a cold-start transient artifact, not real envelope physics. The dominant calibration was operational: correct tSpDay and pBlow moved sim heater runtime from 0% to 69.6% (real: 67.3%). Default GreenLight envelope params are a reasonable model of this greenhouse.",
+  "baseline": {
+    "mae_temp_f": 3.86,
+    "bias_temp_f": 0.80,
+    "mae_rh_pct": 31.7,
+    "heater_frac_real": 0.673,
+    "heater_frac_sim": 0.696
+  },
+  "calibrated": {
+    "mae_temp_f": 3.86,
+    "bias_temp_f": 0.80,
+    "mae_rh_pct": 31.7,
+    "note": "Calibration = baseline; envelope params left at GreenLight defaults"
+  },
+  "improvement_pct": 0.0,
+  "params": {
+    "cLeakage": 3e-4,
+    "lambdaRf": 0.021
+  },
+  "fixed_overrides": {
+    "tSpDay": 19.444444,
+    "tSpNight": 17.166667,
+    "pBlow": 1500.0
+  },
+  "warnings": [
+    "Envelope optimization on 3-day window overfit to cold-start transient — drove cLeakage to 5.7x default, worsened 7-day MAE by 80%",
+    "Default envelope (cLeakage=3e-4, lambdaRf=0.021) validated as best available on 7-day window",
+    "RH MAE 31.7% is high — humidity physics not yet calibrated (expected at this stage)"
+  ],
+  "greenlight_overrides": [
+    {"tSpDay":   {"definition": "19.444"}},
+    {"tSpNight": {"definition": "17.167"}},
+    {"pBlow":    {"definition": "1500"}}
+  ]
+}

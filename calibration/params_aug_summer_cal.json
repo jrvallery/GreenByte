@@ -1,0 +1,21 @@
+{
+  "window": "aug_summer_cal",
+  "window_dates": "2025-08-06T06:00Z → 2025-08-13T00:00Z",
+  "weather_source": "TMYx_Boulder (substituted — weather station not yet installed Aug 2025)",
+  "params": {"cLeakage": 0.0003, "lambdaRf": 0.021},
+  "fixed_overrides": {"tSpDay": 19.17, "tSpNight": 17.17, "pBlow": 1500.0, "heatDeadZone": 5.0},
+  "baseline": {
+    "mae_temp_f": 13.70,
+    "rmse_temp_f": 15.78,
+    "bias_temp_f": -4.78,
+    "mae_rh_pct": 23.2,
+    "heater_on_real_pct": 0.6,
+    "heater_on_sim_pct": 0.0,
+    "fan_on_real_pct": 27.8,
+    "fan_on_sim_pct": 100.0
+  },
+  "calibrated": null,
+  "result": "UNUSABLE — structural ventilation model failure in pure cooling season",
+  "note": "GreenLight ventHeat control drives fans to 100% whenever tAir > heatSetPoint + heatDeadZone (75.5°F). Colorado August afternoons routinely exceed this, causing continuous full ventilation, overcooling, and a -4.78°F cold bias. Increasing heatDeadZone to 15°C (heatMax=93.5°F) produced identical results — the ODE converges to the same steady state because any reduction in fan speed causes temp to immediately spike above heatMax. The Vanthoor/Katzin ventilation model assumes venting achieves setpoint; it does not model the outdoor-hotter-than-indoor regime. Additionally, weather was substituted from TMYx (weather station not installed until ~Aug 2025), introducing unknown forcing error. Summer calibration requires: (1) real weather station data and (2) a modified ventilation model with outdoor temperature guard preventing venting when tOut > tAir.",
+  "action": "exclude from calibration suite; document as known summer limitation"
+}

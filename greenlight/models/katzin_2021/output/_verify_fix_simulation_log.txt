@@ -1,0 +1,2212 @@
+GreenLight simulation running greenlight version 2.0.5
+Python version: 3.13.12
+Platform: Darwin
+Platform release: 25.3.0
+Architecture: 64bit
+Machine: arm64
+Script: -c
+Object created (ISO format): 2026-04-13T12:24:28.197213
+
+Loading model from katzin_2021/definition/main_longmont.json
+
+Replaced variable lai with definition from crop_vanthoor_2011_chapter_9_simplified.json.
+Old definition: 0.01
+New definition: sla * cLeaf
+
+Replaced variable lai with reference from crop_vanthoor_2011_chapter_9_simplified.json.
+Old reference: Assuming no crop
+New reference: Vanthoor 2011, Equation 9.5
+
+Replaced variable mcAirCan with definition from crop_vanthoor_2011_chapter_9_simplified.json.
+Old definition: 0
+New definition: mCo2/ mCh2o * (mcAirBuf - mcBufAir - mcOrgAir)
+
+Replaced variable mcAirCan with description from crop_vanthoor_2011_chapter_9_simplified.json.
+Old description: Net photosynthesis
+New description: Net crop assimilation
+
+Replaced variable mcAirCan with reference from crop_vanthoor_2011_chapter_9_simplified.json.
+Old reference: Assuming no crop
+New reference: https://github.com/davkat1/GreenLight/blob/4ec6018e0aad2775ad11085d34f3886a7b7dd052/Code/createGreenLightModel/setGlParams.m
+
+It is assumed that for every mol of CH2O, a mol of CO2 is taken from the air, thus the conversion uses molar masses
+
+Replaced variable R with reference from crop_vanthoor_2011_chapter_9_simplified.json.
+Old reference: Vanthoor 2011, Table 8.1
+New reference: Vanthoor 2011, Table 8.1. Included here to allow for standalone running
+
+Replaced variable tCovIn with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capCovIn) * (hTopCovIn + lTopCovIn + rCanCovIn + rFlrCovIn + rPipeCovIn + rThScrCovIn - hCovInCovE)
+New definition: (1/capCovIn) * (hTopCovIn + lTopCovIn + rCanCovIn + rFlrCovIn + rPipeCovIn + rThScrCovIn - hCovInCovE + rBlScrCovIn + rLampCovIn + rIntLampCovIn)
+
+Replaced variable tCovIn with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.7
+New reference: Katzin 2021, Equation 7.1
+
+Replaced variable tTop with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capTop) * (hThScrTop +hAirTop-hTopCovIn-hTopOut)
+New definition: (1/capTop) * (hThScrTop + hAirTop - hTopCovIn - hTopOut + hBlScrTop)
+
+Replaced variable tTop with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.6
+New reference: Katzin 2021, Equation 7.1
+
+Replaced variable tThScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capThScr) * (hAirThScr + lAirThScr + rCanThScr + rFlrThScr + rPipeThScr - hThScrTop - rThScrCovIn - rThScrSky)
+New definition: (1/capThScr) * (hAirThScr + lAirThScr + rCanThScr + rFlrThScr + rPipeThScr - hThScrTop - rThScrCovIn - rThScrSky + rBlScrThScr + rLampThScr + rIntLampThScr)
+
+Replaced variable tThScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.5
+New reference: Vanthoor 2011, Equation 8.5; Katzin 2020, Equation A1 ; Katzin 2021, Equation 7.1 [6]
+
+Replaced variable tAir with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capAir) * (hCanAir + hPadAir + hMechAir + hPipeAir + hPasAir + hBlowAir + rGlobSunAir - hAirFlr - hAirThScr - hAirOut - hAirTop - hAirOutPad - lAirFog)
+New definition: (1/capAir) * (hCanAir + hPadAir - hAirMech + hPipeAir + hPasAir + hBlowAir + rGlobSunAir - hAirFlr - hAirThScr - hAirOut - hAirTop - hAirOutPad - lAirFog - hAirBlScr + hLampAir + rLampAir + hGroPipeAir + hIntLampAir + rIntLampAir)
+
+Replaced variable tAir with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.2
+New reference: Vanthoor 2011, Equation 8.2; Katzin 2021, Equation 7.1
+
+Replaced variable tCan with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capCan) * (rParSunCan + rNirSunCan + rPipeCan - hCanAir - lCanAir - rCanCovIn - rCanFlr - rCanSky - rCanThScr)
+New definition: (1/capCan) * (rParSunCan + rNirSunCan + rPipeCan - hCanAir - lCanAir - rCanCovIn - rCanFlr - rCanSky - rCanThScr - rCanBlScr + rParLampCan + rNirLampCan + rFirLampCan + rGroPipeCan + rParIntLampCan + rNirIntLampCan + rFirIntLampCan)
+
+Replaced variable tCan with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.1
+New reference: Katzin 2021, Equation 7.1
+
+Replaced variable tPipe with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 1 / capPipe * (hBoilPipe + hIndPipe + hGeoPipe - rPipeSky - rPipeCovIn - rPipeCan - rPipeFlr - rPipeThScr - hPipeAir)
+New definition: 1 / capPipe * (hBoilPipe + hIndPipe + hGeoPipe - rPipeSky - rPipeCovIn - rPipeCan - rPipeFlr - rPipeThScr - hPipeAir - rPipeBlScr + rLampPipe + rIntLampPipe + hBufHotPipe)
+
+Replaced variable tPipe with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: Temperature of the heating pipes
+New description: Temperature of the pipe rail heating pipe
+
+Replaced variable tPipe with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.9
+New reference: Vanthoor 2011, Equation 8.9; Katzin 2021, Equation 7.1, 7.48
+
+Replaced variable tFlr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capFlr) * (hAirFlr + rParSunFlr + rNirSunFlr + rCanFlr + rPipeFlr - hFlrSo1 - rFlrCovIn - rFlrSky - rFlrThScr)
+New definition: (1/capFlr) * (hAirFlr + rParSunFlr + rNirSunFlr + rCanFlr + rPipeFlr - hFlrSo1 - rFlrCovIn - rFlrSky - rFlrThScr - rFlrBlScr + rParLampFlr + rNirLampFlr + rFirLampFlr + rParIntLampFlr + rNirIntLampFlr + rFirIntLampFlr)
+
+Replaced variable tFlr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.3
+New reference: Vanthoor 2011, Equation 8.3; Katzin 2020, Equation A1; Katzin 2021, Equation 7.1
+
+Replaced variable vpAir with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: (1/capVpAir) * (mvCanAir + mvPadAir + mvFogAir + mvBlowAir - mvAirThScr - mvAirTop - mvAirOut - mvAirOutPad - mvAirMech)
+New definition: (1/capVpAir) * (mvCanAir + mvPadAir + mvFogAir + mvBlowAir - mvAirThScr - mvAirTop - mvAirOut - mvAirOutPad - mvAirBlScr - mvAirMech)
+
+Replaced variable vpAir with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.10
+New reference: Vanthoor 2011, Equation 8.10; Katzin 2021, Equation 7.40, 7.50
+
+Replaced variable tauCovPar with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: tauCovParVanthoor
+New definition: tau12(tauCovBlScrPar, tauLampPar, rhoCovBlScrParUp, rhoCovBlScrParDn, rhoLampPar, rhoLampPar)
+
+Replaced variable tauCovPar with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: PAR reflection coefficient of the cover towards the top
+New description: PAR transmission coefficient of the cover
+
+Replaced variable tauCovPar with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference:  Extra variable added for easier model extension
+New reference: Katzin 2021, Equation 7.6
+
+Replaced variable rhoCovPar with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: rhoCovParVanthoorUp
+New definition: rhoUp(tauCovBlScrPar, tauLampPar, rhoCovBlScrParUp, rhoCovBlScrParDn, rhoLampPar, rhoLampPar)
+
+Replaced variable rhoCovPar with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: PAR reflection coefficient of the cover towards the top
+New description: PAR reflection coefficient of the cover
+
+Replaced variable rhoCovPar with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference:  Extra variable added for easier model extension
+New reference: Katzin 2021, Equation 7.6
+
+Replaced variable tauCovNir with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: tauCovNirVanthoor
+New definition: tau12(tauCovBlScrNir, tauLampNir, rhoCovBlScrNirUp, rhoCovBlScrNirDn, rhoLampNir, rhoLampNir)
+
+Replaced variable tauCovNir with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: NIR reflection coefficient of the cover towards the top
+New description: NIR transmission coefficient of the cover
+
+Replaced variable tauCovNir with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference:  Extra variable added for easier model extension
+New reference: Katzin 2021, Equation 7.6; pg. 234 "The optical properties for NIR are calculated analogously"
+
+Replaced variable rhoCovNir with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: rhoCovNirVanthoorUp
+New definition: rhoUp(tauCovBlScrNir, tauLampNir, rhoCovBlScrNirUp, rhoCovBlScrNirDn, rhoLampNir, rhoLampNir)
+
+Replaced variable rhoCovNir with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: NIR reflection coefficient of the cover towards the top
+New description: NIR reflection coefficient of the cover
+
+Replaced variable rhoCovNir with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference:  Extra variable added for easier model extension
+New reference: Katzin 2021, Equation 7.6; pg. 234 "The optical properties for NIR are calculated analogously"
+
+Replaced variable rParCan with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: rParSunCan
+New definition: rParSunCan + rParGhLamp + rParGhIntLamp
+
+Replaced variable rParCan with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: Total PAR above the canopy. Added here to allow easier modification of the model.
+New description: Total PAR above and outside the canopy
+
+Replaced variable rParCan with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.28
+New reference: Katzin 2021, pg. 234: "the PAR above the canopy is supplemented by the PAR emitted by the toplights and interlights)
+
+Replaced variable rCan with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: rCanSun
+New definition: rCanSun + rCanLamp + rCanIntLamp
+
+Replaced variable rCan with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: Global radiation (PAR+NIR) above the canopy
+New description: Global radiation above and outside the canopy (PAR+NIR, where UV is counted together with NIR)
+
+Replaced variable rCan with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Following Vanthoor 2011, Equation 8.28. Added for easier model extension
+New reference: Katzin 2021, Equation 7.23
+
+Replaced variable parCan with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: parJtoUmolSun * rParSunCan
+New definition: parJtoUmolSun * rParSunCan + zetaLampPar * rParLampCan + zetaIntLampPar * rParIntLampCan
+
+Replaced variable parCan with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: Total PAR absorbed by the canopy, expressed in µmol m**-2 s**-1. This value is passed to the crop model to calculate photosynthesis. Added here to allow easier modification of the model.
+New description: Total PAR absorbed by the canopy, expressed in µmol m**-2 s**-1
+
+Replaced variable parCan with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Section 9.5.1.3
+New reference: Katzin 2021, Equation 7.27
+
+Replaced variable rCanCovIn with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aCan, epsCan, epsCovFir, tauThScrFirU, tCan, tCovIn)
+New definition: fir(aCan, epsCan, epsCovFir, tauLampFir * tauThScrFirU * tauBlScrFirU, tCan, tCovIn)
+
+Replaced variable rCanCovIn with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rCanSky with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aCan, epsCan, epsSky, tauCovFir*tauThScrFirU, tCan, tSky)
+New definition: fir(aCan, epsCan, epsSky, tauLampFir * tauCovFir * tauThScrFirU * tauBlScrFirU, tCan, tSky)
+
+Replaced variable rCanSky with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rCanThScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aCan, epsCan, epsThScrFir, uThScr, tCan, tThScr)
+New definition: fir(aCan, epsCan, epsThScrFir, tauLampFir * uThScr * tauBlScrFirU, tCan, tThScr)
+
+Replaced variable rCanThScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rPipeCovIn with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aPipe, epsPipe, epsCovFir, tauThScrFirU*0.49*exp(-kFir*lai), tPipe, tCovIn)
+New definition: fir(aPipe, epsPipe, epsCovFir, tauIntLampFir * tauLampFir * tauThScrFirU * tauBlScrFirU * 0.49 * exp(-kFir * lai), tPipe, tCovIn)
+
+Replaced variable rPipeCovIn with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rPipeSky with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aPipe, epsPipe, epsSky, tauCovFir*tauThScrFirU*0.49*exp(-kFir*lai), tPipe, tSky)
+New definition: fir(aPipe, epsPipe, epsSky, tauIntLampFir * tauLampFir * tauCovFir * tauThScrFirU * tauBlScrFirU * 0.49 * exp(-kFir * lai), tPipe, tSky)
+
+Replaced variable rPipeSky with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rPipeThScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(aPipe, epsPipe, epsThScrFir, uThScr*0.49*exp(-kFir*lai), tPipe, tThScr)
+New definition: fir(aPipe, epsPipe, epsThScrFir, tauIntLampFir * tauLampFir * uThScr * tauBlScrFirU * 0.49 * exp(-kFir * lai), tPipe, tThScr)
+
+Replaced variable rPipeThScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rFlrCovIn with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(1, epsFlr, epsCovFir, tauThScrFirU*(1-0.49*pi*lPipe*phiPipeE)*exp(-kFir*lai), tFlr, tCovIn)
+New definition: fir(1, epsFlr, epsCovFir, tauIntLampFir * tauLampFir * tauThScrFirU * tauBlScrFirU * (1 - 0.49 * pi * lPipe* phiPipeE) * exp(-kFir * lai), tFlr, tCovIn)
+
+Replaced variable rFlrCovIn with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rFlrSky with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(1, epsFlr, epsSky, tauCovFir*tauThScrFirU*(1-0.49*pi*lPipe*phiPipeE)*exp(-kFir*lai), tFlr, tSky)
+New definition: fir(1, epsFlr, epsSky, tauIntLampFir * tauLampFir * tauCovFir * tauThScrFirU * tauBlScrFirU * (1 - 0.49 * pi * lPipe * phiPipeE) * exp(-kFir * lai), tFlr, tSky)
+
+Replaced variable rFlrSky with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable rFlrThScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fir(1, epsFlr, epsThScrFir, uThScr*(1-0.49*pi*lPipe*phiPipeE)*exp(-kFir*lai), tFlr, tThScr)
+New definition: fir(1, epsFlr, epsThScrFir, tauIntLampFir * tauLampFir * uThScr * tauBlScrFirU * (1 - 0.49 * pi * lPipe * phiPipeE) * exp(-kFir * lai), tFlr, tThScr)
+
+Replaced variable rFlrThScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.3 and equation 8.38
+New reference: Katzin 2021, Table 7.4
+
+Replaced variable fScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: fThScr
+New definition: min(fThScr, fBlScr)
+
+Replaced variable fScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Added here for easier model extension
+New reference: Katzin 2021, Equations 7.38
+
+Replaced variable fVentRoof with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: ifElse(etaRoof >= etaRoofThr, etaInsScr * fVentRoof2 + 0.5 * fLeakage, etaInsScr * (uThScr * fVentRoof2 + (1 - uThScr) * fVentRoofSide2 * etaRoof) + 0.5 * fLeakage)
+New definition: ifElse(etaRoof >= etaRoofThr, etaInsScr * fVentRoof2 + cLeakTop * fLeakage, etaInsScr * (max(uThScr, uBlScr) * fVentRoof2 + (1 - max(uThScr, uBlScr)) * fVentRoofSide2 * etaRoof) + cLeakTop * fLeakage)
+
+Replaced variable fVentRoof with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.72
+New reference: Vanthoor 2011, Equation 8.72; Katzin 2021, Equation 7.42. The if/else condition from Vanthoor was combined with the equation of Katzin to include the possibility of sidewall ventilation; max(uBlScr, uThScr) is taken, since it is assumed in Vanthoor that the degree of opening of the screen influences how much ventilation comes through the side and roof (fVentRoofSide2) and how much directly through the roof (fVentRoof2)
+
+Replaced variable fVentSide with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: ifElse(etaRoof >= etaRoofThr, etaInsScr * fVentSide2 + 0.5 * fLeakage, etaInsScr * (uThScr * fVentSide2 + (1 - uThScr) * fVentRoofSide2 * etaSide) + 0.5 * fLeakage)
+New definition: ifElse(etaRoof >= etaRoofThr, etaInsScr * fVentSide2 + (1 - cLeakTop) * fLeakage, etaInsScr * (max(uThScr, uBlScr) * fVentSide2 + (1 - max(uThScr, uBlScr)) * fVentRoofSide2 * etaSide) + (1 - cLeakTop) * fLeakage)
+
+Replaced variable fVentSide with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Equation 8.73
+New reference: Vanthoor 2011, Equation 8.72; Katzin 2021, Equation 7.42. The if/else condition from Vanthoor was combined with the equation of Katzin to include the possibility of sidewall ventilation; max(uBlScr, uThScr) is taken, since it is assumed in Vanthoor that the degree of opening of the screen influences how much ventilation comes through the side and roof (fVentRoofSide2) and how much directly through the roof (fVentRoof2)
+
+Replaced variable psi with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 25
+New definition: 22
+
+Replaced variable psi with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable aFlr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 1.4e4
+New definition: 4e4
+
+Replaced variable aFlr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2. Note a mistake there: the values for aCov and aFlr are flipped
+
+Replaced variable aCov with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 1.8e4
+New definition: 4.84e4
+
+Replaced variable aCov with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2. Note a mistake there: the values for aCov and aFlr are flipped
+
+Replaced variable hRf with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Vanthoor 2011, Table 8.2 (Netherlands); Katzin 2021, Table 4.2
+
+Replaced variable hAir with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 3.8
+New definition: 6.3
+
+Replaced variable hAir with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable hGh with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 4.2
+New definition: 6.9
+
+Replaced variable hGh with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable aRoof with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 1.4e3
+New definition: 4676
+
+Replaced variable aRoof with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable hVent with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 0.68
+New definition: 1.3
+
+Replaced variable hVent with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable cLeakage with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Vanthoor 2011, Table 8.2 (Netherlands); Katzin 2021, Table 4.2
+
+Replaced variable lPipe with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 1.875
+New definition: 1.25
+
+Replaced variable lPipe with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2
+
+Replaced variable pBoil with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 21e5
+New definition: 1200e4
+
+Replaced variable pBoil with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming 150 W m**-2 = 1.4e4*150
+New reference: Katzin 2021, Table 4.2: 300*4e4
+
+Replaced variable phiExtCo2 with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 7.2e4
+New definition: 20.56e4
+
+Replaced variable phiExtCo2 with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Vanthoor 2011, Table 8.2 (Netherlands)
+New reference: Katzin 2021, Table 4.2: 5.14*4e4
+
+Replaced variable uBoil with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 0
+New definition: proportionalControl(tAir, heatSetPoint, tHeatBand, 0, 1)
+
+Replaced variable uBoil with description from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old description: Control valve of the heat boiler
+New description: Control valve of the heating from the boiler to the pipe rail system
+
+Replaced variable uBoil with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming no climate control
+New reference: Katzin 2021, Equation 4.4
+
+Replaced variable uRoof with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 0
+New definition: min(ventCold, max(ventHeat, ventRh))
+
+Replaced variable uRoof with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming no climate control
+New reference: Katzin 2021, pg. 119
+
+Replaced variable uSide with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming no climate control
+New reference: Assuming no side ventilation
+
+Replaced variable uThScr with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 0
+New definition: min(thScrCold, min(thScrHeat, thScrRh))
+
+Replaced variable uThScr with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming no climate control
+New reference: Katzin 2021, pg. 119
+
+Replaced variable uExtCo2 with definition from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old definition: 0
+New definition: proportionalControl(co2InPpm, co2SetPoint, co2Band, 0, 1)
+
+Replaced variable uExtCo2 with reference from extension_greenhouse_katzin_2021_vanthoor_2011.json.
+Old reference: Assuming no climate control
+New reference: Katzin 2021, Equation 4.4
+
+Replaced variable aFlr with definition from longmont_greenhouse.json.
+Old definition: 4e4
+New definition: 34.10
+
+Replaced variable aFlr with description from longmont_greenhouse.json.
+Old description: Floor area of greenhouse
+New description: Floor area. 367 ft2 x 0.0929.
+
+Replaced variable aCov with definition from longmont_greenhouse.json.
+Old definition: 4.84e4
+New definition: 74.8
+
+Replaced variable aCov with description from longmont_greenhouse.json.
+Old description: Surface of the cover including side walls
+New description: Outdoor-facing cover area (roof + east/west walls + south taper). North wall shared with house is excluded. 74.8 m2.
+
+Replaced variable hGh with definition from longmont_greenhouse.json.
+Old definition: 6.9
+New definition: 3.00
+
+Replaced variable hGh with description from longmont_greenhouse.json.
+Old description: Mean height of the greenhouse
+New description: Mean greenhouse height. Volume/floor = 3614 ft3 / 367 ft2 = 9.85 ft = 3.00 m.
+
+Replaced variable hAir with definition from longmont_greenhouse.json.
+Old definition: 6.3
+New definition: 2.90
+
+Replaced variable hAir with description from longmont_greenhouse.json.
+Old description: Height of the main compartment (below the screen)
+New description: Height of the main air compartment (below screen). No screen present; set slightly below hGh to avoid a zero-volume top compartment.
+
+Replaced variable hElevation with definition from longmont_greenhouse.json.
+Old definition: 0
+New definition: 1551
+
+Replaced variable hElevation with description from longmont_greenhouse.json.
+Old description: Altitude of greenhouse
+New description: Altitude. 5090 ft x 0.3048 = 1551 m.
+
+Replaced variable psi with definition from longmont_greenhouse.json.
+Old definition: 22
+New definition: 30
+
+Replaced variable psi with unit from longmont_greenhouse.json.
+Old unit: °
+New unit: degrees
+
+Replaced variable psi with description from longmont_greenhouse.json.
+Old description: Mean greenhouse cover slope
+New description: Mean greenhouse cover slope (roof panel angle). arctan(3.92 ft rise / 6.84 ft half-span) = 30 deg.
+
+Replaced variable tauRfPar with definition from longmont_greenhouse.json.
+Old definition: 0.85
+New definition: 0.57
+
+Replaced variable tauRfPar with description from longmont_greenhouse.json.
+Old description: PAR transmission coefficient of the roof
+New description: PAR transmission coefficient of the roof. From spec sheet light_transmission=0.57.
+
+Replaced variable tauRfNir with definition from longmont_greenhouse.json.
+Old definition: 0.85
+New definition: 0.55
+
+Replaced variable tauRfNir with description from longmont_greenhouse.json.
+Old description: NIR transmission coefficient of the roof
+New description: NIR transmission coefficient of the roof. Slightly lower than PAR for opal twin-wall polycarbonate.
+
+Replaced variable rhoRfPar with definition from longmont_greenhouse.json.
+Old definition: 0.13
+New definition: 0.08
+
+Replaced variable rhoRfPar with description from longmont_greenhouse.json.
+Old description: PAR reflection coefficient of the roof
+New description: PAR reflection coefficient. Polycarbonate reflects ~8%; absorbed fraction = 1 - 0.57 - 0.08 = 0.35.
+
+Replaced variable rhoRfNir with definition from longmont_greenhouse.json.
+Old definition: 0.13
+New definition: 0.08
+
+Replaced variable rhoRfNir with description from longmont_greenhouse.json.
+Old description: NIR reflection coefficient of the roof
+New description: NIR reflection coefficient. Same as PAR for polycarbonate.
+
+Replaced variable lambdaRf with definition from longmont_greenhouse.json.
+Old definition: 1.05
+New definition: 0.021
+
+Replaced variable lambdaRf with description from longmont_greenhouse.json.
+Old description: Thermal heat conductivity of the roof
+New description: Effective thermal conductivity. U=3.46 W/m2K (R-1.639 US = 0.289 m2K/W) x hRf=0.006 m = 0.021 W/mK.
+
+Replaced variable hRf with definition from longmont_greenhouse.json.
+Old definition: 4e-3
+New definition: 6e-3
+
+Replaced variable hRf with description from longmont_greenhouse.json.
+Old description: Thickness of roof layer
+New description: Thickness of roof layer. 6 mm twin-wall polycarbonate.
+
+Replaced variable rhoRf with definition from longmont_greenhouse.json.
+Old definition: 2.6e3
+New definition: 1200
+
+Replaced variable rhoRf with description from longmont_greenhouse.json.
+Old description: Density of the roof layer
+New description: Density of roof layer. Polycarbonate ~1200 kg/m3 (vs glass ~2600 kg/m3).
+
+Replaced variable cPRf with definition from longmont_greenhouse.json.
+Old definition: 0.84e3
+New definition: 1250
+
+Replaced variable cPRf with description from longmont_greenhouse.json.
+Old description: Specific heat capacity of roof layer
+New description: Specific heat capacity of roof layer. Polycarbonate ~1250 J/kgK (vs glass ~840 J/kgK).
+
+Replaced variable epsRfFir with definition from longmont_greenhouse.json.
+Old definition: 0.85
+New definition: 0.90
+
+Replaced variable epsRfFir with description from longmont_greenhouse.json.
+Old description: FIR emission coefficient of the roof
+New description: FIR emission coefficient of the roof. Polycarbonate ~0.90 (vs glass ~0.85).
+
+Replaced variable aRoof with definition from longmont_greenhouse.json.
+Old definition: 4676
+New definition: 0
+
+Replaced variable aRoof with unit from longmont_greenhouse.json.
+Old unit: -
+New unit: m**2
+
+Replaced variable aRoof with description from longmont_greenhouse.json.
+Old description: Roof ventilation area
+New description: Roof ventilation area. No roof vents present.
+
+Replaced variable etaRoof with definition from longmont_greenhouse.json.
+Old definition: aRoof / (aRoof + aSide)
+New definition: 0
+
+Replaced variable etaRoof with description from longmont_greenhouse.json.
+Old description: Ratio between roof vent area and total ventilation area
+New description: Fraction of ventilation through roof vents. Override avoids 0/0 when aRoof=aSide=0.
+
+Replaced variable etaSide with definition from longmont_greenhouse.json.
+Old definition: aSide / (aRoof + aSide)
+New definition: 0
+
+Replaced variable etaSide with description from longmont_greenhouse.json.
+Old description: Ratio between side vent area and total ventilation area
+New description: Fraction of ventilation through side vents. Override avoids 0/0 when aRoof=aSide=0.
+
+Replaced variable phiVentForced with definition from longmont_greenhouse.json.
+Old definition: 0
+New definition: 2.31
+
+Replaced variable phiVentForced with description from longmont_greenhouse.json.
+Old description: Air flow capacity of the forced ventilation system
+New description: Total capacity of forced ventilation (exhaust fans). 2 x 2450 CFM = 4900 CFM x 0.000472 = 2.31 m3/s.
+
+Replaced variable cLeakage with definition from longmont_greenhouse.json.
+Old definition: 1e-4
+New definition: 3e-4
+
+Replaced variable cLeakage with description from longmont_greenhouse.json.
+Old description: Greenhouse leakage coefficient
+New description: Greenhouse leakage coefficient. Polycarbonate residential greenhouse is leakier than commercial glass; estimated 3e-4 vs 1e-4 default.
+
+Replaced variable lPipe with definition from longmont_greenhouse.json.
+Old definition: 1.25
+New definition: 0
+
+Replaced variable lPipe with description from longmont_greenhouse.json.
+Old description: Length of heating pipes per greenhouse floor area
+New description: Length of heating pipes per floor area. No pipe heating present.
+
+Replaced variable pBoil with definition from longmont_greenhouse.json.
+Old definition: 1200e4
+New definition: 0
+
+Replaced variable pBoil with description from longmont_greenhouse.json.
+Old description: Heat capacity of boiler
+New description: Boiler capacity. No boiler present.
+
+Replaced variable pBlow with definition from longmont_greenhouse.json.
+Old definition: 0
+New definition: 23478
+
+Replaced variable pBlow with description from longmont_greenhouse.json.
+Old description: Heat capacity of heat blowers
+New description: Forced-air heater capacity. Stage 1: 1500 W electric. Stage 2: 21978 W gas furnace (75000 BTU/hr). Total: 23478 W.
+
+Replaced variable thetaLampMax with definition from longmont_greenhouse.json.
+Old definition: 200/3
+New definition: 42.4
+
+Replaced variable thetaLampMax with description from longmont_greenhouse.json.
+Old description: Electrical energy input to the lamps
+New description: Lamp electrical power per floor area. 1446 W / 34.10 m2 = 42.4 W/m2.
+
+Replaced variable etaLampPar with definition from longmont_greenhouse.json.
+Old definition: 0.55
+New definition: 0.47
+
+Replaced variable etaLampPar with description from longmont_greenhouse.json.
+Old description: Fraction of lamp electrical input converted to PAR by the toplights
+New description: Fraction of lamp input converted to PAR. Estimated for 5000 K broad-spectrum white T8 LED. Calibrate against PPFD measurement if available.
+
+Replaced variable etaLampNir with definition from longmont_greenhouse.json.
+Old definition: 0.02
+New definition: 0.05
+
+Replaced variable etaLampNir with description from longmont_greenhouse.json.
+Old description: Fraction of lamp electrical input converted to NIR by the toplights
+New description: Fraction of lamp input converted to NIR. Low for white LED (most output is visible or convective heat).
+
+Replaced variable zetaLampPar with definition from longmont_greenhouse.json.
+Old definition: 5.4
+New definition: 4.4
+
+Replaced variable zetaLampPar with unit from longmont_greenhouse.json.
+Old unit: µmol{PAR} J{PAR}**-1
+New unit: umol{PAR} J{PAR}**-1
+
+Replaced variable zetaLampPar with description from longmont_greenhouse.json.
+Old description: Photons per joule in PAR emitted by the lamp
+New description: Photons per joule of PAR output. Estimated for 5000 K white LED; typical range 4.1-4.6 umol/J.
+
+Replaced variable aLamp with definition from longmont_greenhouse.json.
+Old definition: 0.02
+New definition: 0.030
+
+Replaced variable aLamp with description from longmont_greenhouse.json.
+Old description: 
+New description: Lamp projected area per floor area. 34x2ft + 15x4ft T8 tubes = 1.016 m2 / 34.10 m2 = 0.030.
+
+Replaced variable tSpDay with definition from longmont_greenhouse.json.
+Old definition: 19.5
+New definition: 14.4
+
+Replaced variable tSpDay with unit from longmont_greenhouse.json.
+Old unit: °C
+New unit: C
+
+Replaced variable tSpDay with description from longmont_greenhouse.json.
+Old description: Heat is on below this point in day
+New description: Heating setpoint during day. 58 F = 14.4 C (heating stage 1 on below this).
+
+Replaced variable tSpNight with definition from longmont_greenhouse.json.
+Old definition: 18.5
+New definition: 14.4
+
+Replaced variable tSpNight with unit from longmont_greenhouse.json.
+Old unit: °C
+New unit: C
+
+Replaced variable tSpNight with description from longmont_greenhouse.json.
+Old description: Heat is on below this point in night
+New description: Heating setpoint during night. Same as day setpoint (58 F = 14.4 C).
+
+Replaced variable heatDeadZone with definition from longmont_greenhouse.json.
+Old definition: 5
+New definition: 13.3
+
+Replaced variable heatDeadZone with unit from longmont_greenhouse.json.
+Old unit: °C
+New unit: C
+
+Replaced variable heatDeadZone with description from longmont_greenhouse.json.
+Old description: Zone between heating setpoint and ventilation setpoint
+New description: Dead zone between heating setpoint and ventilation setpoint. Cooling starts at 82 F = 27.8 C. Zone = 27.8 - 14.4 = 13.3 C.
+
+Replaced variable rhMax with definition from longmont_greenhouse.json.
+Old definition: 87
+New definition: 81
+
+Replaced variable rhMax with description from longmont_greenhouse.json.
+Old description: Upper bound on relative humidity
+New description: RH threshold for ventilation. Approximates VPD_high = 0.50 kPa at ~22 C (satVp=2644 Pa, vpAir=2144 Pa -> RH=81%).
+
+Replaced variable phiExtCo2 with definition from longmont_greenhouse.json.
+Old definition: 20.56e4
+New definition: 0
+
+Replaced variable phiExtCo2 with description from longmont_greenhouse.json.
+Old description: Capacity of external CO2 source
+New description: CO2 injection capacity. No CO2 enrichment system present.
+
+Replaced variable uBlow with definition from longmont_greenhouse.json.
+Old definition: 0
+New definition: proportionalControl(tAir, heatSetPoint, tHeatBand, 0, 1)
+
+Replaced variable uBlow with description from longmont_greenhouse.json.
+Old description: Control of the direct heat air blower
+New description: Control of forced-air heater. Uses same proportional logic as the boiler (uBoil) since there is no pipe system.
+
+Replaced variable uBoil with definition from longmont_greenhouse.json.
+Old definition: proportionalControl(tAir, heatSetPoint, tHeatBand, 0, 1)
+New definition: 0
+
+Replaced variable uBoil with description from longmont_greenhouse.json.
+Old description: Control valve of the heating from the boiler to the pipe rail system
+New description: Control of boiler to pipe rail. Overridden to 0: no boiler or pipes present.
+
+Replaced variable uBoilGro with definition from longmont_greenhouse.json.
+Old definition: uBoil
+New definition: 0
+
+Replaced variable uBoilGro with description from longmont_greenhouse.json.
+Old description: Control valve of the heating from the boiler to the grow pipes
+New description: Control of boiler to grow pipes. Overridden to 0: no grow pipes present.
+
+Replaced variable uVentForced with definition from longmont_greenhouse.json.
+Old definition: 0
+New definition: min(ventCold, max(ventHeat, ventRh))
+
+Replaced variable uVentForced with description from longmont_greenhouse.json.
+Old description: Control of the forced ventilation
+New description: Control of exhaust fans. Fans are driven by the same heat/humidity logic used for roof vents (uRoof), since there are no roof vents.
+
+Replaced variable uRoof with definition from longmont_greenhouse.json.
+Old definition: min(ventCold, max(ventHeat, ventRh))
+New definition: 0
+
+Replaced variable uRoof with description from longmont_greenhouse.json.
+Old description: Control of the roof ventilation
+New description: Roof vent control. Overridden to 0: no roof vents present. Ventilation is handled entirely by uVentForced.
+
+Replaced variable uThScr with definition from longmont_greenhouse.json.
+Old definition: min(thScrCold, min(thScrHeat, thScrRh))
+New definition: 0
+
+Replaced variable uThScr with description from longmont_greenhouse.json.
+Old description: Closure of thermal screen, 0 is open (folded screen), 1 is closed (spread out screen)
+New description: Thermal screen control. Overridden to 0: no thermal screen present.
+
+Replaced variable uExtCo2 with definition from longmont_greenhouse.json.
+Old definition: proportionalControl(co2InPpm, co2SetPoint, co2Band, 0, 1)
+New definition: 0
+
+Replaced variable uExtCo2 with description from longmont_greenhouse.json.
+Old description: Control of the external CO2 source
+New description: CO2 injection control. Overridden to 0: no CO2 enrichment system present.
+
+Replaced option t_end by definition from main_longmont.json.
+Old definition: 86400
+New definition: 604800
+
+Replaced option t_end by definition from {'options': {'t_end': '86400'}}.
+Old definition: 604800
+New definition: 86400
+Simulation started at time (ISO format): 2026-04-13T12:24:31.919509
+Model definitions converted to Python function:
+def dy_from_str(t, y, d_matrix, t_span):
+	dy = np.zeros(y.shape)
+	d = np.concatenate(([t], multi_interp2(t, d_matrix[:,0], d_matrix[:,1:])))
+	a = np.zeros(587)
+	a[0] = a[0]
+	a[1] = (np.abs((((y[2]>y[1])*(1.7*(np.abs((y[2] - y[1])))**0.33) + (1-(y[2]>y[1]))*(1.3 * (np.abs((y[1] - y[2])))**0.25)))) * ((y[1]) - (y[2])))
+	a[2] = 0
+	a[3] = 0
+	a[4] = 5
+	a[5] = 2.45e6
+	a[6] = 5.67e-8
+	a[7] = 1
+	a[8] = 1
+	a[9] = 0.5
+	a[10] = 0.5
+	a[11] = 0.057
+	a[12] = 4.43e-8
+	a[13] = 0.554
+	a[14] = 0.9
+	a[15] = 1.2
+	a[16] = 0.07
+	a[17] = 0.35
+	a[18] = 7850
+	a[19] = 1e3
+	a[20] = 65.8
+	a[21] = 1.99e-7
+	a[22] = 1.2e3
+	a[23] = 4.3
+	a[24] = 0.54
+	a[25] = 6.1e-7
+	a[26] = 1.1e-11
+	a[27] = 4.3e-6
+	a[28] = 5.2e-6
+	a[29] = 1e3
+	a[30] = 0.64e3
+	a[31] = 4.18e3
+	a[32] = 9.81
+	a[33] = 0.04
+	a[34] = 0.08
+	a[35] = 0.16
+	a[36] = 0.32
+	a[37] = 0.64
+	a[38] = 1.28
+	a[39] = 0.7
+	a[40] = 0.7
+	a[41] = 0.27
+	a[42] = 0.94
+	a[43] = 28.96
+	a[44] = 18
+	a[45] = 8314
+	a[46] = 5
+	a[47] = 275
+	a[48] = 82
+	a[49] = -1
+	a[50] = 0.1
+	a[51] = 30
+	a[52] = 74.8
+	a[53] = 34.10
+	a[54] = 1.86
+	a[55] = 2.8
+	a[56] = 1.2
+	a[57] = 1
+	a[58] = 2.90
+	a[59] = 1551
+	a[60] = 3.00
+	a[61] = 0
+	a[62] = 0
+	a[63] = 1
+	a[64] = 0
+	a[65] = 0
+	a[66] = 0.75
+	a[67] = 3e-4
+	a[68] = 0.09
+	a[69] = 1
+	a[70] = 1.3
+	a[71] = 0.90
+	a[72] = 1200
+	a[73] = 0.08
+	a[74] = 0.08
+	a[75] = 0.15
+	a[76] = 0.55
+	a[77] = 0.57
+	a[78] = 0
+	a[79] = 0.021
+	a[80] = 1250
+	a[81] = 6e-3
+	a[82] = 0
+	a[83] = 0
+	a[84] = 0
+	a[85] = 0
+	a[86] = 0
+	a[87] = 1
+	a[88] = 1
+	a[89] = 1
+	a[90] = 1e10
+	a[91] = 0
+	a[92] = 0
+	a[93] = 0
+	a[94] = 0
+	a[95] = 0
+	a[96] = 1
+	a[97] = 1
+	a[98] = 1
+	a[99] = 0
+	a[100] = 0.67
+	a[101] = 0.2e3
+	a[102] = 0.35
+	a[103] = 0.35
+	a[104] = 0.18
+	a[105] = 0.6
+	a[106] = 0.6
+	a[107] = 0.15
+	a[108] = 1.8e3
+	a[109] = 0.35e-3
+	a[110] = 0.05e-3
+	a[111] = 1
+	a[112] = 2300
+	a[113] = 0.5
+	a[114] = 0.65
+	a[115] = 1.7
+	a[116] = 0.88e3
+	a[117] = 0.02
+	a[118] = 1.73e6
+	a[119] = 0.85
+	a[120] = 0.88
+	a[121] = 51e-3
+	a[122] = 47e-3
+	a[123] = 0
+	a[124] = 0
+	a[125] = 0
+	a[126] = 0
+	a[127] = 2.31
+	a[128] = 0
+	a[129] = 0
+	a[130] = 0
+	a[131] = 23478
+	a[132] = 0
+	a[133] = 0
+	a[134] = 0
+	a[135] = 0
+	a[136] = 0
+	a[137] = 0
+	a[138] = 4.6
+	a[139] = 3.141592653589793
+	a[140] = (8.3144598e6* ((y[1]) + 273.15) * ((1e-6 * y[15])) / (101325 * 44.01e-3))
+	a[141] = 0
+	a[142] = 0
+	a[143] = 0
+	a[144] = 0
+	a[145] = 0
+	a[146] = 0
+	a[147] = 0
+	a[148] = 0
+	a[149] = 0
+	a[150] = 0
+	a[151] = 0
+	a[152] = 0
+	a[153] = 700
+	a[154] = 0
+	a[155] = 20
+	a[156] = -20
+	a[157] = 20
+	a[158] = 1650
+	a[159] = 0
+	a[160] = 0.047 * y[22] + 0.06
+	a[161] = 3
+	a[162] = 0.385
+	a[163] = 0.7
+	a[164] = 0.67
+	a[165] = 1.7
+	a[166] = 1.16e-7
+	a[167] = 0.27
+	a[168] = 3.47e-7
+	a[169] = 0.28
+	a[170] = 1.47e-7
+	a[171] = 0.3
+	a[172] = 2.85e6
+	a[173] = 20e3
+	a[174] = 1e3
+	a[175] = 37e3
+	a[176] = 22e4
+	a[177] = 210
+	a[178] = 30e-3
+	a[179] = 0.328
+	a[180] = 0.095
+	a[181] = 0.074
+	a[182] = 710
+	a[183] = 2.66e-5
+	a[184] = 298.15
+	a[185] = 1035
+	a[186] = 2
+	a[187] = 10
+	a[188] = 34
+	a[189] = 15
+	a[190] = 24.5
+	a[191] = 3e-6
+	a[192] = 44e-3
+	a[193] = 300e3
+	a[194] = 0.67
+	a[195] = 0.2e3
+	a[196] = 0.35
+	a[197] = 0.35
+	a[198] = 0.01
+	a[199] = 0.01
+	a[200] = 0.7
+	a[201] = 1.8e3
+	a[202] = 0.35e-3
+	a[203] = 5e-5
+	a[204] = 0
+	a[205] = 42.4
+	a[206] = 0.030
+	a[207] = 1 - a[206]
+	a[208] = 1 - a[206]
+	a[209] = 1 - a[206]
+	a[210] = 0.47
+	a[211] = 4.4
+	a[212] = 0.05
+	a[213] = 10
+	a[214] = 2.3
+	a[215] = 0
+	a[216] = 0
+	a[217] = 0
+	a[218] = 0.88
+	a[219] = 0.88
+	a[220] = 0
+	a[221] = 5.41
+	a[222] = 0
+	a[223] = 0.55
+	a[224] = 0.02
+	a[225] = 10
+	a[226] = 2.3
+	a[227] = 0.5
+	a[228] = 0
+	a[229] = 0.5
+	a[230] = 1.4
+	a[231] = 1.4
+	a[232] = 1.88
+	a[233] = 0.54
+	a[234] = 0.88
+	a[235] = 1
+	a[236] = 0.5
+	a[237] = 1.655
+	a[238] = 35e-3
+	a[239] = 0.0338
+	a[240] = 0
+	a[241] = 0
+	a[242] = 24 * (np.mod(y[27], 1))
+	a[243] = (np.mod(y[27], 365.2425))
+	a[244] = 14.4
+	a[245] = 14.4
+	a[246] = 0
+	a[247] = -1
+	a[248] = 0
+	a[249] = 13.3
+	a[250] = 4
+	a[251] = 100 * y[13] / ((610.78 * np.exp(17.2694 *(y[1]) / ((y[1]) + 238.3))))
+	a[252] = 81
+	a[253] = 50
+	a[254] = 1
+	a[255] = -1
+	a[256] = 5
+	a[257] = 10
+	a[258] = -1
+	a[259] = -2
+	a[260] = 10
+	a[261] = 4
+	a[262] = 0
+	a[263] = 100
+	a[264] = 0
+	a[265] = 18
+	a[266] = -1
+	a[267] = 400
+	a[268] = 400
+	a[269] = 10
+	a[270] = 100
+	a[271] = ((a[264] <= a[265])*((np.logical_and(a[264] < a[242], a[242] < a[265]))) + (1-(a[264] <= a[265]))*((np.logical_or(a[264] < a[242], a[242] < a[265]))))
+	a[272] = ((a[266] <= a[267])*((np.logical_and(a[266] < a[243], a[243] < a[267]))) + (1-(a[266] <= a[267]))*((np.logical_or(a[266] < a[243], a[243] < a[267]))))
+	a[273] = (((0)>((((1)<(a[242] - a[264] + 1))*(1) + ((a[242] - a[264] + 1)<=(1))*(a[242] - a[264] + 1))))*(0) + (((((1)<(a[242] - a[264] + 1))*(1) + ((a[242] - a[264] + 1)<=(1))*(a[242] - a[264] + 1)))>=(0))*((((1)<(a[242] - a[264] + 1))*(1) + ((a[242] - a[264] + 1)<=(1))*(a[242] - a[264] + 1))))
+	a[274] = (((0)>((((1)<(a[265] - a[242] + 1))*(1) + ((a[265] - a[242] + 1)<=(1))*(a[265] - a[242] + 1))))*(0) + (((((1)<(a[265] - a[242] + 1))*(1) + ((a[265] - a[242] + 1)<=(1))*(a[265] - a[242] + 1)))>=(0))*((((1)<(a[265] - a[242] + 1))*(1) + ((a[265] - a[242] + 1)<=(1))*(a[265] - a[242] + 1))))
+	a[275] = (a[264] != a[265]) * ((a[264] < a[265])*((((a[273])<(a[274]))*(a[273]) + ((a[274])<=(a[273]))*(a[274]))) + (1-(a[264] < a[265]))*((((a[273])>(a[274]))*(a[273]) + ((a[274])>=(a[273]))*(a[274]))))
+	a[276] = 1000
+	a[277] = -100
+	a[278] = 1
+	a[279] = 2
+	a[280] = -1
+	a[281] = 2
+	a[282] = 0
+	a[283] = 0
+	a[284] = 0
+	a[285] = 0
+	a[286] = 0
+	a[287] = 1 - a[150] * (1 - a[97])
+	a[288] = 1 - a[151] * (1 - a[88])
+	a[289] = a[150] * a[94]
+	a[290] = a[151] * a[85]
+	a[291] = ((a[287]) * (a[288]) / (1 - (a[289]) * (a[290])))
+	a[292] = ((a[289]) + ((a[287])**2 * (a[290])) / (1 - (a[289]) * (a[290])))
+	a[293] = ((a[290]) + ((a[288])**2 * (a[289])) / (1 - (a[289]) * (a[290])))
+	a[294] = 1 - a[152] * (1 - a[106])
+	a[295] = a[152] * a[103]
+	a[296] = ((a[77]) * (a[294]) / (1 - (a[74]) * (a[295])))
+	a[297] = ((a[74]) + ((a[77])**2 * (a[295])) / (1 - (a[74]) * (a[295])))
+	a[298] = ((a[295]) + ((a[294])**2 * (a[74])) / (1 - (a[74]) * (a[295])))
+	a[299] = ((a[291]) * (a[296]) / (1 - (a[293]) * (a[297])))
+	a[300] = ((a[292]) + ((a[291])**2 * (a[297])) / (1 - (a[293]) * (a[297])))
+	a[301] = ((a[298]) + ((a[296])**2 * (a[293])) / (1 - (a[293]) * (a[297])))
+	a[302] = 1 - a[150] * (1 - a[96])
+	a[303] = 1 - a[151] * (1 - a[87])
+	a[304] = a[150] * a[93]
+	a[305] = a[151] * a[84]
+	a[306] = ((a[302]) * (a[303]) / (1 - (a[304]) * (a[305])))
+	a[307] = ((a[304]) + ((a[302])**2 * (a[305])) / (1 - (a[304]) * (a[305])))
+	a[308] = ((a[305]) + ((a[303])**2 * (a[304])) / (1 - (a[304]) * (a[305])))
+	a[309] = 1 - a[152] * (1 - a[105])
+	a[310] = a[152] * a[102]
+	a[311] = ((a[76]) * (a[309]) / (1 - (a[73]) * (a[310])))
+	a[312] = ((a[73]) + ((a[76])**2 * (a[310])) / (1 - (a[73]) * (a[310])))
+	a[313] = ((a[310]) + ((a[309])**2 * (a[73])) / (1 - (a[73]) * (a[310])))
+	a[314] = ((a[306]) * (a[311]) / (1 - (a[308]) * (a[312])))
+	a[315] = ((a[307]) + ((a[306])**2 * (a[312])) / (1 - (a[308]) * (a[312])))
+	a[316] = ((a[313]) + ((a[311])**2 * (a[308])) / (1 - (a[308]) * (a[312])))
+	a[317] = 1 - a[150] * (1 - a[98])
+	a[318] = 1 - a[151] * (1 - a[89])
+	a[319] = a[150] * a[95]
+	a[320] = a[151] * a[86]
+	a[321] = ((a[317]) * (a[318]) / (1 - (a[319]) * (a[320])))
+	a[322] = ((a[319]) + ((a[317])**2 * (a[320])) / (1 - (a[319]) * (a[320])))
+	a[323] = ((a[320]) + ((a[318])**2 * (a[319])) / (1 - (a[319]) * (a[320])))
+	a[324] = ((a[321]) * (a[78]) / (1 - (a[323]) * (a[75])))
+	a[325] = ((a[322]) + ((a[321])**2 * (a[75])) / (1 - (a[323]) * (a[75])))
+	a[326] = 1 - a[324] - a[325]
+	a[327] = (np.cos(a[51]*a[139]/180)) * (a[151] * a[92] * a[83] * a[91] + a[81] * a[72] * a[80])
+	a[328] = 1 / (a[81] / a[79] + a[151] * a[92] / a[90])
+	a[329] = 0.1 * a[327]
+	a[330] = 0.1 * a[327]
+	a[331] = 0.25 * a[139] * a[123] * ((a[121]**2 - a[122]**2) * a[18] * a[30] + a[122]**2 * a[19] * a[31])
+	a[332] = a[117] * a[112] * a[116]
+	a[333] = a[33] * a[118]
+	a[334] = a[34] * a[118]
+	a[335] = a[35] * a[118]
+	a[336] = a[36] * a[118]
+	a[337] = a[37] * a[118]
+	a[338] = a[109] * a[101] * a[108]
+	a[339] = a[15] * (np.exp(a[32] * a[43] * a[59] / (293.15 * a[45])))
+	a[340] = a[44] * a[58] / (a[45] * (y[1] + 273.15))
+	a[341] = a[44] * (a[60]-a[58]) / (a[45] * (y[9] + 273.15))
+	a[342] = a[58]
+	a[343] = a[60] - a[58]
+	a[344] = 1 - a[113]
+	a[345] = (1 - a[152] * (1 - a[107]))
+	a[346] = 1-0.49*a[139]*a[123]*a[121]
+	a[347] = a[139] * a[123] * a[121]
+	a[348] = ((a[347]) * (a[120]) * (a[111]) * (0.49) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((y[2]) + 273.15)**4 ))
+	a[349] = ((1) * (a[100]) * (a[326]) * (a[152]) * 5.67e-8 * (((y[8]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[350] = ((1) * (a[100]) * (a[8]) * (a[324]*a[152]) * 5.67e-8 * (((y[8]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[351] = ((1) * (a[326]) * (a[8]) * (1) * 5.67e-8 * (((y[11]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[352] = (np.abs((1.7 * a[152] * ((np.abs(y[1] - y[8])))**0.33)) * ((y[1]) - (y[8])))
+	a[353] = (np.abs((1.7 * a[152] * (np.abs(y[8] - y[9]))**0.33)) * ((y[8]) - (y[9])))
+	a[354] = (np.abs((a[54] * (np.abs(y[9] - y[10]))**0.33 * a[52] / a[53])) * ((y[9]) - (y[10])))
+	a[355] = (np.abs((a[52] / a[53] * (a[55] + a[56] * a[159]**a[57]))) * ((y[11]) - (a[155])))
+	a[356] = (np.abs((1.99 * a[139] * a[121] * a[123] * ((np.abs(y[12] - y[1])))**0.32)) * ((y[12]) - (y[1])))
+	a[357] = (np.abs((2 / (a[117] / a[115] + a[33] / a[119]))) * ((y[2]) - (y[3])))
+	a[358] = (np.abs((2 * a[119] / (a[33] + a[34]))) * ((y[3]) - (y[4])))
+	a[359] = (np.abs((2 * a[119] / (a[34] + a[35]))) * ((y[4]) - (y[5])))
+	a[360] = (np.abs((2 * a[119] / (a[35] + a[36]))) * ((y[5]) - (y[6])))
+	a[361] = (np.abs((2 * a[119] / (a[36] + a[37]))) * ((y[6]) - (y[7])))
+	a[362] = (np.abs((2 * a[119] / (a[37] + a[38]))) * ((y[7]) - (a[157])))
+	a[363] = 101325*(1-2.5577e-5*a[59])**5.25588
+	a[364] = (np.abs((a[328])) * ((y[10]) - (y[11])))
+	a[365] = (1 / (1 + np.exp(-0.1 * ((y[13]) - ((610.78 * np.exp(17.2694 *(y[8]) / ((y[8]) + 238.3))))))) * 6.4e-9 * (1.7*a[152]*(np.abs(y[1] - y[8]))**0.33) * ((y[13])-((610.78 * np.exp(17.2694 *(y[8]) / ((y[8]) + 238.3))))))
+	a[366] = (1 / (1 + np.exp(-0.1 * ((y[14]) - ((610.78 * np.exp(17.2694 *(y[10]) / ((y[10]) + 238.3))))))) * 6.4e-9 * (a[54] * (np.abs(y[9] - y[10]))**0.33 * a[52] / a[53]) * ((y[14])-((610.78 * np.exp(17.2694 *(y[10]) / ((y[10]) + 238.3))))))
+	a[367] = a[141] * a[132] / a[53]
+	a[368] = a[142] * a[134] / a[53]
+	a[369] = a[143] * a[133] / a[53]
+	a[370] = a[130] * (y[5] - y[1])
+	a[371] = a[144] * a[126] / a[53]
+	a[372] = 18 / 29 * a[158] / (101325 - a[158])
+	a[373] = a[371] * a[44] / a[45] * y[13] / (y[1] + 273.15)
+	a[374] = a[371] * (a[153] - y[15])
+	a[375] = (a[145] * a[129] * a[135] / a[53]) / (y[1] - a[136] + 6.4e-9 * a[5] * (y[13] - (610.78 * np.exp(17.2694 *(a[136]) / ((a[136]) + 238.3)))))
+	a[376] = (np.abs((a[375])) * ((a[136]) - (y[1])))
+	a[377] = (1 / (1 + np.exp(-0.1 * ((y[13]) - ((610.78 * np.exp(17.2694 *(a[136]) / ((a[136]) + 238.3))))))) * 6.4e-9 * (a[375]) * ((y[13])-((610.78 * np.exp(17.2694 *(a[136]) / ((a[136]) + 238.3))))))
+	a[378] = a[146] * a[125] / a[53]
+	a[379] = a[5] * a[378]
+	a[380] = a[147] * a[64]
+	a[381] = a[148] * a[65]
+	a[382] = a[63] * (2 - a[63])
+	a[383] = ((a[159] < 0.25)*(0.25 * a[67]) + (1-(a[159] < 0.25))*(a[67] * a[159]))
+	a[384] = a[66] * (1 - a[61] * a[150])
+	a[385] = a[68] * (1 - a[62] * a[150])
+	a[386] = a[149] * a[128] / a[53]
+	a[387] = a[183] * y[19]
+	a[388] = a[387] * a[177]
+	a[389] = a[164] * a[140]
+	a[390] = (a[177] / a[388]) * a[165] * y[0] + 20 * a[165] * (1 - a[177] / a[388])
+	a[391] = (1 - (np.exp(-a[172] * a[191]))) * a[186]**(0.1 * (y[22] - 25)) * y[19] * a[168]
+	a[392] = (1 - (np.exp(-a[172] * a[191]))) * a[186]**(0.1 * (y[22] - 25)) * y[20] * a[170]
+	a[393] = (1 - (np.exp(-a[172] * a[191]))) * a[186]**(0.1 * (y[22] - 25)) * y[18] * a[166]
+	a[394] = a[161] / a[183]
+	a[395] = 1 / (1 + (np.exp(5e-4 * (y[17] - a[173]))))
+	a[396] = 1 / (1 + (np.exp(-5e-3 * (y[17] - a[174]))))
+	a[397] = 1 / (1 + (np.exp(-0.869 * (y[0] - a[187])))) * 1 / (1 + (np.exp(0.5793 * (y[0] - a[188]))))
+	a[398] = 1 / (1 + (np.exp(-1.1587 * (y[22] - a[189])))) * 1 / (1 + (np.exp(1.3904 * (y[22] - a[190]))))
+	a[399] = 0.5*(y[21]/a[185]+(np.sqrt((y[21]/a[185])**2+1e-4))) - 0.5*((y[21]-a[185])/a[185]+(np.sqrt(((y[21]-a[185])/a[185])**2 + 1e-4)))
+	a[400] = ((1e5) / (1 + np.exp( -((y[19]) - (a[394])) * 2 * np.log(100) / (1e4))))
+	a[401] = ((5e4) / (1 + np.exp( -((y[18]) - (a[193])) * 2 * np.log(100) / (1e4))))
+	a[402] = 1 - a[229] * (np.exp(-a[230] * a[236] * a[387])) + (a[229] - 1) * (np.exp(-a[230] * (1-a[236]) * a[387]))
+	a[403] = 1 - a[229] * (np.exp(-a[233] * a[236] * a[387])) + (a[229] - 1) * (np.exp(-a[233] * (1 - a[236]) * a[387]))
+	a[404] = 1 - (np.exp(-a[232] * (1 - a[236]) * a[387]))
+	a[405] = 1 - (np.exp(-a[232] * a[236] * a[387]))
+	a[406] = ((a[206]) * (a[219]) * (a[120]) * (a[235] * 0.49 * a[139] * a[123] * a[121] * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[12]) + 273.15)**4 ))
+	a[407] = ((a[206]) * (a[219]) * (a[111]) * (a[235] * (1 - 0.49 * a[139] * a[123] * a[121]) * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[2]) + 273.15)**4 ))
+	a[408] = ((a[228]) * (a[234]) * (a[219]) * ((1-a[404]) * a[206]) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[25]) + 273.15)**4 ))
+	a[409] = ((a[228]) * (a[234]) * (a[7]) * (a[405] + a[404]) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[0]) + 273.15)**4 ))
+	a[410] = ((a[228]) * (a[234]) * (a[120]) * (0.49 * a[139] * a[123] * a[121] * (1-a[405])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[12]) + 273.15)**4 ))
+	a[411] = ((a[228]) * (a[234]) * (a[111]) * ((1 - 0.49 * a[139] * a[123] * a[121]) * (1 - a[405])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[2]) + 273.15)**4 ))
+	a[412] = (np.abs((a[214])) * ((y[25]) - (y[1])))
+	a[413] = (np.abs((a[226])) * ((y[26]) - (y[1])))
+	a[414] = (np.abs((1.99 * a[139] * a[238] * a[237] * ((np.abs(y[24] - y[1])))**0.32)) * ((y[24]) - (y[1])))
+	a[415] = 0.25 * a[139] * a[237] * ((a[238]**2 - a[239]**2) * a[18] * a[30] + a[239]**2 * a[19] * a[31])
+	a[416] = a[248] * a[241] / a[53]
+	a[417] = a[202] * a[195] * a[201]
+	a[418] = -a[376]
+	a[419] = -a[377]
+	a[420] = a[139] * a[237] * a[238]
+	a[421] = ((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (a[253]) * np.log(100) * ((a[251]) - (a[252] + a[282] * a[279]) - (a[253]) / 2)))))
+	a[422] = a[284] * a[256] + (1 - a[284]) * a[257]
+	a[423] = ((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (a[258]) * np.log(100) * ((a[155]) - (a[422]) - (a[258]) / 2)))))
+	a[424] = (a[154] < a[268]) * (a[286] < a[269]) * a[271] * a[272]
+	a[425] = a[275] * (a[286] < a[269]) * a[272]
+	a[426] = a[22] * a[387]
+	a[427] = a[58] * a[339] * a[29]
+	a[428] = (a[60] - a[58]) * a[339] * a[29]
+	a[429] = (np.exp(-a[41] * a[387]))
+	a[430] = a[17] * (1 - a[429])
+	a[431] = 1 - (np.exp(-a[42] * a[387]))
+	a[432] = ((a[431]) * (a[7]) * (a[111]) * (a[346]) * 5.67e-8 * (((y[0]) + 273.15)**4 - ((y[2]) + 273.15)**4 ))
+	a[433] = ((a[347]) * (a[120]) * (a[7]) * (0.49*(1-(np.exp(-a[42]*a[387])))) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((y[0]) + 273.15)**4 ))
+	a[434] = (np.abs((2 * a[4] * a[387])) * ((y[0]) - (y[1])))
+	a[435] = a[43] * a[363] / ((y[1] + 273.15) * a[45])
+	a[436] = a[43] * a[363] / ((y[9] + 273.15) * a[45])
+	a[437] = 0.5 * (a[436] + a[435])
+	a[438] = a[5] * a[365]
+	a[439] = a[5] * a[366]
+	a[440] = a[435] * a[371] * (a[124] * (a[137] - a[372]) + a[372])
+	a[441] = a[371] * (a[435] * a[29] * a[155] - a[5] * a[435] * (a[124] * (a[137] - a[372])))
+	a[442] = a[371] * a[435] * a[29] * y[1]
+	a[443] = a[147] * a[64] * a[384] / (2 * a[53]) * (np.sqrt((np.abs(a[32] * a[70] * (y[1] - a[155]) / (2 * (0.5 * y[1] + 0.5 * a[155] + 273.15)) + a[385] * a[159]**2))))
+	a[444] = a[384] / a[53] * (np.sqrt((a[380] * a[381] / (np.sqrt((((a[380]**2 + a[381]**2)>(0.01))*(a[380]**2 + a[381]**2) + ((0.01)>=(a[380]**2 + a[381]**2))*(0.01)))))**2 * (2 * a[32] * a[69] * (y[1] - a[155]) / (0.5 * y[1] + 0.5 * a[155] + 273.15)) + ((a[380] + a[381]) / 2)**2 * a[385] * a[159]**2))
+	a[445] = a[384] * a[381] * a[159] / (2 * a[53]) * (np.sqrt(a[385]))
+	a[446] = a[388] * (np.exp(a[175] * (y[0] + 273.15 - a[184]) / (1e-3 * a[45] * (y[0] + 273.15) * a[184]))) * (1 + (np.exp((a[182] * a[184] - a[176]) / (1e-3 * a[45] * a[184])))) / (1 + (np.exp((a[182] * (y[0]+ 273.15) - a[176]) / (1e-3 * a[45] * (y[0] + 273.15)))))
+	a[447] = a[396] * a[397] * a[398] * a[399] * a[160] * a[179]
+	a[448] = a[396] * a[398] * a[160] * a[180]
+	a[449] = a[396] * a[398] * a[160] * a[181]
+	a[450] = a[169] * a[448] + a[171] * a[449] + a[167] * a[447]
+	a[451] = a[391] + a[392] + a[393]
+	a[452] = ((a[206]) * (a[219]) * (a[7]) * (a[431]) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[0]) + 273.15)**4 ))
+	a[453] = ((a[420]) * (a[240]) * (a[7]) * (1) * 5.67e-8 * (((y[24]) + 273.15)**4 - ((y[0]) + 273.15)**4 ))
+	a[454] = (((a[425])>(a[284]))*(a[425]) + ((a[284])>=(a[425]))*(a[284]))
+	a[455] = a[454] * a[244] + (1 - a[454]) * a[245] + a[246] * a[424]
+	a[456] = a[455] + a[249]
+	a[457] = ((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (a[250]) * np.log(100) * ((y[1]) - (a[456]) - (a[250]) / 2)))))
+	a[458] = ((1) + ((0) - (1)) * (1 / (1 + np.exp(-2 / (a[255]) * np.log(100) * ((y[1]) - (a[455] - a[254]) - (a[255]) / 2)))))
+	a[459] = (((((1) + ((0) - (1)) * (1 / (1 + np.exp(-2 / (a[260]) * np.log(100) * ((a[251]) - (a[252] + a[259]) - (a[260]) / 2))))))>(1 - a[458]))*(((1) + ((0) - (1)) * (1 / (1 + np.exp(-2 / (a[260]) * np.log(100) * ((a[251]) - (a[252] + a[259]) - (a[260]) / 2)))))) + ((1 - a[458])>=(((1) + ((0) - (1)) * (1 / (1 + np.exp(-2 / (a[260]) * np.log(100) * ((a[251]) - (a[252] + a[259]) - (a[260]) / 2)))))))*(1 - a[458]))
+	a[460] = ((1) + ((0) - (1)) * (1 / (1 + np.exp(-2 / (- a[258]) * np.log(100) * ((y[1]) - (a[455] + a[261]) - (- a[258]) / 2)))))
+	a[461] = a[424] * ((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (-0.5) * np.log(100) * ((y[1]) - (a[456] + a[270]) - (-0.5) / 2))))) * (a[285] + (1 - a[285]) * (((((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (-0.5) * np.log(100) * ((a[251]) - (a[252] + a[263]) - (-0.5) / 2))))))>(1 - a[458]))*(((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (-0.5) * np.log(100) * ((a[251]) - (a[252] + a[263]) - (-0.5) / 2)))))) + ((1 - a[458])>=(((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (-0.5) * np.log(100) * ((a[251]) - (a[252] + a[263]) - (-0.5) / 2)))))))*(1 - a[458])))
+	a[462] = a[461]
+	a[463] = a[454] * a[276]
+	a[464] = a[152] * a[110] * ((np.abs((y[1] - y[9])))**0.66) + ((1 - a[152]) / a[437]) * (np.sqrt(0.5 * a[437] * (1 - a[152]) * a[32] * (np.abs(a[435] - a[436]))))
+	a[465] = ((0) + ((1) - (0)) * (1 / (1 + np.exp(-2 / (a[247]) * np.log(100) * ((y[1]) - (a[455]) - (a[247]) / 2)))))
+	a[466] = (((a[458])<((((a[457])>(a[421]))*(a[457]) + ((a[421])>=(a[457]))*(a[421]))))*(a[458]) + (((((a[457])>(a[421]))*(a[457]) + ((a[421])>=(a[457]))*(a[421])))<=(a[458]))*((((a[457])>(a[421]))*(a[457]) + ((a[421])>=(a[457]))*(a[421]))))
+	a[467] = a[461] * a[205]
+	a[468] = a[212] * a[467] * (1 - a[17]) * (1 - (np.exp(-a[41] * a[387])))
+	a[469] = a[212] * a[467] * (1 - a[113]) * (np.exp(-a[41] * a[387]))
+	a[470] = a[462] * a[222]
+	a[471] = a[224] * a[470] * a[403] * (1 - a[17])
+	a[472] = a[224] * a[470] * a[229] * (1 - a[113]) * (np.exp(-a[233] * a[236] * a[387]))
+	a[473] = (a[210] + a[212]) * a[467]
+	a[474] = (a[223] + a[224]) * a[470]
+	a[475] = a[220] * a[467]
+	a[476] = a[262] * (1 - a[285]) * (((a[461])>(a[462]))*(a[461]) + ((a[462])>=(a[461]))*(a[462]))
+	a[477] = a[465] * a[131] / a[53]
+	a[478] = a[11] * a[477]
+	a[479] = a[12] * a[477]
+	a[480] = ((a[2] >= a[14])*(a[382] * a[443] + a[227] * a[383]) + (1-(a[2] >= a[14]))*(a[382] * ((((a[152])>(a[476]))*(a[152]) + ((a[476])>=(a[152]))*(a[476])) * a[443] + (1 - (((a[152])>(a[476]))*(a[152]) + ((a[476])>=(a[152]))*(a[476]))) * a[444] * a[2]) + a[227] * a[383]))
+	a[481] = ((a[2] >= a[14])*(a[382] * a[445] + (1 - a[227]) * a[383]) + (1-(a[2] >= a[14]))*(a[382] * ((((a[152])>(a[476]))*(a[152]) + ((a[476])>=(a[152]))*(a[476])) * a[445] + (1 - (((a[152])>(a[476]))*(a[152]) + ((a[476])>=(a[152]))*(a[476]))) * a[444] * a[3]) + (1 - a[227]) * a[383]))
+	a[482] = a[466] * a[127] / a[53]
+	a[483] = a[382] * a[482]
+	a[484] = 1 - a[476] * (1 - a[199])
+	a[485] = a[476] * a[197]
+	a[486] = ((a[299]) * (a[484]) / (1 - (a[301]) * (a[485])))
+	a[487] = ((a[300]) + ((a[299])**2 * (a[485])) / (1 - (a[301]) * (a[485])))
+	a[488] = ((a[485]) + ((a[484])**2 * (a[301])) / (1 - (a[301]) * (a[485])))
+	a[489] = 1 - a[476] * (1 - a[198])
+	a[490] = a[476] * a[196]
+	a[491] = ((a[314]) * (a[489]) / (1 - (a[316]) * (a[490])))
+	a[492] = ((a[315]) + ((a[314])**2 * (a[490])) / (1 - (a[316]) * (a[490])))
+	a[493] = ((a[490]) + ((a[489])**2 * (a[316])) / (1 - (a[316]) * (a[490])))
+	a[494] = a[210] * a[467]
+	a[495] = a[223] * a[470]
+	a[496] = a[494] * (1 - a[16]) * (1 - (np.exp(-a[39] * a[387])))
+	a[497] = a[494] * (np.exp(-a[39] * a[387])) * a[114] * (1 - a[16]) * (1 - (np.exp(-a[40] * a[387])))
+	a[498] = a[496] + a[497]
+	a[499] = a[494] * (1 - a[114]) * (np.exp(-a[39] * a[387]))
+	a[500] = (a[210] + a[212]) * a[467] - a[498] - a[468] - a[499] - a[469]
+	a[501] = a[495] * a[402] * (1 - a[16])
+	a[502] = a[495] * a[229] * (np.exp(-a[230] * a[236] * a[387])) * (1 - a[114]) 
+	a[503] = a[495] * a[229] * a[114] * (1 - a[16]) * (1 - (np.exp(-a[231] * a[387]))) * (np.exp(-a[230] * a[236] * a[387]))
+	a[504] = a[501] + a[503]
+	a[505] = (a[223] + a[224]) * a[470] - a[504] - a[471] - a[502] - a[472]
+	a[506] = (1 - a[476] * (1 - a[200]))
+	a[507] = ((a[206]) * (a[218]) * (a[8]) * (a[324]*a[345]*a[506]) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[508] = ((a[206]) * (a[218]) * (a[326]) * (a[345]*a[506]) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[509] = ((a[206]) * (a[218]) * (a[100]) * (a[152]*a[506]) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[510] = ((a[206]) * (a[218]) * (a[194]) * (a[476]) * 5.67e-8 * (((y[25]) + 273.15)**4 - ((y[23]) + 273.15)**4 ))
+	a[511] = ((a[476]) * (a[194]) * (a[8]) * (a[324] * a[345]) * 5.67e-8 * (((y[23]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[512] = ((a[476]) * (a[194]) * (a[326]) * (a[345]) * 5.67e-8 * (((y[23]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[513] = ((a[476]) * (a[194]) * (a[100]) * (a[152]) * 5.67e-8 * (((y[23]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[514] = ((a[431]) * (a[7]) * (a[194]) * (a[209] * a[476]) * 5.67e-8 * (((y[0]) + 273.15)**4 - ((y[23]) + 273.15)**4 ))
+	a[515] = ((a[347]) * (a[120]) * (a[194]) * (a[235] * a[209] * a[476] * 0.49 * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((y[23]) + 273.15)**4 ))
+	a[516] = ((1) * (a[111]) * (a[194]) * (a[235] * a[209] * a[476] * (1 - 0.49 * a[139] * a[123] * a[121]) * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[2]) + 273.15)**4 - ((y[23]) + 273.15)**4 ))
+	a[517] = ((a[228]) * (a[234]) * (a[8]) * (a[324] * a[345] * a[506] * a[209] * (1 - a[404])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[518] = ((a[228]) * (a[234]) * (a[326]) * (a[345] * a[506] * a[209] * (1 - a[404])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[519] = ((a[228]) * (a[234]) * (a[100]) * (a[152] * a[506] * a[209] * (1 - a[404])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[520] = ((a[228]) * (a[234]) * (a[194]) * (a[476] * a[209] * (1 - a[404])) * 5.67e-8 * (((y[26]) + 273.15)**4 - ((y[23]) + 273.15)**4 ))
+	a[521] = (np.abs((1.7 * a[476] * (np.abs(y[1] - y[23]))**0.33)) * ((y[1]) - (y[23])))
+	a[522] = (np.abs((1.7 * a[476] * (np.abs(y[23] - y[9]))**0.33)) * ((y[23]) - (y[9])))
+	a[523] = a[476] * a[203] * ((np.abs((y[1] - y[9])))**0.66) + ((1 - a[476]) / a[437]) * (np.sqrt(0.5 * a[437] * (1 - a[476]) * a[32] * (np.abs(a[435] - a[436]))))
+	a[524] = (((0)>((1 / (1 + np.exp(-0.1 * ((y[13]) - ((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3))))))) * 6.4e-9 * (1.7 * a[476] * (np.abs(y[1] - y[23]))**0.33) * ((y[13])-((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3))))))))*(0) + (((1 / (1 + np.exp(-0.1 * ((y[13]) - ((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3))))))) * 6.4e-9 * (1.7 * a[476] * (np.abs(y[1] - y[23]))**0.33) * ((y[13])-((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3)))))))>=(0))*((1 / (1 + np.exp(-0.1 * ((y[13]) - ((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3))))))) * 6.4e-9 * (1.7 * a[476] * (np.abs(y[1] - y[23]))**0.33) * ((y[13])-((610.78 * np.exp(17.2694 *(y[23]) / ((y[23]) + 238.3))))))))
+	a[525] = a[5] * a[524]
+	a[526] = ((a[487]) + ((a[486])**2 * (a[216])) / (1 - (a[488]) * (a[216])))
+	a[527] = ((a[486]) * (a[207]) / (1 - (a[488]) * (a[216])))
+	a[528] = 1 - a[527] - a[526]
+	a[529] = ((a[492]) + ((a[491])**2 * (a[217])) / (1 - (a[493]) * (a[217])))
+	a[530] = ((a[491]) * (a[208]) / (1 - (a[493]) * (a[217])))
+	a[531] = 1 - a[530] - a[529]
+	a[532] = (1 - a[50]) * a[527] * a[10] * a[154]
+	a[533] = a[532] * (np.exp(-a[39] * a[387])) * a[114] * (1 - a[16]) * (1 - (np.exp(-a[40] * a[387])))
+	a[534] = 1 - a[529]
+	a[535] = ((a[534]) * (a[429]) / (1 - (a[529]) * (a[430])))
+	a[536] = ((a[529]) + ((a[534])**2 * (a[430])) / (1 - (a[529]) * (a[430])))
+	a[537] = ((a[430]) + ((a[429])**2 * (a[529])) / (1 - (a[529]) * (a[430])))
+	a[538] = ((a[535]) * (a[344]) / (1 - (a[537]) * (a[113])))
+	a[539] = ((a[536]) + ((a[535])**2 * (a[113])) / (1 - (a[537]) * (a[113])))
+	a[540] = 1 - a[538] - a[539]
+	a[541] = a[538]
+	a[542] = (1 - a[50]) * a[540] * a[9] * a[154]
+	a[543] = (1 - a[50]) * a[541] * a[9] * a[154]
+	a[544] = (1 - a[114]) * (np.exp(-a[39] * a[387])) * a[532]
+	a[545] = a[50] * a[154] * (a[527] * a[10] + (a[540] + a[541]) * a[9])
+	a[546] = (a[528] * a[10] + a[531] * a[9]) * a[154]
+	a[547] = ((a[431]) * (a[7]) * (a[326]) * (a[209] * a[345] * a[506]) * 5.67e-8 * (((y[0]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[548] = ((a[431]) * (a[7]) * (a[8]) * (a[209] * a[324] * a[345] * a[506]) * 5.67e-8 * (((y[0]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[549] = ((a[431]) * (a[7]) * (a[100]) * (a[209] * a[152] * a[506]) * 5.67e-8 * (((y[0]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[550] = ((a[347]) * (a[120]) * (a[326]) * (a[235] * a[209] * a[345] * a[506] * 0.49 * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[551] = ((a[347]) * (a[120]) * (a[8]) * (a[235] * a[209] * a[324] * a[345] * a[506] * 0.49 * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[552] = ((a[347]) * (a[120]) * (a[100]) * (a[235] * a[209] * a[152] * a[506] * 0.49 * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[12]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[553] = ((1) * (a[111]) * (a[326]) * (a[235] * a[209] * a[345] * a[506] * (1 - 0.49 * a[139] * a[123]* a[121]) * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[2]) + 273.15)**4 - ((y[10]) + 273.15)**4 ))
+	a[554] = ((1) * (a[111]) * (a[8]) * (a[235] * a[209] * a[324] * a[345] * a[506] * (1 - 0.49 * a[139] * a[123] * a[121]) * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[2]) + 273.15)**4 - ((a[156]) + 273.15)**4 ))
+	a[555] = ((1) * (a[111]) * (a[100]) * (a[235] * a[209] * a[152] * a[506] * (1 - 0.49 * a[139] * a[123] * a[121]) * (np.exp(-a[42] * a[387]))) * 5.67e-8 * (((y[2]) + 273.15)**4 - ((y[8]) + 273.15)**4 ))
+	a[556] = (np.abs((a[339] * a[29] * (a[481] + a[483]))) * ((y[1]) - (a[155])))
+	a[557] = (np.abs((a[339] * a[29] * a[480])) * ((y[9]) - (a[155])))
+	a[558] = (((a[464])<(a[523]))*(a[464]) + ((a[523])<=(a[464]))*(a[523]))
+	a[559] = ((18 / 8314) * np.abs((a[558])) * ((y[13]) / ((y[1]) + 273.15) - (y[14]) / ((y[9]) + 273.15)))
+	a[560] = ((18 / 8314) * np.abs((a[481]+a[483])) * ((y[13]) / ((y[1]) + 273.15) - (a[158]) / ((a[155]) + 273.15)))
+	a[561] = ((18 / 8314) * np.abs((a[480])) * ((y[14]) / ((y[9]) + 273.15) - (a[158]) / ((a[155]) + 273.15)))
+	a[562] = (np.abs((a[558])) * ((y[15]) - (y[16])))
+	a[563] = (np.abs((a[481] + a[483])) * ((y[15]) - (a[153])))
+	a[564] = (np.abs((a[480])) * ((y[16]) - (a[153])))
+	a[565] = (1 - a[50]) * (a[527] * a[10] + a[530] * a[9])  * a[154]
+	a[566] = a[565] + a[473] + a[474]
+	a[567] = 1 / (1 + (np.exp(a[49] * (a[566] - a[46]))))
+	a[568] = a[26] * (1 - a[567]) + a[25] * a[567]
+	a[569] = a[28] * (1 - a[567]) + a[27] * a[567]
+	a[570] = a[532] * (1 - a[16]) * (1 - (np.exp(-a[39] * a[387])))
+	a[571] = (np.abs((a[339] * a[29] * a[558])) * ((y[1]) - (y[9])))
+	a[572] = (a[566] + a[23]) / (a[566] + a[24])
+	a[573] = (((1.5)<(1 + a[568] * (a[13] * y[15] - 200)**2))*(1.5) + ((1 + a[568] * (a[13] * y[15] - 200)**2)<=(1.5))*(1 + a[568] * (a[13] * y[15] - 200)**2))
+	a[574] = (((5.8)<(1 + a[569] * ((610.78 * np.exp(17.2694 *(y[0]) / ((y[0]) + 238.3))) - y[13])**2))*(5.8) + ((1 + a[569] * ((610.78 * np.exp(17.2694 *(y[0]) / ((y[0]) + 238.3))) - y[13])**2)<=(5.8))*(1 + a[569] * ((610.78 * np.exp(17.2694 *(y[0]) / ((y[0]) + 238.3))) - y[13])**2))
+	a[575] = a[570] + a[533]
+	a[576] = a[575] + a[494] + a[495]
+	a[577] = a[138] * a[575] + a[211] * a[498] + a[221] * a[504]
+	a[578] = a[48] * a[572] * a[573] * a[574]
+	a[579] = (1 / (2 * a[163])) * (a[446] + a[162] * a[577] - (np.sqrt((a[446] + a[162] * a[577])**2 - 4 * a[163] * a[446] * a[162] * a[577])))
+	a[580] = 2 * a[339] * a[29] * a[387] / (a[5] * a[20] * (a[47] + a[578]))
+	a[581] = a[579] * (a[389] - a[390]) / (4 * (a[389] + 2 * a[390]))
+	a[582] = a[581] * a[390] / a[389]
+	a[583] = a[580] * ((610.78 * np.exp(17.2694 *(y[0]) / ((y[0]) + 238.3))) - y[13])
+	a[584] = a[178] * a[395] * (a[581] - a[582])
+	a[585] = a[5] * a[583]
+	a[586] = a[192]/ a[178] * (a[584] - a[450] - a[451])
+	dy[0] = (1/a[426]) * (a[575] + a[542] + a[433] - a[434] - a[585] - a[547] - a[432] - a[548] - a[549] - a[514] + a[498] + a[468] + a[452] + a[453] + a[504] + a[471] + a[409])
+	dy[1] = (1/a[427]) * (a[434] + a[441] - a[418] + a[356] + a[370] + a[477] + a[545] - a[1] - a[352] - a[556] - a[571] - a[442] - a[379] - a[521] + a[412] + a[500] + a[414] + a[413] + a[505])
+	dy[2] = (1/a[332]) * (a[1] + a[544] + a[543] + a[432] + a[348] - a[357] - a[553] - a[554] - a[555] - a[516] + a[499] + a[469] + a[407] + a[502] + a[472] + a[411])
+	dy[3] = 1 / a[333] * (a[357] - a[358])
+	dy[4] = 1 / a[334] * (a[358] - a[359])
+	dy[5] = 1 / a[335] * (a[359] - a[360])
+	dy[6] = 1 / a[336] * (a[360] - a[361])
+	dy[7] = 1 / a[337] * (a[361] - a[362])
+	dy[8] = (1/a[338]) * (a[352] + a[438] + a[549] + a[555] + a[552] - a[353] - a[349] - a[350] + a[513] + a[509] + a[519])
+	dy[9] = (1/a[428]) * (a[353] + a[571] - a[354] - a[557] + a[522])
+	dy[10] = (1/a[330]) * (a[354] + a[439] + a[547] + a[553] + a[550] + a[349] - a[364] + a[512] + a[508] + a[518])
+	dy[11] = (1/a[329]) * (a[546] + a[364] - a[355] - a[351])
+	dy[12] = 1 / a[331] * (a[367] + a[368] + a[369] - a[551] - a[550] - a[433] - a[348] - a[552] - a[356] - a[515] + a[406] + a[410] + a[204])
+	dy[13] = (1/a[340]) * (a[583] + a[440] + a[378] + a[479] - a[365] - a[559] - a[560] - a[373] - a[524] - a[377])
+	dy[14] = (1/a[341]) * (a[559] - a[366] - a[561])
+	dy[15] = (1/a[342]) * (a[478] + a[386] + a[374] - a[586] - a[562] - a[563])
+	dy[16] = (1/a[343]) * (a[562] - a[564])
+	dy[17] = a[584] - a[447] - a[448] - a[449] - a[450]
+	dy[18] = a[447] - a[393] - a[401]
+	dy[19] = a[448] - a[391] - a[400]
+	dy[20] = a[449] - a[392]
+	dy[21] = 1 / 86400 * y[0]
+	dy[22] = (1 / 86400) * (y[0] - y[22])
+	dy[23] = (1/a[417]) * (a[521] + a[525] + a[514] + a[516] + a[515] - a[522] - a[512] - a[511] - a[513] + a[510] + a[520])
+	dy[24] = 1 / a[415] * (a[416] - a[453] - a[414])
+	dy[25] = (1/a[213]) * (a[467] - a[507] - a[508] - a[509] - a[510] - a[412] - a[498] - a[468] - a[452] - a[406] - a[499] - a[469] - a[407] - a[500] - a[475] + a[408])
+	dy[26] = (1/a[225]) * (a[470] - a[517] - a[518] - a[519] - a[520] - a[413] - a[504] - a[471] - a[409] - a[410] - a[502] - a[472] - a[411] - a[505] -  a[408])
+	dy[27] = 1/86400
+
+	y[np.isnan(y)] = 0
+	dy[np.isnan(dy)] = 0
+	a[np.isnan(a)] = 0
+	y = np.clip(y, -1e38, 1e38)
+	dy = np.clip(dy, -1e38, 1e38)
+	a = np.clip(a, -1e38, 1e38)
+	print('\rRunning: '  + str(format(np.minimum(100, ((t - t_span[0]) / (t_span[1] - t_span[0])) * 100), '.2f'))+'%', end='',)
+
+	return dy
+RuntimeWarning encountered at time t=64806.28761525542: underflow encountered in exp
+RuntimeWarning encountered at time t=152.80441094217608: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.13658761242: underflow encountered in exp
+RuntimeWarning encountered at time t=42.127542015184666: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1975.8881883300705: underflow encountered in exp
+RuntimeWarning encountered at time t=18008.66219741444: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=78367.82236617018: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=18.690786157996367: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=59.035033532709306: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64804.93141678201: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64727.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=80885.10860715687: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65708.43703008341: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.10512657788552078: underflow encountered in exp
+RuntimeWarning encountered at time t=16488.988161759065: underflow encountered in exp
+RuntimeWarning encountered at time t=16488.988161759065: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67504.60459262556: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=4604.3283448810125: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=8779.984912731099: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.835422571494: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=68481.20392520235: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=68725.35375834655: underflow encountered in exp
+RuntimeWarning encountered at time t=7.30356608858338: underflow encountered in exp
+RuntimeWarning encountered at time t=0.05701237956788095: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=4.671955340830996: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=7209.606619431848: underflow encountered in exp
+RuntimeWarning encountered at time t=52886.53044111101: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.25839315719: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=71768.62823492981: underflow encountered in exp
+RuntimeWarning encountered at time t=4267.180048950065: underflow encountered in exp
+RuntimeWarning encountered at time t=64817.552353500214: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=9826.9037749306: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.411169342275: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=80885.10860715687: underflow encountered in exp
+RuntimeWarning encountered at time t=64801.29662165939: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=75064.93532240219: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.35191449464: underflow encountered in exp
+RuntimeWarning encountered at time t=25.77217211816521: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=66024.95491924798: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64798.37904477418: underflow encountered in exp
+RuntimeWarning encountered at time t=0.03295528040906103: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64841.75560817824: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=3930.0317530191173: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=233.55077617407684: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.5148717593: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64801.29662165939: underflow encountered in exp
+RuntimeWarning encountered at time t=65168.01225868973: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=24461.72858542444: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=74279.3345196209: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=79.15222694706053: underflow encountered in exp
+RuntimeWarning encountered at time t=9.14887095748503: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=11.299801264096969: underflow encountered in exp
+RuntimeWarning encountered at time t=6.184337184419871: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64837.97362677889: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=594.6576880554428: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2.269631096496872: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64834.19164537954: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=16488.988161759065: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64813.75557972981: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65223.99818068637: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=543.9142655244725: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3592.88345708817: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1616.4521431450548: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=30143.86142855607: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=10350.363206030352: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=52886.53044111101: underflow encountered in exp
+RuntimeWarning encountered at time t=75064.93532240219: underflow encountered in exp
+RuntimeWarning encountered at time t=65419.608392668604: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=14.061982446129484: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=543.9142655244725: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.10512657788552078: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1137.373969413965: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.181008460386: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=171.5578286962014: underflow encountered in exp
+RuntimeWarning encountered at time t=68481.20392520235: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.16487181975: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=24461.72858542444: underflow encountered in exp
+RuntimeWarning encountered at time t=10.379074203419464: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64727.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=21.162837258789285: underflow encountered in exp
+RuntimeWarning encountered at time t=1480.8290409598508: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1309.1015051869078: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67992.90425891396: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=14.982709506806989: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=805.5237721137175: underflow encountered in exp
+RuntimeWarning encountered at time t=75850.53612518348: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64798.37904477418: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=37187.620185460866: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64815.283521230056: underflow encountered in exp
+RuntimeWarning encountered at time t=67748.75442576976: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=27.45882677265494: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=258.03688814390165: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64819.82118577037: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=6.184337184419871: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=7.918667711550597: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.00455679127: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.20991627813201946: underflow encountered in exp
+RuntimeWarning encountered at time t=7.30356608858338: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=22.398862809185744: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.2424368859880057: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=74279.3345196209: underflow encountered in exp
+RuntimeWarning encountered at time t=9.763972580452247: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.20991627813201946: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=4267.180048950065: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64801.75782074729: underflow encountered in exp
+RuntimeWarning encountered at time t=7.30356608858338: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.070644272404: underflow encountered in exp
+RuntimeWarning encountered at time t=282.5230001137264: underflow encountered in exp
+RuntimeWarning encountered at time t=64809.17175522908: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65866.85885951007: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2087.7946598299764: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.181008460386: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=32037.905709599945: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2487.2554248884394: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=152.80441094217608: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64810.69969672932: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64952.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=645.4011105864131: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1.6533145701915521: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=50.96628961404639: underflow encountered in exp
+RuntimeWarning encountered at time t=1.0933361481275146: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=16.21873505720345: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=3930.0317530191173: underflow encountered in exp
+RuntimeWarning encountered at time t=85735.40313233869: underflow encountered in exp
+RuntimeWarning encountered at time t=64757.64110509947: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=34612.762947530406: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1652.5565767327937: overflow encountered in exp
+RuntimeWarning encountered at time t=71768.62823492981: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=66901.38769612723: underflow encountered in exp
+RuntimeWarning encountered at time t=64948.03219537164: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64804.93141678201: underflow encountered in exp
+RuntimeWarning encountered at time t=64819.82118577037: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1752.075245330259: underflow encountered in exp
+RuntimeWarning encountered at time t=69052.15724992465: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1480.8290409598508: underflow encountered in exp
+RuntimeWarning encountered at time t=68237.05409205816: underflow encountered in exp
+RuntimeWarning encountered at time t=82501.87344888414: underflow encountered in exp
+RuntimeWarning encountered at time t=1.8587534122933254: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=14.061982446129484: underflow encountered in exp
+RuntimeWarning encountered at time t=65223.99818068637: underflow encountered in exp
+RuntimeWarning encountered at time t=2487.2554248884394: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.10830340509: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=75064.93532240219: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=3.4085492743795713: underflow encountered in exp
+RuntimeWarning encountered at time t=725.4624413500653: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65629.22611537008: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=44.5297298349498: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65787.64794479674: underflow encountered in exp
+RuntimeWarning encountered at time t=71298.87589536556: underflow encountered in exp
+RuntimeWarning encountered at time t=24461.72858542444: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.0: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=9.14887095748503: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3255.7351611572226: overflow encountered in exp
+RuntimeWarning encountered at time t=86400.0: underflow encountered in exp
+RuntimeWarning encountered at time t=42.127542015184666: underflow encountered in exp
+RuntimeWarning encountered at time t=965.646433641022: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67748.75442576976: underflow encountered in exp
+RuntimeWarning encountered at time t=73493.7337168396: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=885.5851028773698: underflow encountered in exp
+RuntimeWarning encountered at time t=64809.17175522908: underflow encountered in exp
+RuntimeWarning encountered at time t=64817.552353500214: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1975.8881883300705: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.411169342275: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2.6492704891244383: underflow encountered in exp
+RuntimeWarning encountered at time t=68725.35375834655: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1548.6405920524528: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.10512657788552078: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=91.20067644274883: underflow encountered in exp
+RuntimeWarning encountered at time t=3255.7351611572226: underflow encountered in exp
+RuntimeWarning encountered at time t=17.45476060759991: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=25.77217211816521: underflow encountered in exp
+RuntimeWarning encountered at time t=6775.393573673376: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64803.865479678236: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=72708.13291405831: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=7.918667711550597: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=32037.905709599945: underflow encountered in exp
+RuntimeWarning encountered at time t=82501.87344888414: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=16.21873505720345: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=14.982709506806989: underflow encountered in exp
+RuntimeWarning encountered at time t=65866.85885951007: underflow encountered in exp
+RuntimeWarning encountered at time t=64817.06524655024: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.03295528040906103: underflow encountered in exp
+RuntimeWarning encountered at time t=85735.40313233869: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=190.31124645022672: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.023450783105: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=75850.53612518348: underflow encountered in exp
+RuntimeWarning encountered at time t=11274.15339004502: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=56402.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=11274.15339004502: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=8.533769334517814: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=594.6576880554428: underflow encountered in exp
+RuntimeWarning encountered at time t=55.00066157337785: underflow encountered in exp
+RuntimeWarning encountered at time t=5038.541390639485: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=103.24912593843713: underflow encountered in exp
+RuntimeWarning encountered at time t=34.92097855588927: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64841.75560817824: underflow encountered in exp
+RuntimeWarning encountered at time t=0.9442354102670234: underflow encountered in exp
+RuntimeWarning encountered at time t=67202.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.05701237956788095: underflow encountered in exp
+RuntimeWarning encountered at time t=97.4186580100034: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64824.35885031069: underflow encountered in exp
+RuntimeWarning encountered at time t=52886.53044111101: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1684.2636942376569: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1863.9817168301647: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=55.00066157337785: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2199.701131329882: underflow encountered in exp
+RuntimeWarning encountered at time t=64824.35885031069: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=42337.33466132179: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=42.127542015184666: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.6460339345460409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=8256.525481631348: underflow encountered in exp
+RuntimeWarning encountered at time t=65056.040414696436: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.411169342275: underflow encountered in exp
+RuntimeWarning encountered at time t=5906.96748215643: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64896.00989804349: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66341.14703872378: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64896.00989804349: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=21.162837258789285: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64859.84037146666: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=29.145481427144674: underflow encountered in exp
+RuntimeWarning encountered at time t=17.45476060759991: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.25839315719: underflow encountered in exp
+RuntimeWarning encountered at time t=69705.76423308086: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.31470597837851816: underflow encountered in exp
+RuntimeWarning encountered at time t=24.085517463675476: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=10350.363206030352: underflow encountered in exp
+RuntimeWarning encountered at time t=493.17084299350216: underflow encountered in exp
+RuntimeWarning encountered at time t=64826.627682580845: underflow encountered in exp
+RuntimeWarning encountered at time t=12.220528324774474: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=4604.3283448810125: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65168.01225868973: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.012982507470568054: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64799.929063804506: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64803.5752183086: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64810.69969672932: underflow encountered in exp
+RuntimeWarning encountered at time t=66183.05097898588: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=69705.76423308086: underflow encountered in exp
+RuntimeWarning encountered at time t=64801.14876179681: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.006491253735284027: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67992.90425891396: underflow encountered in exp
+RuntimeWarning encountered at time t=12197.943574059687: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=34.92097855588927: underflow encountered in exp
+RuntimeWarning encountered at time t=63602.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64877.925134755074: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64801.75782074729: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1137.373969413965: underflow encountered in exp
+RuntimeWarning encountered at time t=64830.409663980194: underflow encountered in exp
+RuntimeWarning encountered at time t=42337.33466132179: underflow encountered in exp
+RuntimeWarning encountered at time t=49370.13184784794: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=340.86368917829634: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64922.02104670757: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.6533145701915521: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2631.032571667718: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=209.06466420425204: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.5148717593: underflow encountered in exp
+RuntimeWarning encountered at time t=0.4803699564622795: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.35191449464: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=115.29757543412543: underflow encountered in exp
+RuntimeWarning encountered at time t=3.4085492743795713: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=28249.817147512193: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67303.53229379278: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=8779.984912731099: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64795.60932775155: underflow encountered in exp
+RuntimeWarning encountered at time t=64806.28761525542: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=70829.12355580131: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.05173499043: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64812.22763822957: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.5148717593: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.51308385359: underflow encountered in exp
+RuntimeWarning encountered at time t=0.05701237956788095: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1137.373969413965: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65708.43703008341: underflow encountered in exp
+RuntimeWarning encountered at time t=14969.31412610369: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.012982507470568054: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2918.586865226275: underflow encountered in exp
+RuntimeWarning encountered at time t=14045.523942089023: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65289.20158468045: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=70829.12355580131: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1.2424368859880057: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=84118.63829061142: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=645.4011105864131: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=68725.35375834655: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64837.97362677889: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.411169342275: overflow encountered in exp
+RuntimeWarning encountered at time t=64803.5752183086: underflow encountered in exp
+RuntimeWarning encountered at time t=64795.60932775155: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=97.4186580100034: underflow encountered in exp
+RuntimeWarning encountered at time t=67202.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=63.069405492040765: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64807.643813728835: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65866.85885951007: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=5.1760826220272875: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=14969.31412610369: underflow encountered in exp
+RuntimeWarning encountered at time t=1652.5565767327937: underflow encountered in exp
+RuntimeWarning encountered at time t=5.1760826220272875: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=7209.606619431848: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=103.24912593843713: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=5472.754436397958: underflow encountered in exp
+RuntimeWarning encountered at time t=24.085517463675476: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2087.7946598299764: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=442.42742046253176: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.21163248847: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=39762.47742339133: underflow encountered in exp
+RuntimeWarning encountered at time t=14969.31412610369: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=70032.56772465896: underflow encountered in exp
+RuntimeWarning encountered at time t=73493.7337168396: underflow encountered in exp
+RuntimeWarning encountered at time t=6775.393573673376: underflow encountered in exp
+RuntimeWarning encountered at time t=5.680209903223579: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64817.06524655024: overflow encountered in exp
+RuntimeWarning encountered at time t=12.220528324774474: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.06463688391: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.0933361481275146: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65354.40498867453: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64802.21901983519: underflow encountered in exp
+RuntimeWarning encountered at time t=65354.40498867453: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.447875728089779: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=13121.733758074355: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.67425321254: underflow encountered in exp
+RuntimeWarning encountered at time t=64841.75560817824: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=46.93191765471493: underflow encountered in exp
+RuntimeWarning encountered at time t=30.832136081634406: underflow encountered in exp
+RuntimeWarning encountered at time t=64948.03219537164: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=4.671955340830996: underflow encountered in exp
+RuntimeWarning encountered at time t=0.012982507470568054: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.13658761242: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=190.31124645022672: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=11274.15339004502: underflow encountered in exp
+RuntimeWarning encountered at time t=65550.01520065675: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.4803699564622795: underflow encountered in exp
+RuntimeWarning encountered at time t=66183.05097898588: underflow encountered in exp
+RuntimeWarning encountered at time t=64859.84037146666: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=26355.772866468316: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=29.145481427144674: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64840.42903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=725.4624413500653: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=965.646433641022: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=21048.01026872519: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=60002.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64803.865479678236: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=56402.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=4.167828059634704: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=70032.56772465896: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=115.29757543412543: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=26355.772866468316: underflow encountered in exp
+RuntimeWarning encountered at time t=64802.21901983519: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66341.14703872378: underflow encountered in exp
+RuntimeWarning encountered at time t=65484.81179666268: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=49370.13184784794: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=45853.73325458486: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65419.608392668604: underflow encountered in exp
+RuntimeWarning encountered at time t=64803.5752183086: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64787.35317582486: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=22567.684304380564: underflow encountered in exp
+RuntimeWarning encountered at time t=13.141255385451979: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=13.141255385451979: underflow encountered in exp
+RuntimeWarning encountered at time t=65168.01225868973: underflow encountered in exp
+RuntimeWarning encountered at time t=64787.35317582486: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.21163248847: underflow encountered in exp
+RuntimeWarning encountered at time t=67303.53229379278: underflow encountered in exp
+RuntimeWarning encountered at time t=69052.15724992465: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.35191449464: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66499.24309846168: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65056.040414696436: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64822.09001804053: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67992.90425891396: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64809.17175522908: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.022968893939814543: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=42337.33466132179: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=24.085517463675476: underflow encountered in exp
+RuntimeWarning encountered at time t=103.24912593843713: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=408.5728433677866: underflow encountered in exp
+RuntimeWarning encountered at time t=85735.40313233869: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64799.929063804506: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=6.184337184419871: underflow encountered in exp
+RuntimeWarning encountered at time t=645.4011105864131: underflow encountered in exp
+RuntimeWarning encountered at time t=2.6492704891244383: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=13.141255385451979: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=13121.733758074355: underflow encountered in exp
+RuntimeWarning encountered at time t=64807.643813728835: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64824.35885031069: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.05173499043: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=885.5851028773698: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=79626.46548666352: underflow encountered in exp
+RuntimeWarning encountered at time t=69705.76423308086: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64815.283521230056: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=805.5237721137175: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1863.9817168301647: underflow encountered in exp
+RuntimeWarning encountered at time t=5472.754436397958: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=3592.88345708817: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2199.701131329882: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=11.299801264096969: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=9826.9037749306: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.30515382592: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65289.20158468045: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=30143.86142855607: underflow encountered in exp
+RuntimeWarning encountered at time t=70359.37121623706: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64799.929063804506: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.835422571494: underflow encountered in exp
+RuntimeWarning encountered at time t=39.725354195419534: underflow encountered in exp
+RuntimeWarning encountered at time t=3.028909881752005: underflow encountered in exp
+RuntimeWarning encountered at time t=0.9442354102670234: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=8.533769334517814: underflow encountered in exp
+RuntimeWarning encountered at time t=8256.525481631348: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64502.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=340.86368917829634: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64813.75557972981: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=77109.17924567683: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.0: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64502.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=64757.64110509947: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67303.53229379278: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=68237.05409205816: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=282.5230001137264: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=965.646433641022: underflow encountered in exp
+RuntimeWarning encountered at time t=64799.976257293805: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=69378.96074150276: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=6.688464465616162: underflow encountered in exp
+RuntimeWarning encountered at time t=9.14887095748503: underflow encountered in exp
+RuntimeWarning encountered at time t=64974.043344035716: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=32.51879073612414: underflow encountered in exp
+RuntimeWarning encountered at time t=0.08106947872670087: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=4.167828059634704: underflow encountered in exp
+RuntimeWarning encountered at time t=2774.8097184469966: underflow encountered in exp
+RuntimeWarning encountered at time t=25.77217211816521: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.2623111282552688: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.181008460386: underflow encountered in exp
+RuntimeWarning encountered at time t=1616.4521431450548: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.6460339345460409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=9826.9037749306: underflow encountered in exp
+RuntimeWarning encountered at time t=171.5578286962014: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=72238.38057449406: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65787.64794479674: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.16487181975: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=71298.87589536556: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64840.42903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=29.145481427144674: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2.6492704891244383: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1752.075245330259: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=39762.47742339133: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=10.379074203419464: underflow encountered in exp
+RuntimeWarning encountered at time t=64974.043344035716: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=543.9142655244725: underflow encountered in exp
+RuntimeWarning encountered at time t=19528.336233069815: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=60002.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=374.7182662730415: underflow encountered in exp
+RuntimeWarning encountered at time t=66024.95491924798: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.0: underflow encountered in exp
+RuntimeWarning encountered at time t=77109.17924567683: underflow encountered in exp
+RuntimeWarning encountered at time t=2199.701131329882: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=44.5297298349498: underflow encountered in exp
+RuntimeWarning encountered at time t=18.690786157996367: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1.6533145701915521: underflow encountered in exp
+RuntimeWarning encountered at time t=0.31470597837851816: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1616.4521431450548: underflow encountered in exp
+RuntimeWarning encountered at time t=4604.3283448810125: underflow encountered in exp
+RuntimeWarning encountered at time t=66499.24309846168: underflow encountered in exp
+RuntimeWarning encountered at time t=60002.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64502.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64830.409663980194: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66700.31539729446: underflow encountered in exp
+RuntimeWarning encountered at time t=21.162837258789285: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=32037.905709599945: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=49370.13184784794: underflow encountered in exp
+RuntimeWarning encountered at time t=2918.586865226275: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=10350.363206030352: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2.269631096496872: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=3930.0317530191173: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=30143.86142855607: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2631.032571667718: underflow encountered in exp
+RuntimeWarning encountered at time t=64840.42903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=408.5728433677866: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64812.22763822957: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66901.38769612723: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2.0641922543950986: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=66024.95491924798: underflow encountered in exp
+RuntimeWarning encountered at time t=39.725354195419534: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.006491253735284027: underflow encountered in exp
+RuntimeWarning encountered at time t=0.20991627813201946: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=37.3231663756544: underflow encountered in exp
+RuntimeWarning encountered at time t=56402.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=67102.45999496001: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=37187.620185460866: underflow encountered in exp
+RuntimeWarning encountered at time t=1684.2636942376569: underflow encountered in exp
+RuntimeWarning encountered at time t=2.0641922543950986: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65402.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.023450783105: underflow encountered in exp
+RuntimeWarning encountered at time t=64948.03219537164: underflow encountered in exp
+RuntimeWarning encountered at time t=65550.01520065675: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64952.92903437409: overflow encountered in exp
+RuntimeWarning encountered at time t=78367.82236617018: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=86400.0: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.15752142800877011: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=805.5237721137175: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.3975379674203988: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=493.17084299350216: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=16.21873505720345: underflow encountered in exp
+RuntimeWarning encountered at time t=18008.66219741444: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=37.3231663756544: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=79626.46548666352: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.022968893939814543: underflow encountered in exp
+RuntimeWarning encountered at time t=1.0933361481275146: underflow encountered in exp
+RuntimeWarning encountered at time t=7733.066050531598: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64803.865479678236: overflow encountered in exp
+RuntimeWarning encountered at time t=64727.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=171.5578286962014: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65787.64794479674: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.10830340509: underflow encountered in exp
+RuntimeWarning encountered at time t=65550.01520065675: underflow encountered in exp
+RuntimeWarning encountered at time t=65000.05449269979: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=4.167828059634704: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2.269631096496872: underflow encountered in exp
+RuntimeWarning encountered at time t=65223.99818068637: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=70032.56772465896: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=72708.13291405831: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=19528.336233069815: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=28249.817147512193: underflow encountered in exp
+RuntimeWarning encountered at time t=34612.762947530406: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=307.0091120835512: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=72238.38057449406: underflow encountered in exp
+RuntimeWarning encountered at time t=4.671955340830996: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.4803699564622795: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=885.5851028773698: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2343.478278109161: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.25839315719: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64804.93141678201: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64822.09001804053: underflow encountered in exp
+RuntimeWarning encountered at time t=12197.943574059687: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=12197.943574059687: underflow encountered in exp
+RuntimeWarning encountered at time t=0.5632019455041601: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3.788188667007138: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=78367.82236617018: underflow encountered in exp
+RuntimeWarning encountered at time t=65419.608392668604: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=75850.53612518348: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65708.43703008341: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64952.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=71298.87589536556: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=50.96628961404639: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=30.832136081634406: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=45853.73325458486: underflow encountered in exp
+RuntimeWarning encountered at time t=14045.523942089023: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64803.865479678236: underflow encountered in exp
+RuntimeWarning encountered at time t=0.15752142800877011: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2343.478278109161: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66183.05097898588: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3255.7351611572226: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64802.21901983519: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=5.1760826220272875: underflow encountered in exp
+RuntimeWarning encountered at time t=1684.2636942376569: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64834.19164537954: underflow encountered in exp
+RuntimeWarning encountered at time t=84118.63829061142: underflow encountered in exp
+RuntimeWarning encountered at time t=5.680209903223579: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.51308385359: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=8.533769334517814: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=725.4624413500653: underflow encountered in exp
+RuntimeWarning encountered at time t=64877.925134755074: underflow encountered in exp
+RuntimeWarning encountered at time t=59.035033532709306: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=66499.24309846168: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.10830340509: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65000.05449269979: underflow encountered in exp
+RuntimeWarning encountered at time t=67102.45999496001: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.00455679127: underflow encountered in exp
+RuntimeWarning encountered at time t=64799.976257293805: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=91.20067644274883: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=72708.13291405831: underflow encountered in exp
+RuntimeWarning encountered at time t=0.31470597837851816: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=9.763972580452247: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.5632019455041601: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65629.22611537008: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65354.40498867453: underflow encountered in exp
+RuntimeWarning encountered at time t=0.08106947872670087: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.070644272404: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64819.82118577037: underflow encountered in exp
+RuntimeWarning encountered at time t=66341.14703872378: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67.10377745137222: underflow encountered in exp
+RuntimeWarning encountered at time t=4267.180048950065: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1.2424368859880057: underflow encountered in exp
+RuntimeWarning encountered at time t=374.7182662730415: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64817.06524655024: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.9442354102670234: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=70359.37121623706: underflow encountered in exp
+RuntimeWarning encountered at time t=3.788188667007138: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=14045.523942089023: underflow encountered in exp
+RuntimeWarning encountered at time t=7733.066050531598: underflow encountered in exp
+RuntimeWarning encountered at time t=2774.8097184469966: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=39.725354195419534: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64815.283521230056: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=66901.38769612723: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64813.75557972981: underflow encountered in exp
+RuntimeWarning encountered at time t=209.06466420425204: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=30.832136081634406: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=5906.96748215643: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2487.2554248884394: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67102.45999496001: underflow encountered in exp
+RuntimeWarning encountered at time t=64922.02104670757: underflow encountered in exp
+RuntimeWarning encountered at time t=65289.20158468045: underflow encountered in exp
+RuntimeWarning encountered at time t=0.08106947872670087: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64826.627682580845: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=5906.96748215643: underflow encountered in exp
+RuntimeWarning encountered at time t=6341.180527914903: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.3975379674203988: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=190.31124645022672: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1652.5565767327937: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64810.69969672932: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.13658761242: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64877.925134755074: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.7951346724065321: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=11.299801264096969: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=37187.620185460866: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.08001919776: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64817.06524655024: underflow encountered in exp
+RuntimeWarning encountered at time t=32.51879073612414: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64830.409663980194: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=74279.3345196209: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=493.17084299350216: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67202.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67.10377745137222: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2087.7946598299764: underflow encountered in exp
+RuntimeWarning encountered at time t=7.918667711550597: underflow encountered in exp
+RuntimeWarning encountered at time t=66700.31539729446: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1752.075245330259: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=9303.44434383085: underflow encountered in exp
+RuntimeWarning encountered at time t=17.45476060759991: underflow encountered in exp
+RuntimeWarning encountered at time t=84118.63829061142: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65402.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=2.0641922543950986: underflow encountered in exp
+RuntimeWarning encountered at time t=134.05099318815076: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67504.60459262556: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65402.92903437409: overflow encountered in exp
+RuntimeWarning encountered at time t=79626.46548666352: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1863.9817168301647: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=19.926811708392826: underflow encountered in exp
+RuntimeWarning encountered at time t=64826.627682580845: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2343.478278109161: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.00455679127: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=26355.772866468316: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.16487181975: underflow encountered in exp
+RuntimeWarning encountered at time t=64837.97362677889: underflow encountered in exp
+RuntimeWarning encountered at time t=1.447875728089779: underflow encountered in exp
+RuntimeWarning encountered at time t=28249.817147512193: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=258.03688814390165: underflow encountered in exp
+RuntimeWarning encountered at time t=64787.35317582486: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.835422571494: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=5.680209903223579: underflow encountered in exp
+RuntimeWarning encountered at time t=233.55077617407684: underflow encountered in exp
+RuntimeWarning encountered at time t=3.788188667007138: underflow encountered in exp
+RuntimeWarning encountered at time t=1975.8881883300705: overflow encountered in exp
+RuntimeWarning encountered at time t=64922.02104670757: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.2623111282552688: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=307.0091120835512: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64812.22763822957: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65112.02633669308: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=69378.96074150276: underflow encountered in exp
+RuntimeWarning encountered at time t=22567.684304380564: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=19528.336233069815: underflow encountered in exp
+RuntimeWarning encountered at time t=67504.60459262556: underflow encountered in exp
+RuntimeWarning encountered at time t=80885.10860715687: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1652.5565767327937: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=2918.586865226275: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=79.15222694706053: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=134.05099318815076: underflow encountered in exp
+RuntimeWarning encountered at time t=1137.373969413965: overflow encountered in exp
+RuntimeWarning encountered at time t=64806.28761525542: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.022968893939814543: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=63.069405492040765: underflow encountered in exp
+RuntimeWarning encountered at time t=82501.87344888414: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3.4085492743795713: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1548.6405920524528: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=6.688464465616162: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=68237.05409205816: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=91.20067644274883: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=45853.73325458486: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=374.7182662730415: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.3975379674203988: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.67425321254: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64822.09001804053: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64859.84037146666: underflow encountered in exp
+RuntimeWarning encountered at time t=9303.44434383085: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=9303.44434383085: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=63602.92903437409: underflow encountered in exp
+RuntimeWarning encountered at time t=307.0091120835512: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.21163248847: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=8779.984912731099: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=442.42742046253176: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1.8587534122933254: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=282.5230001137264: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64801.29662165939: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=86400.0: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=34612.762947530406: underflow encountered in exp
+RuntimeWarning encountered at time t=68481.20392520235: underflow encountered in exp
+RuntimeWarning encountered at time t=0.006491253735284027: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.5632019455041601: underflow encountered in exp
+RuntimeWarning encountered at time t=44.5297298349498: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64799.976257293805: underflow encountered in exp
+RuntimeWarning encountered at time t=3.028909881752005: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=6341.180527914903: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=10.379074203419464: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=8256.525481631348: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.30515382592: underflow encountered in exp
+RuntimeWarning encountered at time t=65000.05449269979: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=340.86368917829634: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.05173499043: underflow encountered in exp
+RuntimeWarning encountered at time t=22567.684304380564: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.06463688391: underflow encountered in exp
+RuntimeWarning encountered at time t=9.763972580452247: underflow encountered in exp
+RuntimeWarning encountered at time t=65112.02633669308: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.08001919776: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=19.926811708392826: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65629.22611537008: underflow encountered in exp
+RuntimeWarning encountered at time t=39762.47742339133: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=70359.37121623706: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=46.93191765471493: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67748.75442576976: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=1480.8290409598508: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=233.55077617407684: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=5038.541390639485: underflow encountered in exp
+RuntimeWarning encountered at time t=7733.066050531598: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=71768.62823492981: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.8587534122933254: underflow encountered in exp
+RuntimeWarning encountered at time t=1548.6405920524528: underflow encountered in exp
+RuntimeWarning encountered at time t=442.42742046253176: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=6775.393573673376: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64799.44695826674: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=69052.15724992465: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=5472.754436397958: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.5148717593: overflow encountered in exp
+RuntimeWarning encountered at time t=3.028909881752005: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=7209.606619431848: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=65112.02633669308: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=594.6576880554428: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.67425321254: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=21048.01026872519: underflow encountered in exp
+RuntimeWarning encountered at time t=79.15222694706053: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64799.44695826674: underflow encountered in exp
+RuntimeWarning encountered at time t=1975.8881883300705: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=152.80441094217608: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=67.10377745137222: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.03295528040906103: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64801.75782074729: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=72238.38057449406: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=18008.66219741444: underflow encountered in exp
+RuntimeWarning encountered at time t=73493.7337168396: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=1.447875728089779: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64799.44695826674: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=37.3231663756544: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65056.040414696436: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64952.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65787.64794479674: overflow encountered in exp
+RuntimeWarning encountered at time t=59.035033532709306: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.023450783105: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=32.51879073612414: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=115.29757543412543: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65402.92903437409: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=14.982709506806989: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64800.30515382592: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=97.4186580100034: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=63602.92903437409: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64896.00989804349: underflow encountered in exp
+RuntimeWarning encountered at time t=18.690786157996367: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.070644272404: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=70829.12355580131: underflow encountered in exp
+RuntimeWarning encountered at time t=64757.64110509947: underflow encountered in exp
+RuntimeWarning encountered at time t=0.15752142800877011: underflow encountered in exp
+RuntimeWarning encountered at time t=1309.1015051869078: underflow encountered in exp
+RuntimeWarning encountered at time t=64801.14876179681: underflow encountered in exp
+RuntimeWarning encountered at time t=65484.81179666268: underflow encountered in exp
+RuntimeWarning encountered at time t=66700.31539729446: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=50.96628961404639: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.7951346724065321: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=63.069405492040765: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=5038.541390639485: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=21048.01026872519: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64795.60932775155: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=27.45882677265494: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3255.7351611572226: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.6460339345460409: underflow encountered in exp
+RuntimeWarning encountered at time t=64800.06463688391: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=14.061982446129484: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=12.220528324774474: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=258.03688814390165: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.51308385359: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=22.398862809185744: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=134.05099318815076: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2631.032571667718: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=2774.8097184469966: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64817.552353500214: underflow encountered in exp
+RuntimeWarning encountered at time t=13121.733758074355: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=6341.180527914903: underflow encountered in exp
+RuntimeWarning encountered at time t=408.5728433677866: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64807.643813728835: underflow encountered in exp
+RuntimeWarning encountered at time t=19.926811708392826: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=65484.81179666268: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=209.06466420425204: underflow encountered in exp
+RuntimeWarning encountered at time t=6.688464465616162: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64801.14876179681: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=64798.37904477418: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=3592.88345708817: underflow encountered in exp
+RuntimeWarning encountered at time t=69378.96074150276: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=67202.92903437409: overflow encountered in exp
+RuntimeWarning encountered at time t=64801.14876179681: overflow encountered in exp
+RuntimeWarning encountered at time t=64834.19164537954: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=46.93191765471493: invalid value encountered in scalar multiply
+RuntimeWarning encountered at time t=0.2623111282552688: underflow encountered in exp
+RuntimeWarning encountered at time t=77109.17924567683: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=55.00066157337785: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=34.92097855588927: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=0.7951346724065321: underflow encountered in exp
+RuntimeWarning encountered at time t=64974.043344035716: underflow encountered in exp
+RuntimeWarning encountered at time t=1309.1015051869078: divide by zero encountered in scalar divide
+RuntimeWarning encountered at time t=64800.08001919776: underflow encountered in exp
+RuntimeWarning encountered at time t=27.45882677265494: underflow encountered in exp
+RuntimeWarning encountered at time t=22.398862809185744: underflow encountered in exp
+Simulation complete at time (ISO format): 2026-04-13T12:24:32.460495
+Simulated 1.0 days
+Elapsed time: 0.5409901142120361 seconds
+Output saved to file katzin_2021/output/_verify_fix.csv
+Model structure log saved to katzin_2021/output/_verify_fix_model_struct_log.json
+Simulation log saved to katzin_2021/output/_verify_fix_simulation_log.txt

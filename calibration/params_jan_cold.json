@@ -1,0 +1,36 @@
+{
+  "window": "jan_cold",
+  "t_start": "2026-01-13T06:00:00+00:00",
+  "t_end": "2026-01-20T06:00:00+00:00",
+  "note": "Optimizer stopped manually at eval ~42 after convergence observed. Parameters read from console output. Final scoring run not completed — MAE is from eval 42, not a dedicated final run.",
+  "baseline": {
+    "mae_temp_f": 3.37,
+    "bias_temp_f": 2.08,
+    "mae_rh_pct": 31.0
+  },
+  "calibrated": {
+    "mae_temp_f": 2.19,
+    "bias_temp_f": null,
+    "mae_rh_pct": 17.0
+  },
+  "improvement_pct": 35.0,
+  "params": {
+    "cLeakage": 0.0014968,
+    "lambdaRf": 0.057025
+  },
+  "fixed_overrides": {
+    "tSpDay": 19.166666666666668,
+    "tSpNight": 17.166666666666668
+  },
+  "warnings": [
+    "cLeakage hit upper bound (0.0015) — optimizer may have wanted to go higher",
+    "pBlow staging mismatch not yet tested — 5x cLeakage increase may be compensating for bang-bang heater model",
+    "Run pBlow sensitivity test before using these parameters"
+  ],
+  "greenlight_overrides": [
+    {"tSpDay":   {"definition": "19.167"}},
+    {"tSpNight": {"definition": "17.167"}},
+    {"cLeakage": {"definition": "0.0014968"}},
+    {"lambdaRf": {"definition": "0.057025"}}
+  ]
+}

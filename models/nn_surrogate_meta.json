@@ -1,0 +1,53 @@
+{
+  "features": [
+    "in_tSpDay",
+    "in_tSpNight",
+    "in_thetaLampMax",
+    "in_heatDeadZone",
+    "in_rhMax",
+    "start_month"
+  ],
+  "targets": [
+    "out_mean_tAir_C",
+    "out_mean_rh_pct",
+    "out_cost_total_usd_m2"
+  ],
+  "hidden_layers": [
+    128,
+    64
+  ],
+  "n_train": 425,
+  "n_test": 75,
+  "n_total": 500,
+  "n_iter": 1693,
+  "train_loss": 3.040939174236241,
+  "test_metrics": {
+    "out_mean_tAir_C": {
+      "mae": 1.4791,
+      "r2": 0.8732
+    },
+    "out_mean_rh_pct": {
+      "mae": 4.707,
+      "r2": 0.7986
+    },
+    "out_cost_total_usd_m2": {
+      "mae": 0.1429,
+      "r2": 0.7392
+    }
+  },
+  "cv_metrics": {
+    "out_mean_tAir_C": {
+      "cv_r2_mean": 0.9184,
+      "cv_r2_std": 0.0221
+    },
+    "out_mean_rh_pct": {
+      "cv_r2_mean": 0.8027,
+      "cv_r2_std": 0.0247
+    },
+    "out_cost_total_usd_m2": {
+      "cv_r2_mean": 0.8204,
+      "cv_r2_std": 0.0129
+    }
+  },
+  "training_data": "/Users/james-vallery/Desktop/Code/greenhouse/verdify/GreenLight/data/training_data.csv"
+}
