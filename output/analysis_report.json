@@ -1,0 +1,259 @@
+{
+  "model": {
+    "path": "/Users/james-vallery/Desktop/Code/greenhouse/greenbyte/models/nn_surrogate.pkl",
+    "model_type": "XGBoost (MultiOutputRegressor)",
+    "n_train": 425,
+    "cv_r2": {
+      "temp": 0.9473,
+      "rh": 0.8995,
+      "cost": 0.8943
+    }
+  },
+  "pareto": {
+    "n_samples": 20000,
+    "temp_cost_front_n": 10,
+    "rh_cost_front_n": 27,
+    "cheapest_temp_comfortable": null,
+    "cheapest_rh_comfortable": {
+      "tSpDay_C": 16.49,
+      "tSpNight_C": 10.49,
+      "lampMax_W_m2": 14.8,
+      "heatDeadZone": 16.06,
+      "rhMax": 93.4,
+      "pred_rh_pct": 55.2,
+      "pred_cost_usd_m2": 0.0079
+    }
+  },
+  "monthly_optima": [
+    {
+      "month": 1,
+      "month_name": "Jan",
+      "n_feasible": 710,
+      "in_tSpDay": 21.664,
+      "in_tSpNight": 18.175,
+      "in_thetaLampMax": 0.145,
+      "in_heatDeadZone": 16.421,
+      "in_rhMax": 89.591,
+      "month_sin": 0.5,
+      "month_cos": 0.866,
+      "pred_tAir_C": 18.52,
+      "pred_tAir_F": 65.34,
+      "pred_rh_pct": 82.0,
+      "pred_cost_usd_m2": 0.6375
+    },
+    {
+      "month": 2,
+      "month_name": "Feb",
+      "n_feasible": 2134,
+      "in_tSpDay": 12.24,
+      "in_tSpNight": 12.24,
+      "in_thetaLampMax": 2.074,
+      "in_heatDeadZone": 16.105,
+      "in_rhMax": 94.794,
+      "month_sin": 0.866,
+      "month_cos": 0.5,
+      "pred_tAir_C": 18.5,
+      "pred_tAir_F": 65.3,
+      "pred_rh_pct": 83.8,
+      "pred_cost_usd_m2": 0.1891
+    },
+    {
+      "month": 3,
+      "month_name": "Mar",
+      "n_feasible": 3892,
+      "in_tSpDay": 13.639,
+      "in_tSpNight": 10.278,
+      "in_thetaLampMax": 2.747,
+      "in_heatDeadZone": 18.611,
+      "in_rhMax": 94.442,
+      "month_sin": 1.0,
+      "month_cos": 0.0,
+      "pred_tAir_C": 19.56,
+      "pred_tAir_F": 67.22,
+      "pred_rh_pct": 82.9,
+      "pred_cost_usd_m2": 0.1508
+    },
+    {
+      "month": 4,
+      "month_name": "Apr",
+      "n_feasible": 4535,
+      "in_tSpDay": 13.53,
+      "in_tSpNight": 10.09,
+      "in_thetaLampMax": 5.784,
+      "in_heatDeadZone": 19.799,
+      "in_rhMax": 94.81,
+      "month_sin": 0.866,
+      "month_cos": -0.5,
+      "pred_tAir_C": 22.5,
+      "pred_tAir_F": 72.5,
+      "pred_rh_pct": 71.5,
+      "pred_cost_usd_m2": 0.1377
+    },
+    {
+      "month": 5,
+      "month_name": "May",
+      "n_feasible": 3860,
+      "in_tSpDay": 10.221,
+      "in_tSpNight": 10.221,
+      "in_thetaLampMax": 1.242,
+      "in_heatDeadZone": 13.642,
+      "in_rhMax": 94.742,
+      "month_sin": 0.5,
+      "month_cos": -0.866,
+      "pred_tAir_C": 22.87,
+      "pred_tAir_F": 73.16,
+      "pred_rh_pct": 66.5,
+      "pred_cost_usd_m2": 0.0437
+    },
+    {
+      "month": 6,
+      "month_name": "Jun",
+      "n_feasible": 1492,
+      "in_tSpDay": 12.253,
+      "in_tSpNight": 11.371,
+      "in_thetaLampMax": 0.016,
+      "in_heatDeadZone": 11.673,
+      "in_rhMax": 93.477,
+      "month_sin": 0.0,
+      "month_cos": -1.0,
+      "pred_tAir_C": 24.93,
+      "pred_tAir_F": 76.88,
+      "pred_rh_pct": 57.8,
+      "pred_cost_usd_m2": 0.0363
+    },
+    {
+      "month": 7,
+      "month_name": "Jul",
+      "n_feasible": 2257,
+      "in_tSpDay": 10.198,
+      "in_tSpNight": 10.198,
+      "in_thetaLampMax": 0.806,
+      "in_heatDeadZone": 13.85,
+      "in_rhMax": 94.809,
+      "month_sin": -0.5,
+      "month_cos": -0.866,
+      "pred_tAir_C": 25.38,
+      "pred_tAir_F": 77.68,
+      "pred_rh_pct": 55.2,
+      "pred_cost_usd_m2": 0.0108
+    },
+    {
+      "month": 8,
+      "month_name": "Aug",
+      "n_feasible": 2421,
+      "in_tSpDay": 10.448,
+      "in_tSpNight": 10.448,
+      "in_thetaLampMax": 1.11,
+      "in_heatDeadZone": 19.781,
+      "in_rhMax": 89.373,
+      "month_sin": -0.866,
+      "month_cos": -0.5,
+      "pred_tAir_C": 26.36,
+      "pred_tAir_F": 79.45,
+      "pred_rh_pct": 55.8,
+      "pred_cost_usd_m2": 0.0052
+    },
+    {
+      "month": 9,
+      "month_name": "Sep",
+      "n_feasible": 4850,
+      "in_tSpDay": 13.097,
+      "in_tSpNight": 10.129,
+      "in_thetaLampMax": 3.712,
+      "in_heatDeadZone": 18.477,
+      "in_rhMax": 94.739,
+      "month_sin": -1.0,
+      "month_cos": -0.0,
+      "pred_tAir_C": 21.62,
+      "pred_tAir_F": 70.92,
+      "pred_rh_pct": 75.5,
+      "pred_cost_usd_m2": 0.0206
+    },
+    {
+      "month": 10,
+      "month_name": "Oct",
+      "n_feasible": 2782,
+      "in_tSpDay": 11.518,
+      "in_tSpNight": 11.518,
+      "in_thetaLampMax": 2.282,
+      "in_heatDeadZone": 18.406,
+      "in_rhMax": 94.366,
+      "month_sin": -0.866,
+      "month_cos": 0.5,
+      "pred_tAir_C": 17.79,
+      "pred_tAir_F": 64.03,
+      "pred_rh_pct": 82.8,
+      "pred_cost_usd_m2": 0.1449
+    },
+    {
+      "month": 11,
+      "month_name": "Nov",
+      "n_feasible": 1023,
+      "in_tSpDay": 15.171,
+      "in_tSpNight": 15.171,
+      "in_thetaLampMax": 2.257,
+      "in_heatDeadZone": 19.933,
+      "in_rhMax": 94.638,
+      "month_sin": -0.5,
+      "month_cos": 0.866,
+      "pred_tAir_C": 17.52,
+      "pred_tAir_F": 63.53,
+      "pred_rh_pct": 82.3,
+      "pred_cost_usd_m2": 0.6248
+    },
+    {
+      "month": 12,
+      "month_name": "Dec",
+      "n_feasible": 1061,
+      "in_tSpDay": 21.818,
+      "in_tSpNight": 10.59,
+      "in_thetaLampMax": 6.306,
+      "in_heatDeadZone": 19.554,
+      "in_rhMax": 94.695,
+      "month_sin": -0.0,
+      "month_cos": 1.0,
+      "pred_tAir_C": 18.46,
+      "pred_tAir_F": 65.22,
+      "pred_rh_pct": 79.0,
+      "pred_cost_usd_m2": 0.7198
+    }
+  ],
+  "speed_benchmark": {
+    "1": {
+      "batch_size": 1,
+      "wall_s": 0.000885,
+      "per_sample_us": 885.358,
+      "speedup_vs_greenlight": 20331.0
+    },
+    "10": {
+      "batch_size": 10,
+      "wall_s": 0.00089,
+      "per_sample_us": 88.956,
+      "speedup_vs_greenlight": 20235.0
+    },
+    "100": {
+      "batch_size": 100,
+      "wall_s": 0.001002,
+      "per_sample_us": 10.024,
+      "speedup_vs_greenlight": 17957.0
+    },
+    "1000": {
+      "batch_size": 1000,
+      "wall_s": 0.001562,
+      "per_sample_us": 1.562,
+      "speedup_vs_greenlight": 11525.0
+    },
+    "10000": {
+      "batch_size": 10000,
+      "wall_s": 0.007014,
+      "per_sample_us": 0.701,
+      "speedup_vs_greenlight": 2566.0
+    }
+  },
+  "comfort_constraints": {
+    "temp_min_C": 17.0,
+    "temp_max_C": 27.0,
+    "rh_min_pct": 55.0,
+    "rh_max_pct": 90.0
+  }
+}

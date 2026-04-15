@@ -122,31 +122,37 @@ Output: `data/training_data.csv` — **500 rows × 24 columns**
 
 ---
 
-## Neural Network Surrogate
+## Surrogate Model
 
 Script: `scripts/train_nn.py`  
-Model: `models/nn_surrogate.pkl` (270 KB sklearn Pipeline)  
+Model: `models/nn_surrogate.pkl` (sklearn Pipeline)  
 Metadata: `models/nn_surrogate_meta.json`
 
-**Architecture:**
+**Architecture:** XGBoost (300 trees/target via `MultiOutputRegressor`) + `StandardScaler`  
+Replaced MLP 128×64 after model comparison showed +0.06 avg CV R², especially on cost prediction (+0.11 R²).
+
+**Feature engineering:** `start_month` → `(month_sin, month_cos)` cyclical encoding so Dec → Jan is smooth.
 
 | Setting | Value |
 |---|---|
-| Inputs | 6: tSpDay, tSpNight, thetaLampMax, heatDeadZone, rhMax, start_month |
+| Inputs | 7: tSpDay, tSpNight, thetaLampMax, heatDeadZone, rhMax, month_sin, month_cos |
 | Targets | 3: mean air temp (°C), mean RH (%), total cost ($/m²) |
-| Hidden layers | 128 → 64 (ReLU) |
-| Solver | Adam, lr=5e-4, early stopping (1693 iters) |
+| n_estimators | 300 per target |
+| learning_rate | 0.05 |
+| max_depth | 4 |
 | Train/test split | 425 / 75 (85/15) |
 
 **Performance:**
 
 | Target | 5-fold CV R² | Test MAE |
 |---|---|---|
-| Mean air temp | **0.92 ± 0.02** | 1.48°C |
-| Mean RH | **0.80 ± 0.02** | 4.7% |
-| Total cost | **0.82 ± 0.01** | $0.14/m² |
+| Mean air temp | **0.947 ± 0.013** | 0.757°C |
+| Mean RH | **0.900 ± 0.024** | 2.861% |
+| Total cost | **0.894 ± 0.020** | $0.077/m² |
 
-The surrogate predicts in microseconds vs ~18 s per GreenLight ODE solve — enabling real-time plan scoring and Pareto frontier generation for the Iris planner.
+vs. prior MLP: temp CV R²=0.92, RH=0.80, cost=0.82
+
+Predicts in ~1.6 µs/sample at batch=1000 — ~11,500× faster than GreenLight.
 
 ---
 
@@ -211,12 +217,38 @@ python scripts/train_nn.py
 
 ---
 
+## Model Comparison Results (2026-04-15)
+
+Script: `scripts/compare_models.py` · Output: `output/model_comparison.csv`
+
+| Rank | Model | Avg CV R² | Temp CV R² | RH CV R² | Cost CV R² | Speed (µs/pred) |
+|---|---|---|---|---|---|---|
+| 1 | GradientBoosting | **0.9062** | 0.9411 | 0.8938 | **0.8836** | 5.4 |
+| 2 | LightGBM | 0.9010 | 0.9378 | **0.9052** | 0.8599 | 3.4 |
+| 3 | XGBoost | 0.9009 | 0.9360 | 0.8933 | 0.8735 | **1.8** |
+| 4 | ExtraTrees | 0.8961 | 0.9234 | 0.9101 | 0.8548 | 25.9 |
+| 5 | GaussianProcess | 0.8960 | **0.9518** | 0.8739 | 0.8623 | 6.8 |
+| 6 | RandomForest | 0.8847 | 0.9103 | 0.9034 | 0.8403 | 26.0 |
+| 7 | SVR (RBF) | 0.8627 | 0.9309 | 0.8317 | 0.8254 | 28.6 |
+| **8** | **MLP 128×64 (current)** | **0.8448** | 0.9330 | 0.8177 | 0.7838 | 0.5 |
+| 9 | KNeighbors | 0.8087 | 0.8611 | 0.7958 | 0.7693 | 14.8 |
+| 10–13 | Linear/Ridge/Lasso/EN | ~0.749 | 0.884 | 0.693 | 0.670 | 0.3 |
+
+**Key findings:**
+- Boosting methods beat the NN on avg by ~0.06 R², most notably on cost prediction (0.88 vs 0.78) — the Iris use case optimization target
+- XGBoost is the best speed-accuracy tradeoff: 3.5× slower than MLP but +0.06 R²
+- GaussianProcess provides **prediction uncertainty** — uniquely valuable for plan scoring in Iris (flag low-confidence predictions before acting)
+- Linear models hit a ceiling at 0.75 — confirms meaningful nonlinearity in the physics
+- Feature importance: `month_cos` dominates (thermal seasonality), then `heatDeadZone` + `rhMax`
+
+---
+
 ## Open Items
 
 | Item | Priority | Status |
 |---|---|---|
-| NN analysis script (`analyze_nn.py`) | High | ⬜ Pending — Pareto frontier, monthly optima, speed benchmark |
-| Update paper parameters table | Medium | ⬜ Pending — use calibrated values |
+| NN analysis script (`analyze_nn.py`) | High | ✅ Done 2026-04-15 — Pareto frontiers, monthly optima, speed benchmark; outputs in `output/` |
+| Update paper parameters table | Medium | ✅ Done 2026-04-15 — correct cLeakage/lambdaRf to defaults; added tSpDay/tSpNight/pBlow/heatDeadZone section |
 | Solar attenuation correction (morning tree shade) | Medium | ⬜ Pending — biggest oct accuracy gain |
 | Slab thermal mass tuning (`cPFlr`, `rhoFlr`, `hFlr`) | Medium | ⬜ Pending — 1–2°F improvement |
 | Summer calibration window | Medium | ❌ Blocked — needs ventilation guard + real Aug weather |
