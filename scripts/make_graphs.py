@@ -241,7 +241,7 @@ def fig_03_calibration_summary():
     fan_s   = [ 0.0,  14.9,   3.6, 100.0]
     colors  = [SEASON_COLORS[k] for k in ["jan_cold","spring_apr","oct_shoulder","aug_summer"]]
 
-    fig, axes = plt.subplots(1, 3, figsize=(14, 5))
+    fig, axes = plt.subplots(3, 1, figsize=(8, 13))
     fig.suptitle("Calibration Results Across Windows", fontsize=13, fontweight="bold")
 
     x = np.arange(len(windows)); w = 0.35
@@ -256,7 +256,7 @@ def fig_03_calibration_summary():
         axes[0].text(bar.get_x()+bar.get_width()/2, v+0.2, f"{v:.2f}°F",
                      ha="center", fontsize=8)
     axes[0].set_title("Temperature MAE (°F)")
-    axes[0].set_xticks(x); axes[0].set_xticklabels(windows, rotation=15, ha="right")
+    axes[0].set_xticks(x); axes[0].set_xticklabels(windows)
     axes[0].legend(fontsize=7.5)
     axes[0].set_ylabel("MAE (°F)")
 
@@ -268,7 +268,7 @@ def fig_03_calibration_summary():
         axes[1].text(i, v + (0.2 if v >= 0 else -0.5), f"{v:+.2f}°F",
                      ha="center", fontsize=8)
     axes[1].set_title("Systematic Bias (°F)  [sim − real]")
-    axes[1].set_xticks(x); axes[1].set_xticklabels(windows, rotation=15, ha="right")
+    axes[1].set_xticks(x); axes[1].set_xticklabels(windows)
     axes[1].set_ylabel("Bias (°F)")
 
     # Heater / Fan runtime
@@ -280,7 +280,7 @@ def fig_03_calibration_summary():
     axes[2].bar(x + w/2, fan_s, w, color=PALETTE["cool"], label="Fan sim %",
                 alpha=0.4, hatch="//", bottom=0)
     axes[2].set_title("Heater & Fan Runtime  (solid=real, hatch=sim)")
-    axes[2].set_xticks(x); axes[2].set_xticklabels(windows, rotation=15, ha="right")
+    axes[2].set_xticks(x); axes[2].set_xticklabels(windows)
     axes[2].set_ylabel("Runtime (%)")
     axes[2].legend(fontsize=7)
 

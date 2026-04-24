@@ -1,9 +1,9 @@
 # GreenByte
 
-Personalized greenhouse climate predictor using a simulation-to-ML pipeline. Calibrates the [GreenLight](https://github.com/davkat1/GreenLight) physics simulator to a specific residential greenhouse in Longmont, CO, generates a 500-sample synthetic dataset via Latin Hypercube Sampling, and trains a Neural Network surrogate that predicts indoor temperature, relative humidity, and operating cost in microseconds instead of the ~18 seconds per GreenLight ODE solve.
+Personalized greenhouse climate predictor using a simulation-to-ML pipeline. Calibrates the [GreenLight](https://github.com/davkat1/GreenLight) physics simulator to a specific residential greenhouse in Longmont, CO, generates a 500-sample synthetic dataset via Latin Hypercube Sampling, and trains an XGBoost surrogate that predicts indoor temperature, relative humidity, and operating cost in microseconds instead of the ~18 seconds per GreenLight ODE solve.
 
 **Authors:** Alexis Marez · James Vallery — University of Colorado Boulder  
-**Status (2026-04-14):** Full pipeline complete. Calibration → sweep → NN surrogate trained.
+**Status (2026-04-15):** Full pipeline complete. Calibration → sweep → surrogate trained. XGBoost selected over MLP after 13-model comparison.
 
 ---
 
@@ -20,7 +20,7 @@ GreenLight ODE simulator
 500-sample LHS parameter sweep  →  data/training_data.csv
         │
         ▼
-Neural Network surrogate  →  models/nn_surrogate.pkl
+XGBoost surrogate  →  models/nn_surrogate.pkl
         │
         ▼
 Iris planner (plan scoring / setpoint optimization)
@@ -47,7 +47,9 @@ Residential polycarbonate structure attached to the north wall of a house. Concr
 | Heater stage 2 | 75,000 BTU/hr gas furnace | Fires rarely at < ~63.5°F |
 | Grow lights | 49× Barrina T8, 1446 W total | `thetaLampMax = 42.4 W/m²` |
 
-Model definition: `greenlight/models/katzin_2021/definition/longmont_greenhouse.json`
+Model entry point: `greenlight/models/katzin_2021/definition/main_longmont.json`  
+Physical parameter overrides: `greenlight/models/katzin_2021/definition/longmont_greenhouse.json`  
+(`main_longmont.json` loads the full Katzin 2021 stack then imports `longmont_greenhouse.json` last.)
 
 ---
 
@@ -101,7 +103,7 @@ Output: `data/training_data.csv` — **500 rows × 24 columns**
 | Samples | 500 (Latin Hypercube) |
 | Simulation length | 30 days per sample |
 | Start days | LHS-distributed 0–335 (all seasons) |
-| Workers | 10 parallel |
+| Workers | `cpu_count − 2` (dynamic) |
 | `pBlow` | Fixed 1500 W (electric) |
 
 **Input parameters swept:**
@@ -118,7 +120,7 @@ Output: `data/training_data.csv` — **500 rows × 24 columns**
 
 **Cost pricing (Longmont, CO — April 2026):** Electricity $0.111/kWh ($0.0308/MJ) · Water $0.00484/gal ($0.00128/L)
 
-> **Note on yield:** All 500 runs show `out_yield_kg_m2 ≈ 0`. The GreenLight tomato model needs 3–4 months to accumulate harvestable fruit from a cold start. Use `out_final_cFruit` (fruit dry matter) as the crop proxy for NN training.
+> **Note on yield:** All 500 runs show `out_yield_kg_m2 ≈ 0`. The GreenLight tomato model needs 3–4 months to accumulate harvestable fruit from a cold start. Use `out_final_cFruit` (fruit dry matter) as the crop proxy for surrogate training.
 
 ---
 
@@ -205,14 +207,36 @@ python scripts/calibrate.py <csv> --window <label> --tSpDay 66.5 --pBlow 1500 \
 
 ```bash
 python scripts/parameter_sweep.py
-# output: data/training_data.csv (500 rows × 24 cols, ~90 min, 10 workers)
+# output: data/training_data.csv (500 rows × 24 cols, ~90 min on Apple M-series; workers = cpu_count − 2)
 ```
 
-### Train NN surrogate
+### Train surrogate
 
 ```bash
 python scripts/train_nn.py
-# output: models/nn_surrogate.pkl, models/nn_surrogate_meta.json
+# output: models/nn_surrogate.pkl, models/nn_surrogate_meta.json  (XGBoost, ~10 s)
+```
+
+### Compare all model families
+
+```bash
+python scripts/compare_models.py
+# output: output/model_comparison.csv, output/model_comparison.json
+```
+
+### Run post-training analysis
+
+```bash
+python scripts/analyze_nn.py
+# output: output/pareto_temp_cost.csv, output/pareto_rh_cost.csv,
+#         output/monthly_optima.csv, output/analysis_report.json
+```
+
+### Generate all figures
+
+```bash
+python scripts/make_graphs.py
+# output: figures/ (20 figures covering pipeline, calibration, data, model, optimization)
 ```
 
 ---
@@ -230,13 +254,13 @@ Script: `scripts/compare_models.py` · Output: `output/model_comparison.csv`
 | 5 | GaussianProcess | 0.8960 | **0.9518** | 0.8739 | 0.8623 | 6.8 |
 | 6 | RandomForest | 0.8847 | 0.9103 | 0.9034 | 0.8403 | 26.0 |
 | 7 | SVR (RBF) | 0.8627 | 0.9309 | 0.8317 | 0.8254 | 28.6 |
-| **8** | **MLP 128×64 (current)** | **0.8448** | 0.9330 | 0.8177 | 0.7838 | 0.5 |
+| 8 | MLP 128×64 (replaced) | 0.8448 | 0.9330 | 0.8177 | 0.7838 | 0.5 |
 | 9 | KNeighbors | 0.8087 | 0.8611 | 0.7958 | 0.7693 | 14.8 |
 | 10–13 | Linear/Ridge/Lasso/EN | ~0.749 | 0.884 | 0.693 | 0.670 | 0.3 |
 
 **Key findings:**
 - Boosting methods beat the NN on avg by ~0.06 R², most notably on cost prediction (0.88 vs 0.78) — the Iris use case optimization target
-- XGBoost is the best speed-accuracy tradeoff: 3.5× slower than MLP but +0.06 R²
+- XGBoost has the best speed-accuracy tradeoff: 3.5× slower than MLP but +0.06 R² — **selected as current surrogate**
 - GaussianProcess provides **prediction uncertainty** — uniquely valuable for plan scoring in Iris (flag low-confidence predictions before acting)
 - Linear models hit a ceiling at 0.75 — confirms meaningful nonlinearity in the physics
 - Feature importance: `month_cos` dominates (thermal seasonality), then `heatDeadZone` + `rhMax`
@@ -247,14 +271,16 @@ Script: `scripts/compare_models.py` · Output: `output/model_comparison.csv`
 
 | Item | Priority | Status |
 |---|---|---|
-| NN analysis script (`analyze_nn.py`) | High | ✅ Done 2026-04-15 — Pareto frontiers, monthly optima, speed benchmark; outputs in `output/` |
-| Update paper parameters table | Medium | ✅ Done 2026-04-15 — correct cLeakage/lambdaRf to defaults; added tSpDay/tSpNight/pBlow/heatDeadZone section |
 | Solar attenuation correction (morning tree shade) | Medium | ⬜ Pending — biggest oct accuracy gain |
 | Slab thermal mass tuning (`cPFlr`, `rhoFlr`, `hFlr`) | Medium | ⬜ Pending — 1–2°F improvement |
 | Summer calibration window | Medium | ❌ Blocked — needs ventilation guard + real Aug weather |
 | Humidity calibration (Phase 3) | Low | ⬜ Pending — after thermal MAE < 2°F |
+| Surrogate analysis (`analyze_nn.py`) | High | ✅ Done 2026-04-15 — Pareto frontiers, monthly optima, speed benchmark; CSVs in `output/` |
+| Model comparison (`compare_models.py`) | High | ✅ Done 2026-04-15 — 13 models; XGBoost selected |
+| Swap MLP → XGBoost surrogate | High | ✅ Done 2026-04-15 — CV R²: temp=0.947, RH=0.900, cost=0.894 |
+| Figure generation (`make_graphs.py`) | Medium | ✅ Done 2026-04-15 — 20 figures in `figures/` |
+| Update paper parameters table | Medium | ✅ Done 2026-04-15 — corrected cLeakage/lambdaRf to defaults; added control params section |
 | Fix xatol in calibrate.py | High | ✅ Done 2026-04-14 — changed 1e-5 → 1e-3 |
-| Train NN on training_data.csv | High | ✅ Done 2026-04-14 — CV R²: temp=0.92, RH=0.80, cost=0.82 |
 | 500-sample LHS sweep | High | ✅ Done 2026-04-14 |
 | Three calibration windows scored | High | ✅ Done 2026-04-14 |
 
@@ -266,34 +292,49 @@ Script: `scripts/compare_models.py` · Output: `output/model_comparison.csv`
 greenbyte/
   scripts/
     calibrate.py              Nelder-Mead calibration (--tSpDay, --pBlow, --heatDeadZone)
-    parameter_sweep.py        LHS training data generator (500 samples, 10 workers)
-    train_nn.py               NN surrogate trainer
+    parameter_sweep.py        LHS training data generator (500 samples, workers = cpu_count − 2)
+    train_nn.py               XGBoost surrogate trainer (filename kept for compatibility)
+    compare_models.py         13-model CV comparison — Linear, RF, ET, GBM, XGB, LGB, SVR, GP, KNN, MLP
+    analyze_nn.py             Post-training analysis — Pareto frontiers, monthly optima, speed benchmark
+    make_graphs.py            20-figure generator → figures/
     sensitivity.py            OAT sensitivity analysis (69/69 complete)
     prepare_longmont_weather.py
     test_longmont.py
 
   calibration/
-    params_jan_cold_elec.json       Jan — MAE 3.86°F
-    params_spring_apr_cal.json      Spring — MAE 3.36°F (best)
-    params_oct_shoulder_cal.json    Oct shoulder — MAE 5.97°F (structural gap)
-    params_aug_summer_cal.json      Aug summer — MAE 13.70°F (excluded)
+    params_jan_cold_elec.json       Jan — MAE 3.86°F (3-day scoring window; 7-day canonical)
+    params_spring_apr_cal.json      Spring — MAE 3.36°F (best window)
+    params_oct_shoulder_cal.json    Oct shoulder — MAE 5.97°F (structural gap, not calibration failure)
+    params_aug_summer_cal.json      Aug summer — MAE 13.70°F (excluded — ventilation model failure)
     sensitivity_report.json         OAT results (cLeakage, aCov, lambdaRf × 3 seasons)
 
   models/
-    nn_surrogate.pkl                Trained sklearn Pipeline (StandardScaler + MLP 128→64)
-    nn_surrogate_meta.json          Training metadata and CV metrics
+    nn_surrogate.pkl                Trained sklearn Pipeline (StandardScaler + XGBoost MultiOutputRegressor, 300 trees/target)
+    nn_surrogate_meta.json          Training metadata, CV metrics, feature importances
 
   data/
     training_data.csv               500 rows × 24 cols, LHS sweep, electric pricing
 
+  output/
+    model_comparison.csv/json       13-model comparison results
+    pareto_temp_cost.csv            Pareto-optimal (temp, cost) points
+    pareto_rh_cost.csv              Pareto-optimal (RH, cost) points
+    monthly_optima.csv              Cheapest feasible settings per month
+    analysis_report.json            Full structured analysis results
+    feature_importance.csv          XGBoost importances across models
+
+  figures/                          24 PNG figures (01_pipeline_overview … 20_3d_scatter)
+
   james-csv-files-2026-04-13/
-    jan_cold_week.csv               Jan 13–20, 2026 (4206 rows)
+    jan_cold_week.csv               Jan 13–20, 2026 (4206 rows, ~2-min res)
     spring_apr_2026.csv             Apr 6–13, 2026 (9847 rows, ~1-min res)
-    oct_shoulder.csv                Oct 6–13, 2025 (4248 rows)
+    oct_shoulder.csv                Oct 6–13, 2025 (4248 rows, ~2-min res)
     aug_summer.csv                  Aug 6–13, 2025 (3252 rows; ws_* cols filled from TMYx)
 
   greenlight/
-    models/katzin_2021/definition/longmont_greenhouse.json   Physical model definition
+    models/katzin_2021/definition/
+      main_longmont.json            Entry point — loads Katzin 2021 stack + longmont_greenhouse.json
+      longmont_greenhouse.json      Longmont-specific parameter overrides (aFlr, fans, heaters, etc.)
 
   CALIBRATION_RESEARCH.md     Full calibration notes, optimizer lessons, structural gap analysis
   paper.tex                   NeurIPS 2026 paper draft
