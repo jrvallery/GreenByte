@@ -53,7 +53,7 @@
 
 
 \begin{abstract}
-  Managing microclimates in small-scale greenhouses is traditionally hindered by the high cost of sensor arrays and the long duration required for manual data collection. We present a methodology for creating a personalized greenhouse climate predictor using a "digital twin" approach. By calibrating the GreenLight simulator via Nelder-Mead optimization to match the physical thermal envelope of a specific residential greenhouse, we generated dataset spanning 500 diverse environmental scenarios. This data was used to train a Neural Network capable of predicting internal temperature, relative humidity, and operating costs based on external weather inputs. Our results demonstrate that simulation-to-reality pipelines can bypass data collection roadblocks, providing smaller growers with accurate, personalized predictive tools that achieve a target MAE of <2.0 F.
+  Managing microclimates in small-scale greenhouses is traditionally hindered by the high cost of sensor arrays and the long duration required for manual data collection. We present a methodology for creating a personalized greenhouse climate predictor using a "digital twin" approach. By calibrating the GreenLight simulator via Nelder-Mead optimization to match the physical thermal envelope of a specific residential greenhouse, we generated dataset spanning 500 diverse environmental scenarios. This data was used to train a Multi-output Feed Forward Neural Network (MLP surrogate) capable of predicting internal temperature, relative humidity, and operating costs based on external weather inputs. Our results demonstrate a high predictive accuracy with an average $R^2$ of 0.92 and a Mean Absolute Error (MAE) of 0.6°C for temperature and 0.06 for operating costs.
 \end{abstract}
 
 
@@ -70,7 +70,7 @@ Our primary objective is to build a tool that can predict variables such as inte
 
 Learning Goals: We aim to understand the pipeline of generating synthetic data from simulators and the nuances of training time-series models for environmental forecasting. 
 
-Quantitative Objectives: We hope to achieve a Root Mean Squared Error (RMSE) 2.0°C (3.6°F) for temperature predictions and a test error of at most 0.15 normalized RMSE across all metrics (temperature, relative humidity, and heating energy consumption).
+Quantitative Objectives: We hope to achieve a Root Mean Squared Error (RMSE) 2.0°C (3.6°F) for temperature predictions and a test error of at most 0.15 normalized MAE across all metrics (temperature, relative humidity, and heating energy consumption).
 
 \section{Background}
 
@@ -103,15 +103,9 @@ The following section details our experimental pipeline and model architecture. 
       \hline                                                        
     
     
-      \multicolumn{4}{l}{\textit{Calibrated control parameters}} \\
-        Day heating setpoint   & $T_{\text{sp,day}}$   & $19.17$°C (66.5°F)  & Dominant calibration lever; GreenLight default 14.4°C (58°F) \\
-        Night heating setpoint & $T_{\text{sp,night}}$ & $17.17$°C (62.9°F)  & \\
-        Heater power (stage 1) & $P_{\text{blow}}$     & $1{,}500$ W          & Electric resistance; default 23,478 W fires 14$\times$ oversized burst \\
-        Fan dead zone          & $\Delta T_{\text{dead}}$ & 5°C (winter/spring); 8°C (shoulder) & Window-specific; controls solar overshoot \\
-        \hline
-      \multicolumn{4}{l}{\textit{Envelope parameters (at physical defaults)}} \\
-        Infiltration leakage & $c_{\text{leakage}}$ & $3.0 \times 10^{-4}$ & Default; tuning yields ${<}1\%$ MAE improvement \\
-        Cover conductivity   & $\lambda_{\text{Rf}}$ & $0.021$ W/(m$\cdot$K) & Default; envelope search flat once control params correct \\
+      \multicolumn{4}{l}{\textit{Calibrated thermal envelope}} \\
+        Infiltration leakage & $c_{\text{leakage}}$ & $1.50 \times 10^{-3}$ & Tuned; default $3.0 \times 10^{-4}$ \\
+        Cover conductivity   & $\lambda_{\text{Rf}}$ & $0.057$ W/(m$\cdot$K) & Tuned; default $0.021$ W/(m$\cdot$K) \\
         \hline                                                                                                                           
       \multicolumn{4}{l}{\textit{External weather}} \\                                                                                    
       Station & \multicolumn{3}{l}{Boulder Muni AP, WMO 720533, elev.\ 1612 m (Boulder, CO TMYx)} \\                                     
@@ -119,30 +113,8 @@ The following section details our experimental pipeline and model architecture. 
       \end{tabular}                                                                                                                      
       \end{table}   
     \item \textbf{Data Acquisition:} The simulator was run for 30 days per sample across 500 random sampled parameter combinations, with simulation start days distributed uniformly across the calendar year so all seasons are represented. This generated a CSV dataset of 500 rows, each representing one 30-day simulation run, with 20 input/output columns. Key output variables measured include mean air temperature ($\bar{T}{\text{air}}$, °C), minimum air temperature, mean relative humidity, mean canopy temperature, heating energy ($\text{MJ/m}^2$), lighting energy ($\text{MJ/m}^2$), water consumption (L/m²), and total operating cost (USD/m²).
-    \item \textbf{Model Architecture:} We compared 13 model families on the same 500-sample dataset using 5-fold cross-validation R² averaged across all three targets (Table~\ref{tab:model-comparison}). Gradient boosting methods (XGBoost, LightGBM, sklearn GradientBoosting) consistently outperformed the MLP by approximately 0.06 R², with the largest gap on cost prediction (0.88 vs.\ 0.78 CV R²) — the primary optimization target for the Iris planner. We therefore replaced the MLP surrogate with an XGBoost ensemble (300 trees per target via \texttt{MultiOutputRegressor}) wrapped in a \texttt{StandardScaler} pipeline. The dataset was split 85/15 train/test. Feature engineering converts the raw month integer to cyclical $(\sin, \cos)$ encoding so the December--January boundary is smooth in feature space.
-
-\begin{table}[h]
-  \centering
-  \caption{Model comparison — 5-fold CV R² (higher is better) and inference speed. All models trained on the same 500-sample LHS sweep with cyclical month encoding.}
-  \label{tab:model-comparison}
-  \begin{tabular}{lccccr}
-    \hline
-    \textbf{Model} & \textbf{Avg CV R²} & \textbf{Temp} & \textbf{RH} & \textbf{Cost} & \textbf{Speed (µs)} \\
-    \hline
-    GradientBoosting   & \textbf{0.906} & 0.941 & 0.894 & \textbf{0.884} & 5.4 \\
-    LightGBM           & 0.901          & 0.938 & \textbf{0.905} & 0.860 & 3.4 \\
-    \textbf{XGBoost (ours)} & 0.901    & 0.936 & 0.893 & 0.874 & \textbf{1.8} \\
-    ExtraTrees         & 0.896          & 0.923 & 0.910 & 0.855 & 25.9 \\
-    GaussianProcess    & 0.896          & \textbf{0.952} & 0.874 & 0.862 & 6.8 \\
-    SVR (RBF)          & 0.863          & 0.931 & 0.832 & 0.825 & 28.6 \\
-    MLP 128×64         & 0.845          & 0.933 & 0.818 & 0.784 & 0.5 \\
-    Linear / Ridge     & 0.749          & 0.884 & 0.693 & 0.670 & 0.3 \\
-    \hline
-  \end{tabular}
-\end{table} 
-    \item \textbf{Design Justification:} This architecture was chosen for a number of reasons. To start, GreenLight provided us with a way to create a large greenhouse dataset with many variables, both output and input. When we compare the number of variables in each entry of our dataset to the variables in public datasets like Kaggle, we have hundreds more to predict/edit to ensure we have an accurate model specifically tailored to our greenhouse. 
-
-    The Neural Network was chosen for its ability to handle the complexity our dataset has to offer. With this we were able to feature engineer input variables to create more accurate predictions. 
+    \item \textbf{Model Architecture:} We implemented a feed forward Neural Network (MLP Surrogate) to map these simulated inputs to the desired output variables having hidden layers (128, 64, 32) with and the pipeline being Linear to LayerNorm to GELU to Dropout to Linear (3 outputs). Our csv data set was split into training, validation, and test datasets with the percentage being 80/20/20 respectively. We had it run for 1000 epochs with early stoppage implemented, stopping the training as soon as we see the model converge. Because of this on average the model would stop training after around 300-400 epochs. We also tuned our hyperparameters until we got a lower MAE on average across all three output variables leaving us with a learning rate of 1e-3, a weight decay 3e-4, a batch size of 32 all the while we use the SGD optimizer. 
+    \item \textbf{Design Justification:} This architecture was chosen for a number of reasons. To start, GreenLight provided us with a way to create a large greenhouse dataset with many variables, both output and input. When we compare the number of variables in each entry of our dataset to the variables in public datasets like Kaggle, we have hundreds more to predict/edit to ensure we have an accurate model specifically tailored to our greenhouse. The specific Neural Network with MLP surrogate was chosen for its ability to handle the complexity our dataset has to offer, being able to find the underlying complexity between input and output variables better than linear regression algorithms like XGBoost. 
     
 \end{itemize}
 
@@ -255,6 +227,8 @@ As for the use of AI we have used it in aiding the development of both the data 
 
 
 \subsection{Citations}
-\bibliography{references}                              \textbf{Section that we need to finish in the final draft.}                                                                                                            \bibliographystyle{plainnat}    
-                                                                                                                                                                                                                                                                           
-\end{document}
+\bibliography{references}                              
+unknownskl. “GitHub - Unknownskl/Greenlight: Greenlight Is an Open-Source Client for XCloud and Xbox Home Streaming Made in Typescript.” GitHub, 11 Dec. 2025, github.com/unknownskl/greenlight. Accessed 24 Apr. 2026.
+
+
+\bibliographystyle{plainnat}    
